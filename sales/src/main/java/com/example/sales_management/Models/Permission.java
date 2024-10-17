@@ -20,18 +20,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer roleID;
+    private Integer permissionID;
 
-    private String roleName;
+    private String permissionName;
 
     @ManyToMany(mappedBy = "roles")
     private List<User> users = new ArrayList<>();
-
-    public Role(Integer roleID, String roleName) {
-        this.roleID = roleID;
-        this.roleName = roleName;
-    }
 }

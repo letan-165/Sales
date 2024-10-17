@@ -29,6 +29,7 @@ public class User {
     private String passWord;
     private String email;
     private String phone;
+    private String role;
 
     @OneToMany(mappedBy = "user") 
     private List<Report> reports = new ArrayList<>();
@@ -39,7 +40,7 @@ public class User {
         joinColumns = @JoinColumn(name = "userID"),
         inverseJoinColumns = @JoinColumn(name = "roleID")
     )
-    private List<Role> roles = new ArrayList<>();
+    private List<Permission> permissions = new ArrayList<>();
 
 }
 
