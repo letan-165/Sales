@@ -1,0 +1,198 @@
+@Service
+public class DiscountService {
+    @Autowired
+    private DiscountRepository discountRepository;
+
+    public List<Discount> findAll() {
+        return discountRepository.findAll();
+    }
+
+    public Discount findById(Integer discountID) {
+        return discountRepository.findById(discountID).orElse(null);
+    }
+
+    public Discount save(Discount discount) {
+        return discountRepository.save(discount);
+    }
+
+    public void deleteById(Integer discountID) {
+        discountRepository.deleteById(discountID);
+    }
+}
+@Service
+public class IEProductService {
+    @Autowired
+    private IEProductRepository ieProductRepository;
+
+    public List<IEProduct> findAll() {
+        return ieProductRepository.findAll();
+    }
+
+    public IEProduct findById(Integer ieProductID) {
+        return ieProductRepository.findById(ieProductID).orElse(null);
+    }
+
+    public IEProduct save(IEProduct ieProduct) {
+        return ieProductRepository.save(ieProduct);
+    }
+
+    public void deleteById(Integer ieProductID) {
+        ieProductRepository.deleteById(ieProductID);
+    }
+}
+@Service
+public class InvoiceService {
+    @Autowired
+    private InvoiceRepository invoiceRepository;
+
+    public List<Invoice> findAll() {
+        return invoiceRepository.findAll();
+    }
+
+    public Invoice findById(Integer invoiceID) {
+        return invoiceRepository.findById(invoiceID).orElse(null);
+    }
+
+    public Invoice save(Invoice invoice) {
+        return invoiceRepository.save(invoice);
+    }
+
+    public void deleteById(Integer invoiceID) {
+        invoiceRepository.deleteById(invoiceID);
+    }
+}
+@Service
+public class OrderService {
+    @Autowired
+    private OrderRepository orderRepository;
+
+    public List<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+    public Order findById(String orderID) {
+        return orderRepository.findById(orderID).orElse(null);
+    }
+
+    public Order save(Order order) {
+        return orderRepository.save(order);
+    }
+
+    public void deleteById(String orderID) {
+        orderRepository.deleteById(orderID);
+    }
+}
+@Service
+public class ProductService {
+    @Autowired
+    private ProductRepository productRepository;
+
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
+    public Product findById(Integer productID) {
+        return productRepository.findById(productID).orElse(null);
+    }
+
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
+    public void deleteById(Integer productID) {
+        productRepository.deleteById(productID);
+    }
+}
+@Service
+public class ReportService {
+    private final ReportRepository reportRepository;
+
+    @Autowired
+    public ReportService(ReportRepository reportRepository) {
+        this.reportRepository = reportRepository;
+    }
+
+    public Report saveReport(Report report) {
+        return reportRepository.save(report);
+    }
+
+    public List<Report> getAllReports() {
+        return reportRepository.findAll();
+    }
+
+    public Optional<Report> getReportById(Integer reportID) {
+        return reportRepository.findById(reportID);
+    }
+
+    public void deleteReport(Integer reportID) {
+        reportRepository.deleteById(reportID);
+    }
+}
+@Service
+public class RoleService {
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
+    }
+
+    public Role getRoleById(Integer roleId) {
+        return roleRepository.findById(roleId).orElse(null);
+    }
+
+    public Role createRole(Role role) {
+        return roleRepository.save(role);
+    }
+
+    public Role updateRole(Role role) {
+        return roleRepository.save(role);
+    }
+
+    public void deleteRole(Integer roleId) {
+        roleRepository.deleteById(roleId);
+    }
+}
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public User findById(String userID) {
+        return userRepository.findById(userID).orElse(null);
+    }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    public void deleteById(String userID) {
+        userRepository.deleteById(userID);
+    }
+}
+@Service
+public class WarehouseService {
+    @Autowired
+    private WarehouseRepository warehouseRepository;
+
+    public List<Warehouse> findAll() {
+        return warehouseRepository.findAll();
+    }
+
+    public Warehouse findById(Integer warehouseID) {
+        return warehouseRepository.findById(warehouseID).orElse(null);
+    }
+
+    public Warehouse save(Warehouse warehouse) {
+        return warehouseRepository.save(warehouse);
+    }
+
+    public void deleteById(Integer warehouseID) {
+        warehouseRepository.deleteById(warehouseID);
+    }
+}
