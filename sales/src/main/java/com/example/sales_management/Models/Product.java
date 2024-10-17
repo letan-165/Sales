@@ -43,4 +43,6 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "warehouseID", nullable = true)
     private Warehouse warehouse;
+
+    
 }
