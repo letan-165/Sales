@@ -55,7 +55,8 @@
             <th>email</th>
             <th>pass_word</th>
             <th>phone</th>
-            <th>user_name</th>
+            <th>name</th>
+            <th>role</th>
           </tr>
         </thead>
         <tbody id="product-table-body">
@@ -65,6 +66,7 @@
             <td th:text="${user.passWord}"></td>
             <td th:text="${user.phone}"></td>
             <td th:text="${user.userName}"></td>
+            <td th:text="${user.role}"></td>
             <td>
               <a
                 th:href="@{/edit/{id}(id=${user.userID})}"
