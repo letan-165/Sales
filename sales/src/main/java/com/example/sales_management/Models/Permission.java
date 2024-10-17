@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "permissions")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,6 +27,6 @@ public class Permission {
 
     private String permissionName;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "permissions")
     private List<User> users = new ArrayList<>();
 }

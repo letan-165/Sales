@@ -34,8 +34,8 @@ public class PermissionServiceTest {
     @Test
     public void testGetAllPermissions() {
         List<Permission> Permissions = new ArrayList<>();
-        Permissions.add(new Permission(1, "ADMIN"));
-        Permissions.add(new Permission(2, "USER"));
+        Permissions.add(new Permission(1, "ADMIN",null));
+        Permissions.add(new Permission(2, "USER",null));
 
         when(PermissionRepository.findAll()).thenReturn(Permissions);
 
@@ -46,7 +46,7 @@ public class PermissionServiceTest {
 
     @Test
     public void testGetPermissionById() {
-        Permission Permission = new Permission(1, "ADMIN");
+        Permission Permission = new Permission(1, "ADMIN",null);
 
         when(PermissionRepository.findById(1)).thenReturn(Optional.of(Permission));
 
@@ -58,7 +58,7 @@ public class PermissionServiceTest {
 
     @Test
     public void testCreatePermission() {
-        Permission Permission = new Permission(1, "ADMIN");
+        Permission Permission = new Permission(1, "ADMIN",null);
 
         when(PermissionRepository.save(Permission)).thenReturn(Permission);
         Permission createdPermission = PermissionService.createPermission(Permission);

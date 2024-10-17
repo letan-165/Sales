@@ -28,4 +28,8 @@ public class UserService {
     public void deleteById(String userID) {
         userRepository.deleteById(userID);
     }
+
+    public void updateUser(User user) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

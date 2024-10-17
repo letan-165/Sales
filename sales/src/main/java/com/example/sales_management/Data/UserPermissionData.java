@@ -25,9 +25,21 @@ public class UserPermissionData implements CommandLineRunner {
         
         permissionRepository.save(p1);
         permissionRepository.save(p2);
-        User u1 = new User("admin", "adminName", "password1", "admin@", "0123", "admin", null, null);
-        User u2 = new User("manager", "managerName", "password2", "manager@", "0789", "manager", null, null);
-
+        User u1 = new User();
+        u1.setUserID("admin");
+        u1.setUserName("adminName");
+        u1.setPassWord("password1");
+        u1.setEmail("admin@");
+        u1.setPhone("0123");
+        u1.setRole("admin");
+        
+        User u2 = new User();
+        u2.setUserID("manager");
+        u2.setUserName("managerName");
+        u2.setPassWord("password2");
+        u2.setEmail("manager@");
+        u2.setPhone("0789");
+        u2.setRole("manager");
     
         u1.getPermissions().add(p1);
         u1.getPermissions().add(p2);

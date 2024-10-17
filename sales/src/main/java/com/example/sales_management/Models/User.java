@@ -36,9 +36,9 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-        name = "user_roles",
+        name = "user_permissions",
         joinColumns = @JoinColumn(name = "userID"),
-        inverseJoinColumns = @JoinColumn(name = "roleID")
+        inverseJoinColumns = @JoinColumn(name = "permissionID")
     )
     private List<Permission> permissions = new ArrayList<>();
 
