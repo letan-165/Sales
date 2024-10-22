@@ -33,6 +33,12 @@ public class User {
 
     @OneToMany(mappedBy = "user") 
     private List<Report> reports = new ArrayList<>();
+    @OneToMany(mappedBy = "user") 
+    private List<Order> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "user") 
+    private List<Discount> discounts = new ArrayList<>();
+    @OneToMany(mappedBy = "user") 
+    private List<IEProduct> ieProducts = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -41,6 +47,7 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "permissionID")
     )
     private List<Permission> permissions = new ArrayList<>();
+
 
 }
 

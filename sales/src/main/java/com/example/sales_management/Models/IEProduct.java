@@ -34,6 +34,10 @@ public class IEProduct {
     private List<Product> products = new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "userID")
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name = "warehouseID")
     private Warehouse warehouse;
 

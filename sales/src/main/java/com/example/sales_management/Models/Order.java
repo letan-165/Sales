@@ -37,6 +37,10 @@ public class Order {
     private List<Product> products = new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "userID")
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name = "invoiceID")
     private Invoice invoice;
     
