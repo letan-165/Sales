@@ -29,6 +29,7 @@ public class Invoice {
     private LocalDateTime invoiceTime;
     private Integer totalAmount;
     private String paymentStatus;
+    private String description;
 
     @OneToMany(mappedBy = "invoice")
     private List<Order> orders = new ArrayList<>();

@@ -19,7 +19,7 @@ public class UserController {
     //Hiển thị danh sách
     @GetMapping("/")
     public String getAllUsers(Model model) {
-        
+
         model.addAttribute("users", userService.findAll());
         return "list";
     }
