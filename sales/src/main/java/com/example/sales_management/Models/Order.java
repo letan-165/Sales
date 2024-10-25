@@ -28,22 +28,22 @@ import lombok.experimental.FieldDefaults;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderID;
+    Long orderID;
 
-    private LocalDateTime orderTime;
-    private String status;
-    private Long totalAmount;
+    LocalDateTime orderTime;
+    String status;
+    Long totalAmount;
 
     @OneToMany(mappedBy = "orders")
-    private List<OrderProduct> orderProducts;
+    List<OrderProduct> orderProducts;
 
     @ManyToOne
     @JoinColumn(name = "userID")
-    private User user;
+    User user;
 
     @ManyToOne
     @JoinColumn(name = "invoiceID")
-    private Invoice invoice;
+    Invoice invoice;
     
     
 }
