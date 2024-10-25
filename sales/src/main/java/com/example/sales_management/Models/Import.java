@@ -25,7 +25,7 @@ import lombok.Setter;
 public class Import {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer importID;
+    private Long importID;
     private String status;
     private LocalDateTime time;
     private String supplier ;

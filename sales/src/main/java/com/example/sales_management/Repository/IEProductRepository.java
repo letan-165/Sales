@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.example.sales_management.Models.Import;
 
 @Repository
-public interface IEProductRepository extends JpaRepository<Import, Integer> {
+public interface IEProductRepository extends JpaRepository<Import, Long> {
 }

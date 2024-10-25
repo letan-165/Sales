@@ -18,7 +18,7 @@ public class PermissionService {
         return PermissionRepository.findAll();
     }
 
-    public Permission getPermissionById(Integer PermissionId) {
+    public Permission getPermissionById(Long PermissionId) {
         return PermissionRepository.findById(PermissionId).orElse(null);
     }
 
@@ -30,7 +30,7 @@ public class PermissionService {
         return PermissionRepository.save(Permission);
     }
 
-    public void deletePermission(Integer PermissionId) {
+    public void deletePermission(Long PermissionId) {
         PermissionRepository.deleteById(PermissionId);
     }
 }

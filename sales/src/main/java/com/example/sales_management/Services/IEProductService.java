@@ -17,7 +17,7 @@ public class IEProductService {
         return ieProductRepository.findAll();
     }
 
-    public Import findById(Integer ieProductID) {
+    public Import findById(Long ieProductID) {
         return ieProductRepository.findById(ieProductID).orElse(null);
     }
 
@@ -25,7 +25,7 @@ public class IEProductService {
         return ieProductRepository.save(ieProduct);
     }
 
-    public void deleteById(Integer ieProductID) {
+    public void deleteById(Long ieProductID) {
         ieProductRepository.deleteById(ieProductID);
     }
 }

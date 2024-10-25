@@ -24,10 +24,10 @@ import lombok.Setter;
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer invoiceID;
+    private Long invoiceID;
 
     private LocalDateTime invoiceTime;
-    private Integer totalAmount;
+    private Long totalAmount;
     private String status;
     private String description;
 

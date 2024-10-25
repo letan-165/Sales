@@ -26,11 +26,11 @@ public class ReportService {
         return reportRepository.findAll();
     }
 
-    public Optional<Report> getReportById(Integer reportID) {
+    public Optional<Report> getReportById(Long reportID) {
         return reportRepository.findById(reportID);
     }
 
-    public void deleteReport(Integer reportID) {
+    public void deleteReport(Long reportID) {
         reportRepository.deleteById(reportID);
     }
 }

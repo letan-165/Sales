@@ -22,10 +22,10 @@ import lombok.Setter;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer productID;
+    private Long productID;
     private String productName;
-    private Integer price;
-    private Integer quantity;
+    private Long price;
+    private Long quantity;
     private String status;
     private String description;
 

@@ -34,8 +34,8 @@ public class PermissionServiceTest {
     @Test
     public void testGetAllPermissions() {
         List<Permission> Permissions = new ArrayList<>();
-        Permissions.add(new Permission(1, "ADMIN",null));
-        Permissions.add(new Permission(2, "USER",null));
+        Permissions.add(new Permission(1l, "ADMIN",null));
+        Permissions.add(new Permission(2l, "USER",null));
 
         when(PermissionRepository.findAll()).thenReturn(Permissions);
 
@@ -46,19 +46,19 @@ public class PermissionServiceTest {
 
     @Test
     public void testGetPermissionById() {
-        Permission Permission = new Permission(1, "ADMIN",null);
+        Permission Permission = new Permission(1l, "ADMIN",null);
 
-        when(PermissionRepository.findById(1)).thenReturn(Optional.of(Permission));
+        when(PermissionRepository.findById(1l)).thenReturn(Optional.of(Permission));
 
-        Permission foundPermission = PermissionService.getPermissionById(1);
+        Permission foundPermission = PermissionService.getPermissionById(1l);
         assertNotNull(foundPermission);
         assertEquals("ADMIN", foundPermission.getPermissionName());
-        verify(PermissionRepository).findById(1);
+        verify(PermissionRepository).findById(1l);
     }
 
     @Test
     public void testCreatePermission() {
-        Permission Permission = new Permission(1, "ADMIN",null);
+        Permission Permission = new Permission(1l, "ADMIN",null);
 
         when(PermissionRepository.save(Permission)).thenReturn(Permission);
         Permission createdPermission = PermissionService.createPermission(Permission);
@@ -70,8 +70,8 @@ public class PermissionServiceTest {
 
     @Test
     public void testDeletePermission() {
-        doNothing().when(PermissionRepository).deleteById(1);
-        PermissionService.deletePermission(1);
-        verify(PermissionRepository).deleteById(1);
+        doNothing().when(PermissionRepository).deleteById(1l);
+        PermissionService.deletePermission(1l);
+        verify(PermissionRepository).deleteById(1l);
     }
 }

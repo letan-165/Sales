@@ -17,7 +17,7 @@ public class DiscountService {
         return discountRepository.findAll();
     }
 
-    public Discount findById(Integer discountID) {
+    public Discount findById(String discountID) {
         return discountRepository.findById(discountID).orElse(null);
     }
 
@@ -25,7 +25,7 @@ public class DiscountService {
         return discountRepository.save(discount);
     }
 
-    public void deleteById(Integer discountID) {
+    public void deleteById(String discountID) {
         discountRepository.deleteById(discountID);
     }
 }

@@ -32,5 +32,5 @@ public class DiscountProduct {
     @JoinColumn(name = "productID")
     private Product products;
 
-    private Integer quantity;
+    private Long quantity;
 }

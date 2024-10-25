@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.example.sales_management.Models.Report;
 
 @Repository
-public interface ReportRepository extends JpaRepository<Report, Integer> {
+public interface ReportRepository extends JpaRepository<Report, Long> {
 }

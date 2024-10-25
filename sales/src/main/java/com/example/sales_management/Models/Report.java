@@ -21,7 +21,7 @@ import lombok.Setter;
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reportID;
+    private Long reportID;
 
     @ManyToOne
     @JoinColumn(name = "userID")

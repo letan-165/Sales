@@ -25,11 +25,11 @@ import lombok.Setter;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer orderID;
+    private Long orderID;
 
     private LocalDateTime orderTime;
     private String status;
-    private Integer totalAmount;
+    private Long totalAmount;
 
     @OneToMany(mappedBy = "orders")
     private List<OrderProduct> orderProducts;

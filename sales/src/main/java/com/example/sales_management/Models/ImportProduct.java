@@ -34,7 +34,7 @@ public class ImportProduct {
     private Product products;
 
     @Column(name = "quantity")
-    private Integer quantity;
+    private Long quantity;
 
 }
 

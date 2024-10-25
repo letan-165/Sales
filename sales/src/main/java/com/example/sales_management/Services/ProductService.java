@@ -1,11 +1,12 @@
 package com.example.sales_management.Services;
 
-import com.example.sales_management.Models.Product;
-import com.example.sales_management.Repository.ProductRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.sales_management.Models.Product;
+import com.example.sales_management.Repository.ProductRepository;
 
 @Service
 public class ProductService {
@@ -16,7 +17,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findById(Integer productID) {
+    public Product findById(Long productID) {
         return productRepository.findById(productID).orElse(null);
     }
 
@@ -24,7 +25,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public void deleteById(Integer productID) {
+    public void deleteById(Long productID) {
         productRepository.deleteById(productID);
     }
 }

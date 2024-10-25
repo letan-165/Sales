@@ -23,7 +23,7 @@ import lombok.Setter;
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer permissionID;
+    private Long permissionID;
 
     private String permissionName;
 

@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -25,12 +23,12 @@ import lombok.Setter;
 
 public class Discount {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer discountID;
+    private String discountID;
     private Float discount;
-    private Integer quantity;
+    private Long quantity;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private Long minimum;
 
     @OneToMany(mappedBy = "discounts")
     private List<DiscountProduct> discountProducts;

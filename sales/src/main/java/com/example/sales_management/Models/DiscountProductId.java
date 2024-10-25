@@ -16,6 +16,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class DiscountProductId implements Serializable {
-    private Long discountID;
+    private String discountID;
     private Long productID;
 }
