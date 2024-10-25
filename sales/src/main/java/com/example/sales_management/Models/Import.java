@@ -1,12 +1,14 @@
 package com.example.sales_management.Models;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -15,24 +17,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "warehouses")
+@Table(name = "imports")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor 
-public class Warehouse {
+public class Import {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer warehouseID;
+    private Integer importID;
+    private String status;
+    private LocalDateTime time;
+    private String supplier ;
 
-    @OneToMany(mappedBy = "warehouse")
-    private List<Product> products = new ArrayList<>();
 
-    @OneToMany(mappedBy = "warehouse")
-    private List<IEProduct> eProducts;
+    @OneToMany(mappedBy = "imports")
+    private List<ImportProduct> importProducts;
 
-    @OneToMany(mappedBy = "warehouse")
-    private List<IEProduct> iProducts;
+    @ManyToOne
+    @JoinColumn(name = "userID")
+    private User user;
 
-    private String location;
+    
 }

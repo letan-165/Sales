@@ -1,11 +1,12 @@
 package com.example.sales_management.Models;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,27 +23,19 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productID;
-
     private String productName;
     private Integer price;
     private Integer quantity;
+    private String status;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "orderID")
-    private Order order;
+    @OneToMany(mappedBy = "products")
+    private List<OrderProduct> orderProducts;
 
-    @ManyToOne
-    @JoinColumn(name = "discountID", nullable = true)
-    private Discount discount;
+    @OneToMany(mappedBy = "products")
+    private List<DiscountProduct> discountProducts;
 
-    @ManyToOne
-    @JoinColumn(name = "ieproductID")
-    private IEProduct ieproductID;
-
-    @ManyToOne
-    @JoinColumn(name = "warehouseID", nullable = true)
-    private Warehouse warehouse;
-
+    @OneToMany(mappedBy = "products")
+    private List<ImportProduct> importProducts;
     
 }

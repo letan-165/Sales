@@ -27,17 +27,15 @@ public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer discountID;
-
     private Float discount;
-    
-    @OneToMany(mappedBy = "discount")
-    private List<Product> products;
+    private Integer quantity;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+
+    @OneToMany(mappedBy = "discounts")
+    private List<DiscountProduct> discountProducts;
 
     @ManyToOne
     @JoinColumn(name = "userID")
     private User user;
-
-    private Integer quantity;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
 }

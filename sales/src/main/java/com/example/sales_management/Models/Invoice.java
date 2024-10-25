@@ -28,7 +28,7 @@ public class Invoice {
 
     private LocalDateTime invoiceTime;
     private Integer totalAmount;
-    private String paymentStatus;
+    private String status;
     private String description;
 
     @OneToMany(mappedBy = "invoice")

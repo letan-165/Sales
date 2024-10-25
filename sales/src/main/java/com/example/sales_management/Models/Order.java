@@ -1,7 +1,6 @@
 package com.example.sales_management.Models;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -31,10 +30,9 @@ public class Order {
     private LocalDateTime orderTime;
     private String status;
     private Integer totalAmount;
-    private String address;
 
-    @OneToMany(mappedBy = "order")
-    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "orders")
+    private List<OrderProduct> orderProducts;
 
     @ManyToOne
     @JoinColumn(name = "userID")

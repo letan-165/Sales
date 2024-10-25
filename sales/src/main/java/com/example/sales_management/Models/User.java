@@ -38,7 +38,7 @@ public class User {
     @OneToMany(mappedBy = "user") 
     private List<Discount> discounts = new ArrayList<>();
     @OneToMany(mappedBy = "user") 
-    private List<IEProduct> ieProducts = new ArrayList<>();
+    private List<Import> ieProducts = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
