@@ -23,17 +23,17 @@ import lombok.experimental.FieldDefaults;
 public class OrderProduct {
     
     @EmbeddedId
-    private OrderProductId id;
+    OrderProductId id;
 
     @ManyToOne
     @MapsId("orderID")
     @JoinColumn(name = "orderID")
-    private Order orders;
+    Order orders;
 
     @ManyToOne
     @MapsId("productID")
     @JoinColumn(name = "productID")
-    private Product products;
+    Product products;
 
-    private Long quantity;
+    Long quantity;
 }
