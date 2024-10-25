@@ -26,30 +26,36 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level= AccessLevel.PRIVATE)
 public class User {
     @Id
-    private String userID;
+    String userID;
 
-    private String userName;
-    private String passWord;
-    private String email;
-    private String phone;
-    private String role;
+    String userName;
+    String passWord;
+    String email;
+    String phone;
+    String role;
 
     @OneToMany(mappedBy = "user") 
-    private List<Report> reports = new ArrayList<>();
+    @Builder.Default
+    List<Report> reports = new ArrayList<>();
     @OneToMany(mappedBy = "user") 
-    private List<Order> orders = new ArrayList<>();
+    @Builder.Default
+    List<Order> orders = new ArrayList<>();
     @OneToMany(mappedBy = "user") 
-    private List<Discount> discounts = new ArrayList<>();
+    @Builder.Default
+    List<Discount> discounts = new ArrayList<>();
     @OneToMany(mappedBy = "user") 
-    private List<Import> ieProducts = new ArrayList<>();
-
+    @Builder.Default
+    List<Import> imports = new ArrayList<>();
+ 
     @ManyToMany
     @JoinTable(
         name = "user_permissions",
         joinColumns = @JoinColumn(name = "userID"),
         inverseJoinColumns = @JoinColumn(name = "permissionID")
     )
-    private List<Permission> permissions = new ArrayList<>();
+    @Builder.Default
+    List<Permission> permissions = new ArrayList<>();
+
 
 
 }

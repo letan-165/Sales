@@ -25,20 +25,20 @@ import lombok.experimental.FieldDefaults;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productID;
-    private String productName;
-    private Long price;
-    private Long quantity;
-    private String status;
-    private String description;
+    Long productID;
+    String productName;
+    Long price;
+    Long quantity;
+    String status;
+    String description;
 
     @OneToMany(mappedBy = "products")
-    private List<OrderProduct> orderProducts;
+    List<OrderProduct> orderProducts;
 
     @OneToMany(mappedBy = "products")
-    private List<DiscountProduct> discountProducts;
+    List<DiscountProduct> discountProducts;
 
     @OneToMany(mappedBy = "products")
-    private List<ImportProduct> importProducts;
+    List<ImportProduct> importProducts;
     
 }

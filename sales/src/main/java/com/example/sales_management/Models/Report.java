@@ -24,13 +24,13 @@ import lombok.experimental.FieldDefaults;
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reportID;
+    Long reportID;
 
     @ManyToOne
     @JoinColumn(name = "userID")
-    private User user;
+    User user;
 
-    private String type;
+    String type;
 
-    private String content;
+    String content;
 }

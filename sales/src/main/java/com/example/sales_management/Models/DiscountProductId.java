@@ -17,6 +17,6 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level= AccessLevel.PRIVATE)
 public class DiscountProductId implements Serializable {
-    private String discountID;
-    private Long productID;
+    String discountID;
+    Long productID;
 }

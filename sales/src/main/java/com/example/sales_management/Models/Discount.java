@@ -27,17 +27,17 @@ import lombok.experimental.FieldDefaults;
 
 public class Discount {
     @Id
-    private String discountID;
-    private Float discount;
-    private Long quantity;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private Long minimum;
+    String discountID;
+    Float discount;
+    Long quantity;
+    LocalDateTime startTime;
+    LocalDateTime endTime;
+    Long minimum;
 
     @OneToMany(mappedBy = "discounts")
-    private List<DiscountProduct> discountProducts;
+    List<DiscountProduct> discountProducts;
 
     @ManyToOne
     @JoinColumn(name = "userID")
-    private User user;
+    User user;
 }

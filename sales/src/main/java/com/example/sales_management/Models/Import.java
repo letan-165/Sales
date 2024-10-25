@@ -28,10 +28,10 @@ import lombok.experimental.FieldDefaults;
 public class Import {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long importID;
-    private String status;
-    private LocalDateTime time;
-    private String supplier ;
+    Long importID;
+    String status;
+    LocalDateTime time;
+    String supplier ;
 
 
     @OneToMany(mappedBy = "imports")

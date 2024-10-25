@@ -24,20 +24,20 @@ import lombok.experimental.FieldDefaults;
 public class ImportProduct {
 
     @EmbeddedId
-    private ImportProductId id;
+    ImportProductId id;
 
     @ManyToOne
     @MapsId("importID")
     @JoinColumn(name = "importID")
-    private Import imports;
+    Import imports;
 
     @ManyToOne
     @MapsId("productID")
     @JoinColumn(name = "productID")
-    private Product products;
+    Product products;
 
     @Column(name = "quantity")
-    private Long quantity;
+    Long quantity;
 
 }
 

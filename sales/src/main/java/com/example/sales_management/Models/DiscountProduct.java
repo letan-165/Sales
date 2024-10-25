@@ -28,12 +28,12 @@ public class DiscountProduct {
     @ManyToOne
     @MapsId("discountID")
     @JoinColumn(name = "discountID")
-    private Discount discounts;
+    Discount discounts;
 
     @ManyToOne
     @MapsId("productID")
     @JoinColumn(name = "productID")
-    private Product products;
+    Product products;
 
-    private Long quantity;
+    Long quantity;
 }

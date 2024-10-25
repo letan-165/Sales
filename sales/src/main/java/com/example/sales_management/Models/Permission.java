@@ -26,10 +26,11 @@ import lombok.experimental.FieldDefaults;
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long permissionID;
+    Long permissionID;
 
-    private String permissionName;
+    String permissionName;
 
     @ManyToMany(mappedBy = "permissions")
-    private List<User> users = new ArrayList<>();
+    @Builder.Default
+    List<User> users = new ArrayList<>();
 }

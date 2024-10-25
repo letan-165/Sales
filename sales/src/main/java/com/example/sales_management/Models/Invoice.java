@@ -27,13 +27,14 @@ import lombok.experimental.FieldDefaults;
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long invoiceID;
+    Long invoiceID;
 
-    private LocalDateTime invoiceTime;
-    private Long totalAmount;
-    private String status;
-    private String description;
+    LocalDateTime invoiceTime;
+    Long totalAmount;
+    String status;
+    String description;
 
     @OneToMany(mappedBy = "invoice")
-    private List<Order> orders = new ArrayList<>();
+    @Builder.Default
+    List<Order> orders = new ArrayList<>();
 }
