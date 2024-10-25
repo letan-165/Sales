@@ -7,17 +7,20 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "imports_products")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor 
+@Builder
+@FieldDefaults(level= AccessLevel.PRIVATE)
 public class ImportProduct {
 
     @EmbeddedId

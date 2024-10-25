@@ -6,25 +6,25 @@ import org.springframework.stereotype.Component;
 
 import com.example.sales_management.Models.Permission;
 import com.example.sales_management.Models.User;
-import com.example.sales_management.Repository.PermissionRepository;
-import com.example.sales_management.Repository.UserRepository;
+import com.example.sales_management.Services.PermissionService;
+import com.example.sales_management.Services.UserService;
 
 @Component
 public class UserPermissionData implements CommandLineRunner {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private PermissionRepository permissionRepository;
+    private PermissionService permissionService;
 
     @Override
     public void run(String... args) throws Exception {
         Permission p1 = new Permission(null, "listProduct", null);
         Permission p2 = new Permission(null, "listOrder", null);
         
-        permissionRepository.save(p1);
-        permissionRepository.save(p2);
+        permissionService.save(p1);
+        permissionService.save(p2);
         User u1 = new User();
         u1.setUserID("admin");
         u1.setUserName("adminName");
@@ -45,7 +45,7 @@ public class UserPermissionData implements CommandLineRunner {
         u1.getPermissions().add(p2);
         u2.getPermissions().add(p1);
 
-        userRepository.save(u1);
-        userRepository.save(u2);
+        userService.save(u1);
+        userService.save(u2);
     }
 }

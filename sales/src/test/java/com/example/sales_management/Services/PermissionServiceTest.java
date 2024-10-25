@@ -39,7 +39,7 @@ public class PermissionServiceTest {
 
         when(PermissionRepository.findAll()).thenReturn(Permissions);
 
-        List<Permission> foundPermissions = PermissionService.getAllPermissions();
+        List<Permission> foundPermissions = PermissionService.findAll();
         assertEquals(2, foundPermissions.size());
         verify(PermissionRepository).findAll();
     }
@@ -50,7 +50,7 @@ public class PermissionServiceTest {
 
         when(PermissionRepository.findById(1l)).thenReturn(Optional.of(Permission));
 
-        Permission foundPermission = PermissionService.getPermissionById(1l);
+        Permission foundPermission = PermissionService.findById(1l);
         assertNotNull(foundPermission);
         assertEquals("ADMIN", foundPermission.getPermissionName());
         verify(PermissionRepository).findById(1l);
@@ -61,7 +61,7 @@ public class PermissionServiceTest {
         Permission Permission = new Permission(1l, "ADMIN",null);
 
         when(PermissionRepository.save(Permission)).thenReturn(Permission);
-        Permission createdPermission = PermissionService.createPermission(Permission);
+        Permission createdPermission = PermissionService.save(Permission);
 
         assertNotNull(createdPermission);
         assertEquals("ADMIN", createdPermission.getPermissionName());
@@ -71,7 +71,7 @@ public class PermissionServiceTest {
     @Test
     public void testDeletePermission() {
         doNothing().when(PermissionRepository).deleteById(1l);
-        PermissionService.deletePermission(1l);
+        PermissionService.deleteById(1l);
         verify(PermissionRepository).deleteById(1l);
     }
 }

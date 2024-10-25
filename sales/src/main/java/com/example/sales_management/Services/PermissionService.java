@@ -14,23 +14,23 @@ public class PermissionService {
     @Autowired
     private PermissionRepository PermissionRepository;
 
-    public List<Permission> getAllPermissions() {
+    public List<Permission> findAll() {
         return PermissionRepository.findAll();
     }
 
-    public Permission getPermissionById(Long PermissionId) {
+    public Permission findById(Long PermissionId) {
         return PermissionRepository.findById(PermissionId).orElse(null);
     }
 
-    public Permission createPermission(Permission Permission) {
+    public Permission save(Permission Permission) {
         return PermissionRepository.save(Permission);
     }
 
-    public Permission updatePermission(Permission Permission) {
+    public Permission update(Permission Permission) {
         return PermissionRepository.save(Permission);
     }
 
-    public void deletePermission(Long PermissionId) {
+    public void deleteById(Long PermissionId) {
         PermissionRepository.deleteById(PermissionId);
     }
 }

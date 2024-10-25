@@ -10,17 +10,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "invoices")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor 
+@Builder
+@FieldDefaults(level= AccessLevel.PRIVATE)
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

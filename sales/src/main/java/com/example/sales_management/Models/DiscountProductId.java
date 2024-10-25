@@ -3,18 +3,19 @@ package com.example.sales_management.Models;
 import java.io.Serializable;
 
 import jakarta.persistence.Embeddable;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Embeddable
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
+@NoArgsConstructor 
+@Builder
+@FieldDefaults(level= AccessLevel.PRIVATE)
 public class DiscountProductId implements Serializable {
     private String discountID;
     private Long productID;

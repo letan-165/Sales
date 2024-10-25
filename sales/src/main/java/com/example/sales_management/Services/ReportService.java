@@ -18,19 +18,19 @@ public class ReportService {
         this.reportRepository = reportRepository;
     }
 
-    public Report saveReport(Report report) {
+    public Report save(Report report) {
         return reportRepository.save(report);
     }
 
-    public List<Report> getAllReports() {
+    public List<Report> findAll() {
         return reportRepository.findAll();
     }
 
-    public Optional<Report> getReportById(Long reportID) {
+    public Optional<Report> findById(Long reportID) {
         return reportRepository.findById(reportID);
     }
 
-    public void deleteReport(Long reportID) {
+    public void deleteById(Long reportID) {
         reportRepository.deleteById(reportID);
     }
 }
