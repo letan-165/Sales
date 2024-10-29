@@ -16,14 +16,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    //Hiển thị danh sách
-    @GetMapping("/user")
+    @GetMapping("/")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.findAll());
         return "list";
     }
-
-    //Thêm người dùng
     @GetMapping("/add")
     public String showAddUserForm(Model model) {
         model.addAttribute("user", new User());
@@ -39,8 +36,7 @@ public class UserController {
     //Sửa người dùng 
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable String id, Model model) {
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.findById(id));
         return "edit";
     }
     @PostMapping("/edit")
@@ -54,10 +50,6 @@ public class UserController {
         userService.deleteById(id);
         return "redirect:/";
     }
-    
 
-
-
-    
 
 }
