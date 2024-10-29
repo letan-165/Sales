@@ -1,0 +1,63 @@
+body {
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.row {
+    margin: 0;
+    display: flex; 
+}
+
+.sidebar {
+    width: 100%;
+}
+
+main {
+    margin-top: 60px !important;
+    padding: 20px;
+    background-color: #ffffff;
+    overflow-y: auto;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 30px !important;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse !important; 
+}
+
+th, td {
+    text-align: center !important; 
+    vertical-align: middle; 
+    padding: 10px; 
+    border: 1px solid #ccc !important; 
+}
+
+.btn {
+    margin: 0 5px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center; 
+}
+
+.history-title {
+    margin-top: 30px; 
+}
+
+.logo-bottom {
+    width: 26px;
+    height: 26px;
+    margin-right: 10px;
+}

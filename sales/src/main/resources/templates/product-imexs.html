@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Nhập Hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/product-imexs.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div th:replace="header.html"></div>
+        <div class="row">
+            <div th:replace="sidebar.html" class="col-md-2 d-none d-md-block bg-light sidebar"></div>
+            <main class="col-md-10 ms-auto px-md-4">
+                <h1>Quản lý siêu thị</h1>
+
+                <!-- Bảng Nhập Hàng -->
+                <div class="mt-4">
+                    <h3>Nhập hàng</h3>
+                    <form id="importForm">
+                        <div class="mb-3">
+                            <label for="supplierName" class="form-label">Nhà cung cấp:</label>
+                            <input type="text" id="supplierName" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productCodeImport" class="form-label">Mã sản phẩm:</label>
+                            <input type="text" id="productCodeImport" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="importQuantity" class="form-label">Số lượng:</label>
+                            <input type="number" id="importQuantity" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="importDate" class="form-label">Ngày nhập:</label>
+                            <input type="date" id="importDate" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="storageLocation" class="form-label">Vị trí lưu trữ:</label>
+                            <input type="text" id="storageLocation" class="form-control" required>
+                        </div>
+                        <button type="button" class="btn btn-success" onclick="importProduct()">Nhập hàng</button>
+                    </form>
+                </div>
+
+                <!-- Lịch sử nhập hàng -->
+                <div class="mt-4">
+                    <h3 class="history-title">Lịch sử nhập hàng</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ngày</th>
+                                <th>Loại Hàng</th>
+                                <th>Mã Sản Phẩm</th>
+                                <th>Số Lượng</th>
+                                <th>Nhà Cung Cấp</th>
+                                <th>Vị Trí Lưu Trữ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="imexHistory">
+                            <!-- Dữ liệu lịch sử nhập sẽ được hiển thị ở đây -->
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+<script>
+    const imexHistory = [];
+
+    function importProduct() {
+        const supplier = document.getElementById('supplierName').value;
+        const productCode = document.getElementById('productCodeImport').value;
+        const quantity = document.getElementById('importQuantity').value;
+        const date = document.getElementById('importDate').value;
+        const storage = document.getElementById('storageLocation').value;
+
+        // Lưu thông tin nhập
+        const entry = {
+            date,
+            type: 'Nhập',
+            productCode,
+            quantity,
+            supplier,
+            storage
+        };
+        imexHistory.push(entry);
+        updateHistoryTable();
+        alert('Nhập hàng thành công!');
+        clearImportForm();
+    }
+
+    function updateHistoryTable() {
+        const tbody = document.getElementById('imexHistory');
+        tbody.innerHTML = '';
+
+        imexHistory.forEach(entry => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${entry.date}</td>
+                <td>${entry.type}</td>
+                <td>${entry.productCode}</td>
+                <td>${entry.quantity}</td>
+                <td>${entry.supplier}</td>
+                <td>${entry.storage}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function clearImportForm() {
+        document.getElementById('importForm').reset();
+    }
+</script>
+
+</html>
