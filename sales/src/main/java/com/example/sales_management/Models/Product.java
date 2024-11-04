@@ -30,6 +30,7 @@ public class Product {
     Long price;
     Long quantity;
     String status;
+    String type;
     String description;
 
     @OneToMany(mappedBy = "products")

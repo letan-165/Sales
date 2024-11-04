@@ -1,78 +1,126 @@
 body {
-    background-color: #fff;
-    margin: 0;
-    padding: 0;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 .container-fluid {
-    padding: 0;
+  padding: 0;
 }
 
 .row {
-    margin: 0;
-    display: flex; 
+  margin: 0;
+  display: flex;
 }
 
 .sidebar {
-    width: 100%;
+  width: 250px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
 }
 
 main {
-    margin-top: 60px !important;
-    padding: 20px;
-    background-color: #ffffff;
-    overflow-y: auto;
+  margin-left: 250px;
+  margin-top: 60px;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 h1 {
-    text-align: center;
-    font-weight: 600;
-    margin-bottom: 30px !important;
+  text-align: center;
+  font-weight: bold;
+  font-size: 8rem !important;
+  color: #fff !important;
+  padding: 20px 40px;
+  margin: 400px auto !important;
+  border-radius: 8px;
+  width: fit-content;
+  transition: all 0.3s ease;
 }
 
-.user-roles {
-    margin: 20px auto; 
-    width: 80%;
-    text-align: center !important;
+h1:hover {
+  color: #dc3545 !important;
+  background-color: rgba(255, 255, 255, 0.85);
+  transform: scale(1.05);
 }
 
-.role-card {
-    border: 2px solid black;
-    border-radius: 8px;
-    margin: 20px;
+.mt-5 {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 30px;
+  border-radius: 10px;
+  margin: 10px 0px !important;
 }
 
-.upper-part {
-    background-color: #dc3545;
-    color: white;
-    padding: 10px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    text-align: center;
+.mt-5 h2 {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  color: #fff;
 }
 
-.lower-part {
-    background-color: #f8f9fa;
-    color: black;
-    padding: 20px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    text-align: center;
+.mt-5 h4 {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  margin: 40px 0px;
 }
 
-.role-card h4 {
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin: 0 0 10px 0;
+.mt-5 p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #666;
+  text-align: justify;
+  padding: 0px 20px;
 }
 
-.role-card p {
-    font-size: 1rem;
-    margin: 0;
+.mt-5 .col-md-4 {
+  margin: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
 }
 
-.logo-bottom {
-    width: 26px;
-    height: 26px;
-    margin-right: 10px;
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.row .col-md-4 {
+  flex: 1;
+}
+
+.row.align-items-center .col-md-6,
+.row.align-items-center.mt-4 .col-md-6 {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.img-text-container {
+  display: flex;
+  align-items: center;
+}
+
+.img-equal {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.text-equal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 400px;
+  padding: 20px;
+  background-color: rgba(255, 0, 0, 0.2);
+  border-radius: 10px;
 }

@@ -1,62 +1,86 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phần mềm quản lý siêu thị</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/list.css">
+    <link rel="stylesheet" href="css/list.css">
 </head>
 <body>
+    <div th:replace="background.html"></div>
+    
     <div class="container-fluid">
         <div th:replace="header.html"></div>
         <div class="row">
             <div th:replace="sidebar.html" class="col-md-2 d-none d-md-block bg-light sidebar"></div>
             <main class="col-md-10 ms-auto px-md-4">
                 <h1>Quản lý siêu thị</h1>
-                <div class="user-roles">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="role-card">
-                                <div class="upper-part">
-                                    <h4>Admin</h4>
-                                </div>
-                                <div class="lower-part">
-                                    <p>Người quản trị với quyền quản lý toàn bộ người dùng, sản phẩm, đơn hàng, tài chính.</p>
-                                </div>
-                            </div>
+
+                <div class="mt-5">
+                    <h2>Giới thiệu</h2>
+                    <div class="row align-items-center">
+                        <div class="col-md-6 img-text-container">
+                            <img src="/img/tongquanhethong.jpg" alt="Tổng quan hệ thống" class="img-fluid img-equal">
                         </div>
-                        <div class="col-md-6">
-                            <div class="role-card">
-                                <div class="upper-part">
-                                    <h4>Nhân viên bán hàng</h4>
-                                </div>
-                                <div class="lower-part">
-                                    <p>Người chịu trách nhiệm tạo đơn hàng, xử lý thanh toán, và hỗ trợ khách hàng.</p>
-                                </div>
-                            </div>
+                        <div class="col-md-6 text-equal">
+                            <h4 style="color: #ebeced;">Tổng quan hệ thống</h4>
+                            <p style="color: #ebeced;">Hệ thống quản lý bán hàng là một giải pháp phần mềm được phát triển 
+                                để hỗ trợ doanh nghiệp trong việc quản lý các hoạt động kinh doanh.<br>
+                                Hệ thống được thiết kế nhằm phục vụ cho các doanh nghiệp bán lẻ, cửa hàng 
+                                hoặc chuỗi cửa hàng muốn số hóa quy trình bán hàng và quản lý hàng tồn kho của họ.<br>
+                                Bên cạnh đó, hệ thống cũng tích hợp các tính năng thanh toán trực tuyến và 
+                                hỗ trợ báo cáo tự động để giúp doanh nghiệp phân tích hiệu quả kinh doanh.
+                            </p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="role-card">
-                                <div class="upper-part">
-                                    <h4>Nhân viên kho</h4>
-                                </div>
-                                <div class="lower-part">
-                                    <p>Người quản lý kho, theo dõi hàng tồn kho và xử lý các hoạt động nhập xuất hàng hóa.</p>
-                                </div>
-                            </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col-md-6 text-equal">
+                            <h4 style="color: #ebeced;">Đối tượng sử dụng</h4>
+                            <p style="color: #ebeced;"><b>Admin:</b> Người quản trị hệ thống với quyền quản lý toàn bộ người dùng, sản phẩm, đơn hàng và tài chính.<br>
+                                <b>Nhân viên bán hàng:</b> Người chịu trách nhiệm tạo đơn hàng, xử lý thanh toán, và hỗ trợ khách hàng.<br>
+                                <b>Nhân viên kho:</b> Người quản lý kho, theo dõi hàng tồn kho và xử lý các hoạt động nhập xuất hàng hóa.<br>
+                                <b>Nhân viên kế toán:</b> Người quản lý và theo dõi các giao dịch tài chính, tạo báo cáo doanh thu và chi phí.<br>                                   
+                            </p>
                         </div>
-                        <div class="col-md-6">
-                            <div class="role-card">
-                                <div class="upper-part">
-                                    <h4>Nhân viên kế toán</h4>
-                                </div>
-                                <div class="lower-part">
-                                    <p>Người quản lý và theo dõi các giao dịch tài chính, tạo báo cáo doanh thu và chi phí.</p>
-                                </div>
-                            </div>
+                        <div class="col-md-6 img-text-container">
+                            <img src="/img/doituongsudung.jpg" alt="Đối tượng sử dụng" class="img-fluid img-equal">
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="mt-5">
+                    <h2>Tại sao nên sử dụng phần mềm quản lý siêu thị?</h2>
+                    <div class="row">
+                        <div class="col-md-4" style="background-color: rgba(255, 255, 255, 0.8);">
+                            <h4>Quản lý hàng hóa chặt chẽ, hạn chế thất thoát và tồn kho</h4>
+                            <p>Số lượng hàng hóa trong cửa hàng tiện lợi, siêu thị tương đối lớn, đồng thời mẫu mã, 
+                                mức giá các mặt hàng cũng khác nhau. Do đó, việc xuất nhập hàng hóa thủ công bằng 
+                                sổ sách hay bảng Excel sẽ rất chậm, khó quản lý và đòi hỏi nhiều nhân công. <br>
+                                Phần mềm sẽ giúp tạo các phiếu nhập hàng, cập nhật và tự động trừ số lượng khi hàng hóa được 
+                                giao dịch. Ngoài ra, người quản lý (merchant) có thể tích hợp tính năng quản lý kho bãi vào 
+                                phần mềm bán hàng, giúp xác định được hàng hóa đang ở kho nào một cách dễ dàng. 
+                            </p>
+                        </div>
+                        <div class="col-md-4" style="background-color: rgba(255, 255, 255, 0.8);">
+                            <h4>Tính tiền tự động rút ngắn thời gian thanh toán</h4>
+                            <p>Khi không sử dụng phần mềm bán hàng, nhân viên sẽ cần nhớ giá và tính toán bằng giấy hoặc máy tính, 
+                                gây mất thời gian và dễ nhầm lẫn. Hơn nữa, với số lượng hàng hóa nhiều, đa dạng nhãn hiệu, 
+                                mẫu mã ở các siêu thị, cửa hàng tiện lợi, việc nhớ hết giá của từng mặt hàng gần như bất khả thi. <br>
+                                Do đó, phần mềm bán hàng sẽ giúp ghi giá chính xác dựa theo mã vạch. Khi đó, nhân viên chỉ cần quét mã, 
+                                còn lại phần mềm sẽ tạo hóa đơn và tính tổng tiền một cách nhanh chóng. Tùy theo tốc độ thao tác của nhân viên, 
+                                mỗi khách hàng có thể mất chưa đến 1 phút để thanh toán, giúp tăng lưu lượng khách của cửa hàng. 
+                            </p>
+                        </div>
+                        <div class="col-md-4" style="background-color: rgba(255, 255, 255, 0.8);">
+                            <h4>Quản lý nhân sự từ xa hiệu quả</h4>
+                            <p>Nhân viên thanh toán ở các siêu thị, cửa hàng tiện lợi có đặc điểm là làm theo ca, quản lý trực tiếp hàng hóa, 
+                                tiền bạc và thường xuyên tuyển người mới. Do đó, nếu không có một cơ chế quản lý khoa học, chuyên nghiệp thì 
+                                quản lý nhân sự sẽ cần chú tâm rất nhiều, đồng thời cũng không đảm bảo được tình trạng thất thoát không xảy ra. <br>
+                                Phần mềm bán hàng siêu thị cho phép quản lý nhân sự theo dõi việc giao ca, giờ làm của nhân viên và thống kê lại 
+                                giao dịch thực hiện sau mỗi ca. Qua đó merchant có thể đối chiếu với số lượng hàng hóa dễ dàng. Ngoài ra, phần mềm 
+                                có thể tích hợp với máy chấm công, giúp nhân viên có thể chấm công ngay khi giao ca mà không cần liên hệ với quản lý. 
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -65,5 +89,4 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

@@ -1,54 +1,62 @@
 package com.example.sales_management.Controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.sales_management.Models.User;
 import com.example.sales_management.Services.UserService;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@RequestMapping("/user")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class UserController {
+    UserService userService;
 
-    @Autowired
-    private UserService userService;
-    @GetMapping("/")
+    @GetMapping("/list")
     public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.findAll());
-        return "list";
+       List<User> users = userService.findAll();
+       model.addAttribute("list", users);
+       model.addAttribute("user", new User());
+        return "users";
     }
-    @GetMapping("/add")
-    public String showAddUserForm(Model model) {
-        model.addAttribute("user", new User());
-        return "add";
-    }
-
-    @PostMapping("/add")
-    public String addUser(@ModelAttribute("user") User user) {
+//    @GetMapping("/get")
+//    public User getUser(@RequestParam String userID) {
+//        return userService.findById(userID);
+//    }
+//    @GetMapping("/getmyinfo")
+//    public User getMyInfo() {
+//        return userService.getMyInfo();
+//    }
+    @PostMapping ("/add")
+    public String addUser(@ModelAttribute User user) {
         userService.save(user);
-        return "redirect:/";
+        return "redirect:/user/list";
+    }
+    @PostMapping ("/edit/{id}")
+    public String editUser(@PathVariable String id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "users";
     }
     
-    //Sửa người dùng 
-    @GetMapping("/edit/{id}")
-    public String editUser(@PathVariable String id, Model model) {
-        model.addAttribute("user", userService.findById(id));
-        return "edit";
-    }
-    @PostMapping("/edit")
-    public String updateUser(@ModelAttribute User user) {
-        userService.updateUser(user);
-        return "redirect:/";
-    }
-    //Xóa người dùng
-    @PostMapping("/delete/{id}")
-    public String deleteUser(@PathVariable String id) {
+    @PostMapping ("/delete/{id}")
+    public String deleteUser(@PathVariable  String id) {
         userService.deleteById(id);
-        return "redirect:/";
+        return "redirect:/user/list";
     }
 
 

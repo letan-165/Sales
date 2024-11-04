@@ -39,5 +39,8 @@ public class ImportProduct {
     @Column(name = "quantity")
     Long quantity;
 
+    @Column(name = "price")
+    Long price;
+
 }
 

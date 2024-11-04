@@ -1,48 +1,62 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phần mềm quản lý siêu thị</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/header.css">
-</head>
-<body>
-
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tiêu đề</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/header.css" />
+  </head>
+  <body>
     <div class="container-fluid">
-        <div class="row">
-            <header class="navbar navbar-dark sticky-top bg-danger flex-md-nowrap p-0 shadow header-expanded">
-                <div class="container-fluid">
-                    <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    
-                    <a th:href="@{/}" class="navbar-brand px-3">
-                        <img src="/img/logo.png" alt="Logo" class="logo-left">
-                    </a>
-            
-                    <div class="d-flex align-items-center" style="margin: 0px 10px;">
-                        <a th:href="@{/}" class="nav-link text-white">
-                            <img src="/img/logo-hotrotructuyen.png" class="logo-right">Hỗ trợ trực tuyến
-                        </a>
-                        <a th:href="@{/}" class="nav-link text-white">
-                            <img src="/img/logo-huongdansudung.png" class="logo-right">Hướng dẫn sử dụng
-                        </a>
-                        <a th:href="@{/}" class="nav-link text-white">
-                            <img src="/img/logo-thongbao.png" class="logo-right">Thông báo
-                        </a>
-                        <div class="nav-item">
-                            <a th:href="@{/}" class="nav-link text-white">
-                                <i class="bi bi-person-circle"></i> Đăng xuất
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </header>                               
-        </div>
+      <div class="row">
+        <header
+          class="navbar navbar-dark sticky-top bg-light flex-md-nowrap p-0 shadow header-expanded"
+        >
+          <div class="container-fluid">
+            <button
+              class="navbar-toggler d-md-none collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#sidebarMenu"
+              aria-controls="sidebarMenu"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <a th:href="@{/}" class="navbar-brand px-3">
+              <img src="/img/logo.png" alt="Logo" class="logo-left" />
+            </a>
+
+            <div class="d-flex align-items-center" style="margin: 0px 10px">
+              <a th:href="@{/}" class="nav-link text-white">
+                <i class="fa-solid fa-headset"></i>
+                <span>Hỗ trợ trực tuyến</span>
+              </a>
+              <a th:href="@{/chuyentranginstruct}" class="nav-link text-white">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <span>Hướng dẫn sử dụng</span>
+              </a>
+              <a th:href="@{/}" class="nav-link text-white">
+                <i class="fa-solid fa-bell"></i>
+                <span>Thông báo</span>
+              </a>
+              <div class="nav-item">
+                <a th:href="@{/}" class="nav-link logout-button">
+                  <i class="bi bi-person-circle"></i> Đăng xuất
+                </a>
+              </div>
+            </div>
+          </div>
+        </header>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
+  </body>
 </html>

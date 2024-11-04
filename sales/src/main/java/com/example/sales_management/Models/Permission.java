@@ -1,19 +1,17 @@
 package com.example.sales_management.Models;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 @Entity
@@ -25,12 +23,19 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level= AccessLevel.PRIVATE)
 public class Permission {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long permissionID;
+    String permissionID;
+    String description;
 
-    String permissionName;
-
-    @ManyToMany(mappedBy = "permissions")
+    @ManyToMany(mappedBy = "permissions",fetch = FetchType.EAGER)
     @Builder.Default
     List<User> users = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Permission{" +
+                "permissionID='" + permissionID + '\'' +
+                ", description='" + description + '\'' +
+                ", userCount=" + (users != null ? users.size() : 0) +
+                '}';
+    }
 }

@@ -6,12 +6,8 @@ import com.nimbusds.jose.JOSEException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.sales_management.Models.User;
 import com.example.sales_management.Services.UserService;
 
 import java.text.ParseException;
@@ -20,7 +16,8 @@ import java.text.ParseException;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class LoginController {
+
+public class AuthenticationControler {
 
     UserService userService ;   
     AuthenticationService authenticationService ;

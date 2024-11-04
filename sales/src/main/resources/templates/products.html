@@ -1,167 +1,198 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quản lý người dùng</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/products.css">
-</head>
-<body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/products.css" />
+  </head>
+  <body>
     <div class="container-fluid">
-        <div th:replace="header.html"></div>
-        <div class="row">
-            <div th:replace="sidebar.html" class="col-md-2 d-none d-md-block bg-light sidebar"></div>
-            <!-- Khu vực nội dung bên phải -->
-            <main class="col-md-10 ms-auto px-md-4">
-                <h1>Quản lý siêu thị</h1>
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h3>Quản lý sản phẩm</h3>
-                    <button class="btn btn-primary" onclick="openDialog('add')">Thêm mới</button>
-                </div>
-            
-                <!-- Bảng danh sách sản phẩm -->
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Giá</th>
-                            <th>Số lượng</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productList">
-                        <!-- Dữ liệu mẫu -->
-                        <tr>
-                            <td>1</td>
-                            <td>Sản phẩm A</td>
-                            <td>100,000 VND</td>
-                            <td>50</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick="openDialog('edit', 1)">Sửa</button>
-                                <button class="btn btn-danger btn-sm" onclick="openDialog('delete', 1)">Xóa</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            
-                <!-- Dialog Thêm/Sửa/Xóa -->
-                <div class="modal fade" id="dialog" tabindex="-1" aria-labelledby="dialogLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="dialogLabel">Thêm sản phẩm</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Nội dung cho Thêm/Sửa -->
-                                <div id="addEditContent" style="display: none;">
-                                    <div class="mb-3">
-                                        <label for="productName" class="form-label">Tên sản phẩm</label>
-                                        <input type="text" class="form-control" id="productName" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="productPrice" class="form-label">Giá</label>
-                                        <input type="number" class="form-control" id="productPrice" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="productQuantity" class="form-label">Số lượng</label>
-                                        <input type="number" class="form-control" id="productQuantity" required>
-                                    </div>
-                                </div>
-            
-                                <!-- Nội dung cho Xóa -->
-                                <div id="deleteContent" style="display: none;">
-                                    <p>Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                <button type="button" class="btn btn-primary" id="confirmButton">Xác nhận</button>
-                            </div>
-                        </div>
+      <div th:replace="header.html"></div>
+      <div class="row">
+        <div
+          th:replace="sidebar.html"
+          class="col-md-2 d-none d-md-block bg-light sidebar"
+        ></div>
+        <!-- Khu vực nội dung bên phải -->
+        <main class="col-md-10 ms-auto px-md-4">
+          <h1>Quản lý siêu thị</h1>
+          <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+          >
+            <h3>Quản lý sản phẩm</h3>
+            <button class="btn btn-primary" onclick="openDialog('add')">
+              Thêm mới
+            </button>
+          </div>
+
+          <!-- Bảng danh sách sản phẩm -->
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Mã</th>
+                <th>Tên</th>
+                <th>Giá</th>
+                <th>Loại</th>
+                <th>Mô tả</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="productList">
+              <!-- Dữ liệu mẫu -->
+              <tr th:each="product : ${list}">
+                <td th:text="${product.productID}"></td>
+                <td th:text="${product.productName}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.type}"></td>
+                <td
+                  th:text="${product.description}"
+                  style="text-align: left !important"
+                ></td>
+
+                <td>
+                  <button
+                    class="btn btn-warning btn-sm"
+                    th:attr="onclick='openDialog(&quot;edit&quot;, &quot;' + ${product.productID} + '&quot;, &quot;' + ${product.productName} + '&quot;, &quot;' + ${product.price} + '&quot;, &quot;' + ${product.type} + '&quot;, &quot;' + ${product.description} + '&quot;)'"
+                  >
+                    Sửa
+                  </button>
+                  <form
+                    th:action="@{delete/{id}(id=${product.productID})}"
+                    method="post"
+                    style="display: inline"
+                  >
+                    <button
+                      type="submit"
+                      class="btn btn-danger btn-sm"
+                      onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');"
+                    >
+                      Xóa
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Dialog Thêm/Sửa/Xóa -->
+          <form th:action="@{add}" th:object="${product}" method="post">
+            <div
+              class="modal fade"
+              id="dialog"
+              tabindex="-1"
+              aria-labelledby="dialogLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="dialogLabel">Thêm sản phẩm</h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- Nội dung cho Thêm/Sửa -->
+                    <div id="addEditContent" style="display: none">
+                      <div class="mb-3">
+                        <label for="productID" class="form-label"
+                          >Mã sản phẩm</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="productID"
+                          name="productID"
+                          readonly
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="productName" class="form-label"
+                          >Tên sản phẩm</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="productName"
+                          name="productName"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="price" class="form-label">Giá</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="price"
+                          name="price"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="type" class="form-label"
+                          >Loại sản phẩm</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="type"
+                          name="type"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="description" class="form-label"
+                          >Mô tả</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="description"
+                          name="description"
+                          required
+                        />
+                      </div>
                     </div>
+
+                    <!-- Nội dung cho Xóa -->
+                    <div id="deleteContent" style="display: none">
+                      <p>Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Hủy
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      id="confirmButton"
+                    >
+                      Xác nhận
+                    </button>
+                  </div>
                 </div>
-            </main>
-        </div>
+              </div>
+            </div>
+          </form>
+        </main>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 
-<script>
-    // Hàm mở dialog
-    function openDialog(action, productId = null) {
-        const dialog = new bootstrap.Modal(document.getElementById('dialog'));
-        const dialogLabel = document.getElementById('dialogLabel');
-        const confirmButton = document.getElementById('confirmButton');
-        
-        // Cài đặt nội dung cho dialog dựa trên hành động
-        if (action === 'add') {
-            dialogLabel.textContent = 'Thêm sản phẩm';
-            confirmButton.textContent = 'Thêm';
-            document.getElementById('addEditContent').style.display = 'block';
-            document.getElementById('deleteContent').style.display = 'none';
-            confirmButton.onclick = addProduct;
-        } else if (action === 'edit') {
-            dialogLabel.textContent = 'Sửa sản phẩm';
-            confirmButton.textContent = 'Lưu';
-            document.getElementById('addEditContent').style.display = 'block';
-            document.getElementById('deleteContent').style.display = 'none';
-            confirmButton.onclick = () => editProduct(productId);
-        } else if (action === 'delete') {
-            dialogLabel.textContent = 'Xóa sản phẩm';
-            confirmButton.textContent = 'Xóa';
-            document.getElementById('addEditContent').style.display = 'none';
-            document.getElementById('deleteContent').style.display = 'block';
-            confirmButton.onclick = () => deleteProduct(productId);
-        }
-
-        // Mở dialog
-        dialog.show();
-    }
-
-    // Hàm thêm sản phẩm
-    function addProduct() {
-        const name = document.getElementById('productName').value;
-        const price = document.getElementById('productPrice').value;
-        const quantity = document.getElementById('productQuantity').value;
-
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td>#</td>
-            <td>${name}</td>
-            <td>${price} VND</td>
-            <td>${quantity}</td>
-            <td>
-                <button class="btn btn-warning btn-sm" onclick="openDialog('edit', 2)">Sửa</button>
-                <button class="btn btn-danger btn-sm" onclick="openDialog('delete', 2)">Xóa</button>
-            </td>
-        `;
-        document.getElementById('productList').appendChild(newRow);
-
-        // Đóng dialog
-        bootstrap.Modal.getInstance(document.getElementById('dialog')).hide();
-    }
-
-    // Hàm sửa sản phẩm
-    function editProduct(productId) {
-        // Cập nhật sản phẩm dựa trên ID
-        console.log(`Sửa sản phẩm với ID: ${productId}`);
-
-        // Đóng dialog
-        bootstrap.Modal.getInstance(document.getElementById('dialog')).hide();
-    }
-
-    // Hàm xóa sản phẩm
-    function deleteProduct(productId) {
-        // Xóa sản phẩm dựa trên ID
-        console.log(`Xóa sản phẩm với ID: ${productId}`);
-        
-        // Đóng dialog
-        bootstrap.Modal.getInstance(document.getElementById('dialog')).hide();
-    }
-</script>
-
+  <script src="/js/products.js"></script>
 </html>

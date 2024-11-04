@@ -1,76 +1,282 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Phần mềm quản lý siêu thị</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/sidebar.css">
-</head>
-<body>
-
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/sidebar.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
     <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="position-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a th:href="@{/chuyentranguser}" class="nav-link">
-                                <img src="/img/logo-nguoidung.png" class="logo-bottom">Quản lý người dùng
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a th:href="@{/chuyentrangrole}" class="nav-link">
-                                <img src="/img/logo-vaitro.png" class="logo-bottom">Quản lý vai trò
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a th:href="@{/chuyentrangproduct}" class="nav-link">
-                                <img src="/img/logo-sanpham.png" class="logo-bottom">Quản lý sản phẩm
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a th:href="@{/chuyentrangwarehouse}" class="nav-link">
-                                <img src="/img/logo-kho.png" class="logo-bottom">Quản lý kho
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a th:href="@{/chuyentranginvoice}" class="nav-link">
-                                <img src="/img/logo-hoadon.png" class="logo-bottom">Quản lý hoá đơn
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a th:href="@{/chuyentrangorder}" class="nav-link">
-                                <img src="/img/logo-donhang.png" class="logo-bottom">Quản lý đơn hàng
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a th:href="@{/chuyentrangpromotion}" class="nav-link">
-                                <img src="/img/logo-khuyenmai.png" class="logo-bottom">Quản lý khuyến mãi
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a th:href="@{/chuyentrangreports}" class="nav-link">
-                                <img src="/img/logo-baocao&thongke.png" class="logo-bottom">Báo cáo và thống kê
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a th:href="@{/chuyentrangproductimex}" class="nav-link">
-                                <img src="/img/logo-nhapxuatsanpham.png" class="logo-bottom">Quản lý nhập xuất sản phẩm
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a th:href="@{/chuyentrangfinancial}" class="nav-link">
-                                <img src="/img/logo-taichinh&ketoan.png" class="logo-bottom">Quản lý tài chính và kế toán
-                            </a>
-                        </li>
-                    </ul>
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="position-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a th:href="@{/user/list}" class="nav-link">
+                  <i class="fa-solid fa-user"></i>
+                  <span>Quản lý người dùng</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Thêm, sửa, xóa người
+                      dùng
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Quản lý thông tin người
+                      dùng (tên, email, vai trò, trạng thái)
+                    </li>
+                  </ul>
                 </div>
-            </nav>                             
-        </div>
+              </li>
+              <hr />
+              <li class="nav-item">
+                <a th:href="@{/permission/list/null}" class="nav-link">
+                  <i class="fa-solid fa-user-group"></i>
+                  <span>Quản lý vai trò</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Thêm, sửa, xóa vai trò
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Gán vai trò cho người
+                      dùng
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Xem danh sách vai trò và
+                      quyền hạn tương ứng
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <hr />
+              <li class="nav-item">
+                <a th:href="@{/product/list}" class="nav-link">
+                  <i class="fa-solid fa-box"></i>
+                  <span>Quản lý sản phẩm</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Thêm, sửa, xóa sản phẩm
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Quản lý thông tin sản
+                      phẩm (tên, mô tả, giá, trạng thái)
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Theo dõi tồn kho sản
+                      phẩm
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <hr />
+              <li class="nav-item">
+                <a th:href="@{/chuyentrangwarehouse}" class="nav-link">
+                  <i class="fa-solid fa-warehouse"></i>
+                  <span>Quản lý kho</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Theo dõi lượng hàng tồn
+                      kho
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Quản lý nhập xuất kho
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Cập nhật tình trạng hàng
+                      hóa
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <hr />
+              <li class="nav-item">
+                <a th:href="@{/chuyentranginvoice}" class="nav-link">
+                  <i class="fa-solid fa-receipt"></i>
+                  <span>Quản lý hoá đơn</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Tạo, sửa, xóa hóa đơn
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i>Quản lý thông tin hóa đơn
+                      (ngày, số tiền, trạng thái)
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Theo dõi tình trạng
+                      thanh toán
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <hr />
+              <li class="nav-item">
+                <a th:href="@{/chuyentrangorder}" class="nav-link">
+                  <i class="fa-solid fa-file-invoice"></i>
+                  <span>Quản lý đơn hàng</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Tạo, sửa, xóa đơn hàng
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Quản lý thông tin đơn
+                      hàng (sản phẩm, số lượng, khách hàng)
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Theo dõi tình trạng đơn
+                      hàng
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <hr />
+              <li class="nav-item">
+                <a th:href="@{/chuyentrangpromotion}" class="nav-link">
+                  <i class="fa-solid fa-bullhorn"></i>
+                  <span>Quản lý khuyến mãi</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Thêm, sửa, xóa chương
+                      trình khuyến mãi
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Quản lý thông tin khuyến
+                      mãi (tên, loại, thời gian áp dụng)
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Theo dõi hiệu quả của
+                      các chương trình khuyến mãi
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <hr />
+              <li class="nav-item">
+                <a th:href="@{/chuyentrangreports}" class="nav-link">
+                  <i class="fa-solid fa-square-poll-vertical"></i>
+                  <span>Báo cáo và thống kê</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Tạo báo cáo về doanh
+                      thu, tồn kho, và đơn hàng
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Thống kê số liệu theo
+                      thời gian
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Phân tích dữ liệu để đưa
+                      ra quyết định
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <hr />
+              <li class="nav-item">
+                <a th:href="@{/chuyentrangproductimex}" class="nav-link">
+                  <i class="fa-solid fa-truck"></i>
+                  <span>Quản lý nhập xuất sản phẩm</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Theo dõi lịch sử nhập
+                      xuất hàng hóa
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Quản lý các giao dịch
+                      nhập xuất
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Cập nhật thông tin sản
+                      phẩm trong kho
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <hr />
+              <li class="nav-item">
+                <a th:href="@{/chuyentrangfinancial}" class="nav-link">
+                  <i class="fa-solid fa-dollar-sign"></i>
+                  <span>Quản lý tài chính và kế toán</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <div class="submenu">
+                  <ul>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Theo dõi doanh thu và
+                      chi phí
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Quản lý báo cáo tài
+                      chính
+                    </li>
+                    <li>
+                      <i class="fa-solid fa-check"></i> Kiểm tra tình trạng tài
+                      chính của doanh nghiệp
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <hr />
+            </ul>
+          </div>
+        </nav>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script>
+      // Thêm JavaScript để xử lý hover cho submenu
+      const navItems = document.querySelectorAll(".nav-item");
 
+      navItems.forEach((item) => {
+        item.addEventListener("mouseover", () => {
+          const submenu = item.querySelector(".submenu");
+          if (submenu) {
+            submenu.style.display = "block"; // Hiển thị submenu
+          }
+        });
+
+        item.addEventListener("mouseout", () => {
+          const submenu = item.querySelector(".submenu");
+          if (submenu) {
+            submenu.style.display = "none"; // Ẩn submenu
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

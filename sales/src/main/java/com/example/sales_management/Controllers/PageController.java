@@ -5,19 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageController {
-    //Chuyển trang
-    @GetMapping("/chuyentranguser")
-    public String chuyentrangusermanager() {
-        return "users";
-    }
-    @GetMapping("/chuyentrangrole")
-    public String chuyentrangrolemanager() {
-        return "roles";
-    }
-    @GetMapping("/chuyentrangproduct")
-    public String chuyentrangproductmanager() {
-        return "products";
-    }
     @GetMapping("/chuyentrangwarehouse")
     public String chuyentrangwarehousemanager() {
         return "warehouses";
@@ -38,6 +25,7 @@ public class PageController {
     public String chuyentrangreportsmanager() {
         return "reports";
     }
+    
     @GetMapping("/chuyentrangproductimex")
     public String chuyentrangproductimexmanager() {
         return "product-imexs";
@@ -45,5 +33,9 @@ public class PageController {
     @GetMapping("/chuyentrangfinancial")
     public String chuyentrangfinancialmanager() {
         return "financials";
+    }
+    @GetMapping("/chuyentranginstruct")
+    public String chuyentranginstruct() {
+        return "instruct";
     }
 }

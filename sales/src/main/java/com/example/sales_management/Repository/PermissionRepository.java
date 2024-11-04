@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.sales_management.Models.Permission;
 
 @Repository
-public interface PermissionRepository extends JpaRepository<Permission, Long> {
+public interface PermissionRepository extends JpaRepository<Permission, String> {
     
 }
