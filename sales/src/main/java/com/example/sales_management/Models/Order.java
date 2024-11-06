@@ -41,7 +41,7 @@ public class Order {
     @JoinColumn(name = "userID")
     User user;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "invoiceID")
     Invoice invoice;
     
