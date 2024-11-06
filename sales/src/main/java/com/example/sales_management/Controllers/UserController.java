@@ -2,6 +2,7 @@ package com.example.sales_management.Controllers;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserController {
     UserService userService;
+    PasswordEncoder passwordEncoder;
 
     @GetMapping("/list")
     public String getAllUsers(Model model) {
@@ -43,6 +45,9 @@ public class UserController {
 //    }
     @PostMapping ("/add")
     public String addUser(@ModelAttribute User user) {
+        if(userService.findById(user.getUserID())==null){
+            user.setPassWord(passwordEncoder.encode(user.getPassWord()));
+        }
         userService.save(user);
         return "redirect:/user/list";
     }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.sales_management.Models.ImportProduct;
 import com.example.sales_management.Models.Product;
 import com.example.sales_management.Repository.ProductRepository;
 
@@ -42,5 +43,8 @@ public class ProductService {
     }
     public Product findByName(String productName) {
         return productRepository.findByProductName(productName);
+    }
+    public Product getFirst(List<ImportProduct> product) {
+        return product.isEmpty() ? null : product.get(0).getProducts();
     }
 }

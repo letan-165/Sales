@@ -28,6 +28,7 @@ public class Product {
     Long productID;
     String productName;
     Long price;
+    Long priceImport;
     Long quantity;
     String status;
     String type;

@@ -36,7 +36,8 @@
               <tr>
                 <th>Mã</th>
                 <th>Tên</th>
-                <th>Giá</th>
+                <th>Giá bán</th>
+                <th>Giá nhập</th>
                 <th>Loại</th>
                 <th>Mô tả</th>
                 <th>Thao tác</th>
@@ -48,6 +49,7 @@
                 <td th:text="${product.productID}"></td>
                 <td th:text="${product.productName}"></td>
                 <td th:text="${product.price}"></td>
+                <td th:text="${product.priceImport}"></td>
                 <td th:text="${product.type}"></td>
                 <td
                   th:text="${product.description}"
@@ -57,7 +59,7 @@
                 <td>
                   <button
                     class="btn btn-warning btn-sm"
-                    th:attr="onclick='openDialog(&quot;edit&quot;, &quot;' + ${product.productID} + '&quot;, &quot;' + ${product.productName} + '&quot;, &quot;' + ${product.price} + '&quot;, &quot;' + ${product.type} + '&quot;, &quot;' + ${product.description} + '&quot;)'"
+                    th:attr="onclick='openDialog(&quot;edit&quot;, &quot;' + ${product.productID} + '&quot;, &quot;' + ${product.productName} + '&quot;, &quot;' + ${product.price} + '&quot;, &quot;' + ${product.priceImport} + '&quot;, &quot;' + ${product.type} + '&quot;, &quot;' + ${product.description} + '&quot;)'"
                   >
                     Sửa
                   </button>
@@ -133,6 +135,18 @@
                           class="form-control"
                           id="price"
                           name="price"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="priceImport" class="form-label"
+                          >Giá nhập</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="priceImport"
+                          name="priceImport"
                           required
                         />
                       </div>

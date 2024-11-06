@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.sales_management.Models.Permission;
 import com.example.sales_management.Models.User;
@@ -24,6 +25,8 @@ public class UserPremissionDataConfig {
     AuthenticationService authenticationService;
     UserService userService;
     PermissionService permissionService;
+    PasswordEncoder passwordEncoder;
+    
     String[][] users = {
         {"admin", "adminName", "admin@","0123","ADMIN"},
         {"manager", "managerName", "manager@","0789","MANAGER"},
@@ -63,7 +66,7 @@ public class UserPremissionDataConfig {
                 User user = User.builder()
                         .userID(userID)
                         .userName(userData[1])
-                        .passWord(userData[0])
+                        .passWord(passwordEncoder.encode(userData[0]))
                         .email(userData[2])
                         .phone(userData[3])
                         .role(userData[4])

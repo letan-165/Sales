@@ -3,7 +3,6 @@ package com.example.sales_management.Services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.example.sales_management.Models.Report;
@@ -32,7 +31,7 @@ public class ReportService {
         return reportRepository.findById(reportID);
     }
 
-    @PreAuthorize("hasRole('REPORT_DELETE')")
+   //@PreAuthorize("hasRole('REPORT_DELETE')")
     public void deleteById(Long reportID) {
         reportRepository.deleteById(reportID);
     }

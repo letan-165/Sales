@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý Tài chính và Kế toán</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/financials.css">
+    <link rel="stylesheet" href="D:\XDPMHDT\NVKT\accounting\src\main\resources\static\financials.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -13,54 +14,63 @@
         <div class="row">
             <div th:replace="sidebar.html" class="col-md-2 d-none d-md-block bg-light sidebar"></div>
             <main class="col-md-10 ms-auto px-md-4">
-                <h1>Quản lý siêu thị</h1>
+                <h1>Quản lý Tài chính và Kế toán</h1>
 
-                <!-- Thêm khoản thu chi -->
+                <!-- Form thêm khoản thu chi -->
                 <div class="mt-4">
-                    <h3>Quản lý tài chính & kế toán</h3>
+                    <h3>Thêm khoản thu chi</h3>
                     <form id="financeForm">
-                        <div class="mb-3">
-                            <label for="transactionType" class="form-label">Loại giao dịch:</label>
-                            <select id="transactionType" class="form-select" required>
-                                <option value="">Chọn loại giao dịch</option>
-                                <option value="thu">Khoản thu</option>
-                                <option value="chi">Khoản chi</option>
-                            </select>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="transactionType" class="form-label">Loại giao dịch:</label>
+                                <select id="transactionType" class="form-select" required>
+                                    <option value="">Chọn loại giao dịch</option>
+                                    <option value="thu">Khoản thu</option>
+                                    <option value="chi">Khoản chi</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="amount" class="form-label">Số tiền:</label>
+                                <input type="number" id="amount" class="form-control" required>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Mô tả:</label>
                             <input type="text" id="description" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label for="amount" class="form-label">Số tiền:</label>
-                            <input type="number" id="amount" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
                             <label for="date" class="form-label">Ngày:</label>
                             <input type="date" id="date" class="form-control" required>
                         </div>
-                        <div class="btn-group">
+                        <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-success" onclick="addTransaction()">Thêm</button>
                         </div>
                     </form>
                 </div>
 
                 <!-- Lịch sử giao dịch -->
-                <div class="mt-4">
+                <div class="mt-5">
                     <h3>Lịch sử giao dịch</h3>
-                    <table class="table">
-                        <thead>
+                    <table class="table table-bordered">
+                        <thead class="table-light">
                             <tr>
                                 <th>Ngày</th>
                                 <th>Loại Giao Dịch</th>
                                 <th>Mô Tả</th>
                                 <th>Số Tiền</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody id="transactionHistory">
                             <!-- Dữ liệu lịch sử sẽ được hiển thị ở đây -->
                         </tbody>
                     </table>
+                </div>
+
+                <!-- Biểu đồ thống kê -->
+                <div class="mt-5">
+                    <h3>Thống kê Doanh thu và Chi phí</h3>
+                    <canvas id="financeChart" width="400" height="200"></canvas>
                 </div>
             </main>
         </div>
@@ -73,10 +83,14 @@
         function addTransaction() {
             const transactionType = document.getElementById('transactionType').value;
             const description = document.getElementById('description').value;
-            const amount = document.getElementById('amount').value;
+            const amount = parseFloat(document.getElementById('amount').value);
             const date = document.getElementById('date').value;
 
-            // Lưu thông tin giao dịch
+            if (!transactionType || !description || isNaN(amount) || !date) {
+                alert("Vui lòng điền đầy đủ thông tin!");
+                return;
+            }
+
             const entry = {
                 date,
                 type: transactionType === 'thu' ? 'Khoản thu' : 'Khoản chi',
@@ -85,6 +99,7 @@
             };
             transactionHistory.push(entry);
             updateHistoryTable();
+            updateChart();
             alert('Giao dịch đã được thêm thành công!');
             document.getElementById('financeForm').reset();
         }
@@ -93,15 +108,84 @@
             const tbody = document.getElementById('transactionHistory');
             tbody.innerHTML = '';
 
-            transactionHistory.forEach(entry => {
+            transactionHistory.forEach((entry, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${entry.date}</td>
                     <td>${entry.type}</td>
                     <td>${entry.description}</td>
-                    <td>${entry.amount}</td>
+                    <td>${entry.amount.toLocaleString()} VND</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm me-2" onclick="editTransaction(${index})">Sửa</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteTransaction(${index})">Xóa</button>
+                    </td>
                 `;
                 tbody.appendChild(row);
+            });
+        }
+
+        function editTransaction(index) {
+            const entry = transactionHistory[index];
+            document.getElementById('transactionType').value = entry.type === 'Khoản thu' ? 'thu' : 'chi';
+            document.getElementById('description').value = entry.description;
+            document.getElementById('amount').value = entry.amount;
+            document.getElementById('date').value = entry.date;
+
+            deleteTransaction(index);  // Xóa giao dịch cũ và yêu cầu người dùng lưu lại bản chỉnh sửa.
+        }
+
+        function deleteTransaction(index) {
+            transactionHistory.splice(index, 1);
+            updateHistoryTable();
+            updateChart();
+        }
+
+        // Cập nhật biểu đồ
+        function updateChart() {
+            const labels = [];
+            const data = {
+                thu: 0,
+                chi: 0
+            };
+
+            transactionHistory.forEach(entry => {
+                if (entry.type === 'Khoản thu') {
+                    data.thu += entry.amount;
+                } else {
+                    data.chi += entry.amount;
+                }
+                if (!labels.includes(entry.date)) {
+                    labels.push(entry.date);
+                }
+            });
+
+            const ctx = document.getElementById('financeChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Doanh thu',
+                        data: new Array(labels.length).fill(data.thu),
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Chi phí',
+                        data: new Array(labels.length).fill(data.chi),
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
             });
         }
     </script>

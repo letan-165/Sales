@@ -1,8 +1,6 @@
 package com.example.sales_management.Services;
 
 import java.text.ParseException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.StringJoiner;
 
@@ -59,24 +57,22 @@ public class AuthenticationService {
 
         boolean authenticated = passwordEncoder.matches(password,
                 user.getPassWord());
-
         if (authenticated){
             var token = generateToken(user);
             return token;
         }
-        return "Token false";
+        return "TokenFalse";
 
     }
     private String generateToken(User user) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
-
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .subject(user.getUserID())
                 .issuer("letan.com")
-                .issueTime(new Date())
-                .expirationTime(new Date(
-                        Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
-                ))
+                //.issueTime(new Date())
+                // .expirationTime(new Date(
+                //         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
+                // ))
                 .claim("scope", buildScope(user))
                 .build();
 

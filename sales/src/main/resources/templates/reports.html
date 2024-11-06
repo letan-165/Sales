@@ -6,7 +6,10 @@
     <title>Báo cáo và Thống kê</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/reports.css">
-</head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.12/jspdf.plugin.autotable.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.12/jspdf.plugin.autotable.min.js"></script>
+
 <body>
     <div class="container-fluid">
         <div th:replace="header.html"></div>
@@ -25,18 +28,16 @@
                         <option value="financial">Báo cáo tài chính</option>
                     </select>
                     
-                    <label for="startDate" class="form-label">Từ ngày:</label>
-                    <input type="date" id="startDate" class="form-control mb-3">
-
-                    <label for="endDate" class="form-label">Đến ngày:</label>
-                    <input type="date" id="endDate" class="form-control mb-3">
+                    <label for="report-start" class="form-label">Chọn khoảng thời gian:</label>
+                    <input type="month" id="report-start" class="form-control mb-3" required>
+                    <input type="month" id="report-end" class="form-control mb-3" required>
 
                     <button class="btn btn-primary" onclick="generateReport()">Tạo báo cáo</button>
                 </div>
 
                 <!-- Bảng hiển thị kết quả báo cáo -->
                 <div id="reportResult" class="mt-4 d-none">
-                    <table class="table table-bordered">
+                    <table id="reportTable" class="table table-bordered">
                         <thead>
                             <tr id="reportHeaders">
                                 <!-- Các tiêu đề sẽ được cập nhật dựa vào loại báo cáo -->
@@ -48,47 +49,101 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button class="btn btn-secondary" onclick="exportReport()">Xuất PDF/Excel</button>
+                    <button class="btn btn-secondary" onclick="exportReport('xlsx')">Xuất Excel</button>
+                    <button class="btn btn-secondary" onclick="exportReport('pdf')">Xuất PDF</button>
+                    <button class="btn btn-secondary" onclick="exportReport('csv')">Xuất CSV</button>
                 </div>
             </main>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script>
+        function generateReport() {
+            const reportType = document.getElementById("reportType").value;
+            const startDate = document.getElementById("report-start").value;
+            const endDate = document.getElementById("report-end").value;
+            const headers = document.getElementById("reportHeaders");
+            const data = document.getElementById("reportData");
+            
+            // Kiểm tra ngày bắt đầu và kết thúc
+            if (!startDate || !endDate || new Date(startDate) > new Date(endDate)) {
+                alert("Vui lòng chọn khoảng thời gian hợp lệ!");
+                return;
+            }
 
-<script>
-    function generateReport() {
-        const reportType = document.getElementById("reportType").value;
-        const headers = document.getElementById("reportHeaders");
-        const data = document.getElementById("reportData");
-        
-        // Xóa nội dung cũ
-        headers.innerHTML = "";
-        data.innerHTML = "";
+            // Xóa nội dung cũ
+            headers.innerHTML = "";
+            data.innerHTML = "";
 
-        // Hiện bảng kết quả
-        document.getElementById('reportResult').classList.remove('d-none');
+            // Hiện bảng kết quả
+            document.getElementById('reportResult').classList.remove('d-none');
 
-        if (reportType === "sales") {
-            headers.innerHTML = "<th>Tổng số đơn hàng</th><th>Doanh thu</th><th>Sản phẩm bán chạy nhất</th>";
-            data.innerHTML = "<td>100</td><td>1,000,000 VNĐ</td><td>Sản phẩm A</td>";
-        } else if (reportType === "inventory") {
-            headers.innerHTML = "<th>Số lượng hàng tồn kho</th><th>Số hàng nhập</th><th>Số hàng xuất</th>";
-            data.innerHTML = "<td>200</td><td>50</td><td>30</td>";
-        } else if (reportType === "financial") {
-            headers.innerHTML = "<th>Tổng doanh thu</th><th>Tổng chi phí</th><th>Lợi nhuận</th>";
-            data.innerHTML = "<td>1,500,000 VNĐ</td><td>800,000 VNĐ</td><td>700,000 VNĐ</td>";
+            // Tạo tiêu đề và dữ liệu dựa vào loại báo cáo
+            if (reportType === "sales") {
+                headers.innerHTML = "<th>Tổng số đơn hàng</th><th>Doanh thu</th><th>Sản phẩm bán chạy nhất</th>";
+                data.innerHTML = "<td>100</td><td>1,000,000 VNĐ</td><td>Sản phẩm A</td>";
+            } else if (reportType === "inventory") {
+                headers.innerHTML = "<th>Số lượng hàng tồn kho</th><th>Số hàng nhập</th><th>Số hàng xuất</th>";
+                data.innerHTML = "<td>200</td><td>50</td><td>30</td>";
+            } else if (reportType === "financial") {
+                headers.innerHTML = "<th>Tổng doanh thu</th><th>Tổng chi phí</th><th>Lợi nhuận</th>";
+                data.innerHTML = "<td>1,500,000 VNĐ</td><td>800,000 VNĐ</td><td>700,000 VNĐ</td>";
+            }
         }
-    }
 
-    function exportReport() {
-        const reportType = document.getElementById("reportType").value;
-        const startDate = document.getElementById("startDate").value;
-        const endDate = document.getElementById("endDate").value;
-        alert(`Xuất báo cáo ${reportType} từ ${startDate} đến ${endDate}`);
-        // Thêm logic xuất báo cáo tại đây (PDF/Excel)
-    }
-</script>
+        function exportReport(format) {
+            const reportTable = document.getElementById("reportTable");
+            const reportType = document.getElementById("reportType").value;
+            const startDate = document.getElementById("report-start").value;
+            const endDate = document.getElementById("report-end").value;
 
+            if (format === 'xlsx') {
+                const workbook = XLSX.utils.table_to_book(reportTable, { sheet: "Báo cáo" });
+                const fileName = `BaoCao_${reportType}_${startDate}_${endDate}.xlsx`;
+                XLSX.writeFile(workbook, fileName);
+            } else if (format === 'pdf') {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF();
+                pdf.setFontSize(12);
+                pdf.text("Báo cáo: " + reportType, 10, 10);
+                pdf.text("Thời gian: từ " + startDate + " đến " + endDate, 10, 20);
+
+                // Lấy dữ liệu từ bảng
+                const rows = [];
+                reportTable.querySelectorAll("tr").forEach(row => {
+                    const cols = row.querySelectorAll("td, th");
+                    const rowData = Array.from(cols).map(col => col.innerText);
+                    rows.push(rowData);
+                });
+
+                pdf.autoTable({
+                    head: [rows[0]], // Tiêu đề bảng
+                    body: rows.slice(1) // Dữ liệu
+                });
+
+                const pdfFileName = `BaoCao_${reportType}_${startDate}_${endDate}.pdf`;
+                pdf.save(pdfFileName);
+            } else if (format === 'csv') {
+                let csvContent = "data:text/csv;charset=utf-8,";
+                const rows = [];
+                reportTable.querySelectorAll("tr").forEach(row => {
+                    const cols = row.querySelectorAll("td, th");
+                    const rowData = Array.from(cols).map(col => col.innerText).join(",");
+                    rows.push(rowData);
+                });
+                csvContent += rows.join("\n");
+
+                const csvFileName = `BaoCao_${reportType}_${startDate}_${endDate}.csv`;
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", csvFileName);
+                document.body.appendChild(link); // Required for FF
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+    </script>
+</body>
 </html>

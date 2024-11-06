@@ -2,6 +2,7 @@ package com.example.sales_management.Controllers;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +29,7 @@ public class PermissionController {
     PermissionService permissionService;
     UserService userService;
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list/{permissionID}", method = { RequestMethod.GET, RequestMethod.POST })
     public String getAllPermissions(Model model, @PathVariable(required = false) String permissionID) {
         Permission permission = permissionService.findById(permissionID);

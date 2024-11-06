@@ -39,6 +39,7 @@ public class ProductDataConfig {
                 Product product = Product.builder()
                         .productName(productName)
                         .price(Long.parseLong(productData[1]))
+                        .priceImport(Long.parseLong(productData[1])/2)
                         .quantity(Long.parseLong(productData[2]))
                         .status(productData[3])                      
                         .type(productData[4])

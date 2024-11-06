@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,17 +29,7 @@
                         </tr>
                     </thead>
                     <tbody id="invoiceList">
-                        <tr>
-                            <td>HD001</td>
-                            <td>Khách hàng A</td>
-                            <td>1,000,000 VNĐ</td>
-                            <td>2024-10-20</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick="openDialog('edit', 'HD001', 'Khách hàng A', '1,000,000 VNĐ', '2024-10-20')">Sửa</button>
-                                <button class="btn btn-danger btn-sm" onclick="openDialog('delete', 'HD001')">Xóa</button>
-                            </td>
-                        </tr>
-                        <!-- Các hóa đơn khác có thể được thêm vào đây -->
+                        <!-- Các hóa đơn sẽ được thêm vào đây -->
                     </tbody>
                 </table>
                 <div class="modal fade" id="dialog" tabindex="-1" aria-labelledby="dialogLabel" aria-hidden="true">
@@ -61,7 +51,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="totalAmount" class="form-label">Tổng tiền</label>
-                                        <input type="text" class="form-control" id="totalAmount" required>
+                                        <input type="number" class="form-control" id="totalAmount" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="invoiceDate" class="form-label">Ngày lập hóa đơn</label>
@@ -79,6 +69,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="notification" class="mt-3"></div>
             </main>
         </div>
     </div>
@@ -87,6 +78,12 @@
 </body>
 
 <script>
+    function showNotification(message, isError = false) {
+        const notification = document.getElementById('notification');
+        notification.innerHTML = `<div class="alert ${isError ? 'alert-danger' : 'alert-success'}">${message}</div>`;
+        setTimeout(() => notification.innerHTML = '', 3000);
+    }
+
     function openDialog(action, invoiceId = null, customerName = null, totalAmount = null, invoiceDate = null) {
         const dialog = new bootstrap.Modal(document.getElementById('dialog'));
         const dialogLabel = document.getElementById('dialogLabel');
@@ -97,20 +94,14 @@
             confirmButton.textContent = 'Thêm';
             document.getElementById('addEditContent').style.display = 'block';
             document.getElementById('deleteContent').style.display = 'none';
-            document.getElementById('invoiceId').value = '';
-            document.getElementById('customerName').value = '';
-            document.getElementById('totalAmount').value = '';
-            document.getElementById('invoiceDate').value = '';
+            clearForm();
             confirmButton.onclick = addInvoice;
         } else if (action === 'edit') {
             dialogLabel.textContent = 'Sửa hóa đơn';
             confirmButton.textContent = 'Lưu';
             document.getElementById('addEditContent').style.display = 'block';
             document.getElementById('deleteContent').style.display = 'none';
-            document.getElementById('invoiceId').value = invoiceId;
-            document.getElementById('customerName').value = customerName;
-            document.getElementById('totalAmount').value = totalAmount;
-            document.getElementById('invoiceDate').value = invoiceDate;
+            populateForm(invoiceId, customerName, totalAmount, invoiceDate);
             confirmButton.onclick = () => editInvoice(invoiceId);
         } else if (action === 'delete') {
             dialogLabel.textContent = 'Xóa hóa đơn';
@@ -123,12 +114,38 @@
         dialog.show();
     }
 
+    function clearForm() {
+        document.getElementById('invoiceId').value = '';
+        document.getElementById('customerName').value = '';
+        document.getElementById('totalAmount').value = '';
+        document.getElementById('invoiceDate').value = '';
+    }
+
+    function populateForm(invoiceId, customerName, totalAmount, invoiceDate) {
+        document.getElementById('invoiceId').value = invoiceId;
+        document.getElementById('customerName').value = customerName;
+        document.getElementById('totalAmount').value = totalAmount;
+        document.getElementById('invoiceDate').value = invoiceDate;
+    }
+
     function addInvoice() {
-        const invoiceId = document.getElementById('invoiceId').value;
-        const customerName = document.getElementById('customerName').value;
-        const totalAmount = document.getElementById('totalAmount').value;
+        const invoiceId = document.getElementById('invoiceId').value.trim();
+        const customerName = document.getElementById('customerName').value.trim();
+        const totalAmount = document.getElementById('totalAmount').value.trim();
         const invoiceDate = document.getElementById('invoiceDate').value;
 
+        if (!invoiceId || !customerName || !totalAmount || !invoiceDate) {
+            showNotification("Vui lòng điền đầy đủ thông tin!", true);
+            return;
+        }
+
+        const newRow = createInvoiceRow(invoiceId, customerName, totalAmount, invoiceDate);
+        document.getElementById('invoiceList').appendChild(newRow);
+        showNotification('Hóa đơn đã được thêm thành công!');
+        bootstrap.Modal.getInstance(document.getElementById('dialog')).hide();
+    }
+
+    function createInvoiceRow(invoiceId, customerName, totalAmount, invoiceDate) {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
             <td>${invoiceId}</td>
@@ -140,13 +157,13 @@
                 <button class="btn btn-danger btn-sm" onclick="openDialog('delete', '${invoiceId}')">Xóa</button>
             </td>
         `;
-        document.getElementById('invoiceList').appendChild(newRow);
-        bootstrap.Modal.getInstance(document.getElementById('dialog')).hide();
+        return newRow;
     }
 
     function editInvoice(invoiceId) {
         // Cập nhật thông tin hóa đơn dựa trên mã hóa đơn
         console.log(`Sửa thông tin hóa đơn: ${invoiceId}`);
+        showNotification('Hóa đơn đã được cập nhật thành công!');
 
         // Đóng dialog
         bootstrap.Modal.getInstance(document.getElementById('dialog')).hide();
@@ -162,10 +179,10 @@
                 row.remove();
             }
         });
-
+        showNotification('Hóa đơn đã được xóa thành công!');
+        
         // Đóng dialog
         bootstrap.Modal.getInstance(document.getElementById('dialog')).hide();
     }
 </script>
-
 </html>

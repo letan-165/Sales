@@ -26,7 +26,7 @@ public class SecurityConfig {
     @Value("${jwt.signerKey}")
     protected String signerKey;
 
-    private final String[] PUBLIC_ENDPOINTS = {"/auth/**", "/css/**", "/js/**", "/img/**","/**"};
+    private final String[] PUBLIC_ENDPOINTS = {"/css/**", "/js/**", "/img/**","/**"};
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(request ->

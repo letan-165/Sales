@@ -32,7 +32,7 @@ public class Import {
     String status;
     LocalDateTime time;
     String supplier ;
-
+    
 
     @OneToMany(mappedBy = "imports")
     private List<ImportProduct> importProducts;

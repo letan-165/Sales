@@ -23,7 +23,6 @@ public class PermissionService {
     PermissionRepository permissionRepository;
     UserRepository userRepository;
 
-    //@PreAuthorize("hasRole('ADMIN')")
     public List<Permission> findAll() {
         return permissionRepository.findAll();
     }

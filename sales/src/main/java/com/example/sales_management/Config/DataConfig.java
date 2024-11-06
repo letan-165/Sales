@@ -4,6 +4,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.example.sales_management.Data.ImportDataConfig;
 import com.example.sales_management.Data.ProductDataConfig;
 import com.example.sales_management.Data.UserPremissionDataConfig;
 
@@ -18,6 +19,7 @@ public class DataConfig {
 
     ProductDataConfig productDataConfig;
     UserPremissionDataConfig userPremissionDataConfig;
+    ImportDataConfig importDataConfig;
     @Bean
     ApplicationRunner applicationRunner() {
         return args -> {
@@ -25,6 +27,7 @@ public class DataConfig {
             userPremissionDataConfig.createPermissions();
             userPremissionDataConfig.createRoles();
             productDataConfig.createProducts();
+            importDataConfig.createImports();
         };
     }
 }

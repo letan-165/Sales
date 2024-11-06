@@ -22,8 +22,9 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order findById(Long orderID) {
-        return orderRepository.findById(orderID).orElse(null);
+    public Order findById(Long orderId) {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found with ID: " + orderId));
     }
 
     @PreAuthorize("hasAnyRole('ORDER_CREATE','ORDER_UPDATE')")
@@ -34,5 +35,10 @@ public class OrderService {
     @PreAuthorize("hasRole('ORDER_READ')")
     public void deleteById(Long orderID) {
         orderRepository.deleteById(orderID);
+    }
+
+    public Object update(Long id, Order order) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 }

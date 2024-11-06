@@ -3,6 +3,7 @@ function openDialog(
   productID = null,
   productName = null,
   price = null,
+  priceImport = null,
   type = null,
   description = null
 ) {
@@ -19,6 +20,7 @@ function openDialog(
     productIDField.style.display = "none";
     document.getElementById("productName").value = "";
     document.getElementById("price").value = "";
+    document.getElementById("priceImport").value = "";
     document.getElementById("type").value = "";
     document.getElementById("description").value = "";
   } else if (action === "edit") {
@@ -28,6 +30,7 @@ function openDialog(
     document.getElementById("productID").value = productID;
     document.getElementById("productName").value = productName;
     document.getElementById("price").value = price;
+    document.getElementById("priceImport").value = priceImport;
     document.getElementById("type").value = type;
     document.getElementById("description").value = description;
   }
