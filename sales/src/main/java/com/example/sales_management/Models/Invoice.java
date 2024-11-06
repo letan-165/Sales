@@ -34,7 +34,6 @@ public class Invoice {
     String status;
     String description;
 
-    @OneToMany(mappedBy = "invoice")
-    @Builder.Default
-    List<Order> orders = new ArrayList<>();
+    @OneToOne(mappedBy = "invoice")
+    Order order;
 }
