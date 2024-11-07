@@ -28,7 +28,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Lấy token từ cookie có tên "Authorization"
         String token = null;
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
@@ -39,18 +38,15 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             }
         }
 
-        // Nếu token hợp lệ, tiến hành xác thực người dùng
         if (token != null) {
             try {
-                Jwt jwt = jwtDecoder.decode(token); // Giải mã và kiểm tra tính hợp lệ của JWT
+                Jwt jwt = jwtDecoder.decode(token);
                 Authentication authentication = jwtAuthenticationConverter.convert(jwt);
-                SecurityContextHolder.getContext().setAuthentication(authentication); // Đặt Authentication vào SecurityContext
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
-                // Xử lý trường hợp token không hợp lệ
-                SecurityContextHolder.clearContext(); // Xoá thông tin xác thực nếu token không hợp lệ
+                SecurityContextHolder.clearContext();
             }
         }
-
-        filterChain.doFilter(request, response); // Tiến hành tiếp tục chuỗi lọc
+        filterChain.doFilter(request, response);
     }
 }

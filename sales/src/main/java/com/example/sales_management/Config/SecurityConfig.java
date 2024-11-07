@@ -56,6 +56,7 @@ public class SecurityConfig {
                 .build();
     }
 
+    
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter(){
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
