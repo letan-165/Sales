@@ -21,18 +21,15 @@ import lombok.experimental.FieldDefaults;
 public class ImportService {
     ImportRepository importRepository;
     ImportProductRepository importProductRepository;
-    //@PreAuthorize("hasRole('IMPORT_READ')")
     public List<Import> findAll() {
         return importRepository.findAll();
     }
     public Import findById(Long importID) {
         return importRepository.findById(importID).orElse(null);
     }
-    //@PreAuthorize("hasAnyRole('IMPORT_CREATE','IMPORT_UPDATE')")
     public Import save(Import import_) {
         return importRepository.save(import_);
     }
-    //@PreAuthorize("hasRole('IMPORT_DELETE')")
     public void deleteById(Long importID) {
         importRepository.deleteById(importID);
     }
@@ -43,6 +40,7 @@ public class ImportService {
         List<Import> import_ = importRepository.findAll();
         return import_.isEmpty() ? null : import_.get(0);
     }
+
     public List<ImportProduct> findImportProductsByImportID(Long importID) {
         return importProductRepository.findByImports_ImportID(importID);
     }

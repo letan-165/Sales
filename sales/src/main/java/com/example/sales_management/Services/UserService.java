@@ -17,8 +17,6 @@
     @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
     public class UserService {
         UserRepository userRepository;
-
-        //@PreAuthorize("hasAnyRole('ADMIN','MANAGER)")
         public List<User> findAll() {
             return userRepository.findAll();
         }

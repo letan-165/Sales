@@ -17,12 +17,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ReportService {
     ReportRepository reportRepository;
-    //@PreAuthorize("hasAnyRole('REPORT_CREATE','REPORT_UPDATE')")
     public Report save(Report report) {
         return reportRepository.save(report);
     }
 
-    //@PreAuthorize("hasRole('REPORT_READ')")
     public List<Report> findAll() {
         return reportRepository.findAll();
     }
@@ -31,7 +29,6 @@ public class ReportService {
         return reportRepository.findById(reportID);
     }
 
-   //@PreAuthorize("hasRole('REPORT_DELETE')")
     public void deleteById(Long reportID) {
         reportRepository.deleteById(reportID);
     }

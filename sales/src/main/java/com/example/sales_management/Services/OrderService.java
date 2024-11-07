@@ -17,7 +17,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OrderService {
     OrderRepository orderRepository;
-    //@PreAuthorize("hasRole('ORDER_READ')")
     public List<Order> findAll() {
         return orderRepository.findAll();
     }
@@ -38,7 +37,6 @@ public class OrderService {
     }
 
     public Object update(Long id, Order order) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 }

@@ -17,7 +17,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProductService {
     ProductRepository productRepository;
-    //@PreAuthorize("hasRole('PRODUCT_READ')")
     public List<Product> findAll() {
         return productRepository.findAll();
     }
@@ -26,7 +25,6 @@ public class ProductService {
         return productRepository.findById(productID).orElse(null);
     }
 
-    //@PreAuthorize("hasAnyRole('PRODUCT_CREATE','PRODUCT_UPDATE')")
     public Product save(Product product) {
         if(product.getStatus()==null){
             product.setStatus("new");
@@ -37,7 +35,6 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    //@PreAuthorize("hasRole('PRODUCT_DELETE')")
     public void deleteById(Long productID) {
         productRepository.deleteById(productID);
     }

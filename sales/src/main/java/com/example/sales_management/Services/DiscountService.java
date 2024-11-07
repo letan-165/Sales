@@ -16,19 +16,15 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DiscountService {
     DiscountRepository discountRepository;
-
-    //@PreAuthorize("hasRole('DISCOUNT_READ')")
     public List<Discount> findAll() {
         return discountRepository.findAll();
     }
     public Discount findById(String discountID) {
         return discountRepository.findById(discountID).orElse(null);
     }
-    //@PreAuthorize("hasAnyRole('DISCOUNT_CREATE','DISCOUNT_UPDATE')")
     public Discount save(Discount discount) {
         return discountRepository.save(discount);
     }
-    //@PreAuthorize("hasRole('DISCOUNT_DELETE')")
     public void deleteById(String discountID) {
         discountRepository.deleteById(discountID);
     }

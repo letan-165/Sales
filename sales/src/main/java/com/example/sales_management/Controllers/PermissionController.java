@@ -29,7 +29,7 @@ public class PermissionController {
     PermissionService permissionService;
     UserService userService;
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list/{permissionID}", method = { RequestMethod.GET, RequestMethod.POST })
     public String getAllPermissions(Model model, @PathVariable(required = false) String permissionID) {
         Permission permission = permissionService.findById(permissionID);

@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -25,6 +25,7 @@ public class SecurityConfig {
 
     @Value("${jwt.signerKey}")
     protected String signerKey;
+    
 
     private final String[] PUBLIC_ENDPOINTS = {"/css/**", "/js/**", "/img/**","/**"};
     @Bean
@@ -38,6 +39,8 @@ public class SecurityConfig {
                         jwtConfigurer.decoder(jwtDecoder())
                                 .jwtAuthenticationConverter(jwtAuthenticationConverter()))
         );
+        httpSecurity.addFilterBefore(new JwtTokenFilter(jwtDecoder(), jwtAuthenticationConverter())
+                                        , UsernamePasswordAuthenticationFilter.class);
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
@@ -68,6 +71,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
+
 
 
 
