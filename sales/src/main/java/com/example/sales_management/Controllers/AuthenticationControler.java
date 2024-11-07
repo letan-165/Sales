@@ -1,8 +1,6 @@
 package com.example.sales_management.Controllers;
 
 
-import java.text.ParseException;
-
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.sales_management.Services.AuthenticationService;
-import com.example.sales_management.Services.UserService;
-import com.nimbusds.jose.JOSEException;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
@@ -23,11 +19,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 
 public class AuthenticationControler {
-
-    UserService userService ;   
     AuthenticationService authenticationService ;
 
-    
     @GetMapping("/")
     public String index() {
         return "login";
@@ -45,12 +38,6 @@ public class AuthenticationControler {
             response.addHeader("Set-Cookie", cookie.toString());
             return "list";
         }
-        return "login";
+        return "redirect:/";
     }
-
-    @GetMapping("/introspect")
-    public boolean introspect (@RequestParam String token) throws JOSEException, ParseException {
-        return authenticationService.introspect(token);
-    }
-    
 }
