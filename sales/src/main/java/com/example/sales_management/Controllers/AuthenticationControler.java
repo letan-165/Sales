@@ -23,7 +23,8 @@ public class AuthenticationControler {
     AuthenticationService authenticationService ;
 
     @GetMapping("/")
-    public String index() {
+    public String index(HttpSession session) {
+        session.invalidate();
         return "login";
     }
 
