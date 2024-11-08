@@ -29,8 +29,7 @@ public class Report {
     @ManyToOne
     @JoinColumn(name = "userID")
     User user;
-
+    
     String type;
-
     String content;
 }

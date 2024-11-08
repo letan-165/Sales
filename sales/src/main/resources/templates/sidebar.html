@@ -20,24 +20,13 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="position-sticky">
             <ul class="nav flex-column">
+              <hr />
               <li class="nav-item">
                 <a th:href="@{/user/list}" class="nav-link">
                   <i class="fa-solid fa-user"></i>
                   <span>Quản lý người dùng</span>
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
-                <div class="submenu">
-                  <ul>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Thêm, sửa, xóa người
-                      dùng
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Quản lý thông tin người
-                      dùng (tên, email, vai trò, trạng thái)
-                    </li>
-                  </ul>
-                </div>
               </li>
               <hr />
               <li class="nav-item">
@@ -46,21 +35,6 @@
                   <span>Quản lý vai trò</span>
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
-                <div class="submenu">
-                  <ul>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Thêm, sửa, xóa vai trò
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Gán vai trò cho người
-                      dùng
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Xem danh sách vai trò và
-                      quyền hạn tương ứng
-                    </li>
-                  </ul>
-                </div>
               </li>
               <hr />
               <li class="nav-item">
@@ -69,67 +43,22 @@
                   <span>Quản lý sản phẩm</span>
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
-                <div class="submenu">
-                  <ul>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Thêm, sửa, xóa sản phẩm
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Quản lý thông tin sản
-                      phẩm (tên, mô tả, giá, trạng thái)
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Theo dõi tồn kho sản
-                      phẩm
-                    </li>
-                  </ul>
-                </div>
               </li>
               <hr />
               <li class="nav-item">
                 <a th:href="@{/import/list/0}" class="nav-link">
                   <i class="fa-solid fa-warehouse"></i>
-                  <span>Quản lý kho</span>
+                  <span>Quản lý nhập hàng</span>
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
-                <div class="submenu">
-                  <ul>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Theo dõi lượng hàng tồn
-                      kho
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Quản lý nhập xuất kho
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Cập nhật tình trạng hàng
-                      hóa
-                    </li>
-                  </ul>
-                </div>
               </li>
               <hr />
               <li class="nav-item">
-                <a th:href="@{/chuyentranginvoice}" class="nav-link">
+                <a th:href="@{/invoice/list}" class="nav-link">
                   <i class="fa-solid fa-receipt"></i>
                   <span>Quản lý hoá đơn</span>
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
-                <div class="submenu">
-                  <ul>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Tạo, sửa, xóa hóa đơn
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i>Quản lý thông tin hóa đơn
-                      (ngày, số tiền, trạng thái)
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Theo dõi tình trạng
-                      thanh toán
-                    </li>
-                  </ul>
-                </div>
               </li>
               <hr />
               <li class="nav-item">
@@ -138,21 +67,6 @@
                   <span>Quản lý đơn hàng</span>
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
-                <div class="submenu">
-                  <ul>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Tạo, sửa, xóa đơn hàng
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Quản lý thông tin đơn
-                      hàng (sản phẩm, số lượng, khách hàng)
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Theo dõi tình trạng đơn
-                      hàng
-                    </li>
-                  </ul>
-                </div>
               </li>
               <hr />
               <li class="nav-item">
@@ -161,22 +75,6 @@
                   <span>Quản lý khuyến mãi</span>
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
-                <div class="submenu">
-                  <ul>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Thêm, sửa, xóa chương
-                      trình khuyến mãi
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Quản lý thông tin khuyến
-                      mãi (tên, loại, thời gian áp dụng)
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Theo dõi hiệu quả của
-                      các chương trình khuyến mãi
-                    </li>
-                  </ul>
-                </div>
               </li>
               <hr />
               <li class="nav-item">
@@ -185,25 +83,7 @@
                   <span>Báo cáo và thống kê</span>
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
-                <div class="submenu">
-                  <ul>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Tạo báo cáo về doanh
-                      thu, tồn kho, và đơn hàng
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Thống kê số liệu theo
-                      thời gian
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Phân tích dữ liệu để đưa
-                      ra quyết định
-                    </li>
-                  </ul>
-                </div>
               </li>
-              <hr />
-
               <hr />
               <li class="nav-item">
                 <a th:href="@{/chuyentrangfinancial}" class="nav-link">
@@ -211,22 +91,6 @@
                   <span>Quản lý tài chính và kế toán</span>
                   <i class="fa-solid fa-chevron-right"></i>
                 </a>
-                <div class="submenu">
-                  <ul>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Theo dõi doanh thu và
-                      chi phí
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Quản lý báo cáo tài
-                      chính
-                    </li>
-                    <li>
-                      <i class="fa-solid fa-check"></i> Kiểm tra tình trạng tài
-                      chính của doanh nghiệp
-                    </li>
-                  </ul>
-                </div>
               </li>
               <hr />
             </ul>
@@ -236,25 +100,5 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      // Thêm JavaScript để xử lý hover cho submenu
-      const navItems = document.querySelectorAll(".nav-item");
-
-      navItems.forEach((item) => {
-        item.addEventListener("mouseover", () => {
-          const submenu = item.querySelector(".submenu");
-          if (submenu) {
-            submenu.style.display = "block"; // Hiển thị submenu
-          }
-        });
-
-        item.addEventListener("mouseout", () => {
-          const submenu = item.querySelector(".submenu");
-          if (submenu) {
-            submenu.style.display = "none"; // Ẩn submenu
-          }
-        });
-      });
-    </script>
   </body>
 </html>
