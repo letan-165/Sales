@@ -1,46 +1,67 @@
 package com.example.sales_management.Controllers;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.sales_management.Models.Order;
 import com.example.sales_management.Services.OrderService;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
-@RestController
-@RequestMapping("/api/orders")
+@Controller
+@RequestMapping("/order")
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OrderController {
-    private final OrderService orderService;
 
-    @GetMapping
-    public ResponseEntity<List<Order>> getAllOrders() {
-        return ResponseEntity.ok(orderService.findAll());
+    OrderService orderService;
+
+    // Show list of all orders
+    @GetMapping("/list")
+    public String getOrders(Model model) {
+        model.addAttribute("orderList", orderService.findAll());
+        return "orders";  // Ensure this matches the name of your HTML file
     }
 
-    @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        return ResponseEntity.ok(orderService.save(order));
+    // Add a new order
+    @PostMapping("/add")
+    public String addOrder(@ModelAttribute Order order) {
+        orderService.save(order);
+        return "redirect:/order/list";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateOrder(@PathVariable Long id, @RequestBody Order order) {
-        return ResponseEntity.ok(orderService.update(id, order));
+    // Show edit form for an order
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Order order = orderService.findById(id);
+        if (order != null) {
+            model.addAttribute("order", order);
+            return "edit-order";  // Ensure this matches the name of your edit HTML file
+        } else {
+            // Handle case when order is not found
+            model.addAttribute("error", "Order not found");
+            return "redirect:/order/list";
+        }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
+    // Process editing an order
+    @PostMapping("/edit")
+    public String editOrder(@ModelAttribute Order order) {
+        orderService.update(order.getOrderID(), order);  // Update the order using the ID
+        return "redirect:/order/list";
+    }
+
+    // Delete an order
+    @PostMapping("/delete/{id}")
+    public String deleteOrder(@PathVariable Long id) {
         orderService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/order/list";
     }
 }

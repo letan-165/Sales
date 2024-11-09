@@ -41,12 +41,4 @@ public class Discount {
     @JoinColumn(name = "userID")
     User user;
 
-    public Object map(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'map'");
-    }
-
-    public void setId(String id) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }

@@ -32,8 +32,8 @@ public class Order {
     Long orderID;
 
     LocalDateTime orderTime;
-    String status;
     Long totalAmount;
+    String orderDetail;
 
     @OneToMany(mappedBy = "orders")
     List<OrderProduct> orderProducts;
@@ -45,10 +45,6 @@ public class Order {
     @OneToOne
     @JoinColumn(name = "invoiceID")
     Invoice invoice;
-
-    public void setOrderTime(LocalDateTime now) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
     
     
 }

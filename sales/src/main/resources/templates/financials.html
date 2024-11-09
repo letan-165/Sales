@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý Tài chính và Kế toán</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/financials.css" />
+    <link rel="stylesheet" href="/css/financials.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -14,17 +14,16 @@
         <div class="row">
             <div th:replace="sidebar.html" class="col-md-2 d-none d-md-block bg-light sidebar"></div>
             <main class="col-md-10 ms-auto px-md-4">
-                <h1>Quản lý siêu thị</h1>
+                <h1>Quản lý Tài chính và Kế toán</h1>
 
                 <!-- Form thêm khoản thu chi -->
-                <h3>Tài chính & Kế toán</h3>
                 <div class="mt-4">
-                    <h4 class="history-title">Thêm khoản thu chi</h4>
-                    <form id="financeForm">
+                    <h3>Thêm khoản thu chi</h3>
+                    <form id="financeForm" th:action="@{/addTransaction}" method="post">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="transactionType" class="form-label">Loại giao dịch:</label>
-                                <select id="transactionType" class="form-select" required>
+                                <select id="transactionType" name="transactionType" class="form-select" required>
                                     <option value="">Chọn loại giao dịch</option>
                                     <option value="thu">Khoản thu</option>
                                     <option value="chi">Khoản chi</option>
@@ -32,26 +31,26 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="amount" class="form-label">Số tiền:</label>
-                                <input type="number" id="amount" class="form-control" required>
+                                <input type="number" id="amount" name="amount" class="form-control" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Mô tả:</label>
-                            <input type="text" id="description" class="form-control" required>
+                            <input type="text" id="description" name="description" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label for="date" class="form-label">Ngày:</label>
-                            <input type="date" id="date" class="form-control" required>
+                            <input type="date" id="date" name="date" class="form-control" required>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-success" onclick="addTransaction()">Thêm</button>
+                            <button type="submit" class="btn btn-success" onclick="openAddDialog()">Thêm mới</button>
                         </div>
                     </form>
                 </div>
 
                 <!-- Lịch sử giao dịch -->
                 <div class="mt-5">
-                    <h4 class="history-title">Lịch sử giao dịch</h4>
+                    <h3>Lịch sử giao dịch</h3>
                     <table class="table table-bordered">
                         <thead class="table-light">
                             <tr>
@@ -64,13 +63,23 @@
                         </thead>
                         <tbody id="transactionHistory">
                             <!-- Dữ liệu lịch sử sẽ được hiển thị ở đây -->
+                            <tr th:each="transaction : ${transactions}">
+                                <td th:text="${transaction.date}"></td>
+                                <td th:text="${transaction.type}"></td>
+                                <td th:text="${transaction.description}"></td>
+                                <td th:text="${transaction.amount}"></td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm me-2" onclick="editTransaction()">Sửa</button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteTransaction()">Xóa</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <!-- Biểu đồ thống kê -->
                 <div class="mt-5">
-                    <h4 class="history-title">Thống kê Doanh thu & Chi phí</h4>
+                    <h3>Thống kê Doanh thu và Chi phí</h3>
                     <canvas id="financeChart" width="400" height="200"></canvas>
                 </div>
             </main>
@@ -78,117 +87,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const transactionHistory = [];
-
-        function addTransaction() {
-            const transactionType = document.getElementById('transactionType').value;
-            const description = document.getElementById('description').value;
-            const amount = parseFloat(document.getElementById('amount').value);
-            const date = document.getElementById('date').value;
-
-            if (!transactionType || !description || isNaN(amount) || !date) {
-                alert("Vui lòng điền đầy đủ thông tin!");
-                return;
-            }
-
-            const entry = {
-                date,
-                type: transactionType === 'thu' ? 'Khoản thu' : 'Khoản chi',
-                description,
-                amount
-            };
-            transactionHistory.push(entry);
-            updateHistoryTable();
-            updateChart();
-            alert('Giao dịch đã được thêm thành công!');
-            document.getElementById('financeForm').reset();
-        }
-
-        function updateHistoryTable() {
-            const tbody = document.getElementById('transactionHistory');
-            tbody.innerHTML = '';
-
-            transactionHistory.forEach((entry, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${entry.date}</td>
-                    <td>${entry.type}</td>
-                    <td>${entry.description}</td>
-                    <td>${entry.amount.toLocaleString()} VND</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm me-2" onclick="editTransaction(${index})">Sửa</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteTransaction(${index})">Xóa</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function editTransaction(index) {
-            const entry = transactionHistory[index];
-            document.getElementById('transactionType').value = entry.type === 'Khoản thu' ? 'thu' : 'chi';
-            document.getElementById('description').value = entry.description;
-            document.getElementById('amount').value = entry.amount;
-            document.getElementById('date').value = entry.date;
-
-            deleteTransaction(index); 
-        }
-
-        function deleteTransaction(index) {
-            transactionHistory.splice(index, 1);
-            updateHistoryTable();
-            updateChart();
-        }
-
-        // Cập nhật biểu đồ
-        function updateChart() {
-            const labels = [];
-            const data = {
-                thu: 0,
-                chi: 0
-            };
-
-            transactionHistory.forEach(entry => {
-                if (entry.type === 'Khoản thu') {
-                    data.thu += entry.amount;
-                } else {
-                    data.chi += entry.amount;
-                }
-                if (!labels.includes(entry.date)) {
-                    labels.push(entry.date);
-                }
-            });
-
-            const ctx = document.getElementById('financeChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Doanh thu',
-                        data: new Array(labels.length).fill(data.thu),
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }, {
-                        label: 'Chi phí',
-                        data: new Array(labels.length).fill(data.chi),
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
-    </script>
+    <script src="/js/financials.js"></script>
 </body>
+    
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +21,8 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Mã giảm giá</th>
-                            <th>Giá trị giảm giá</th>
+                            <th>Mã khuyến mãi</th>
+                            <th>Giá trị khuyến mãi</th>
                             <th>Thời hạn</th>
                             <th>Điều kiện áp dụng</th>
                             <th>Số lần sử dụng</th>
@@ -30,53 +30,54 @@
                         </tr>
                     </thead>
                     <tbody id="promotionList">
-                        <!-- Dữ liệu khuyến mãi mẫu -->
-                        <tr>
-                            <td>PROMO01</td>
-                            <td>10%</td>
-                            <td>31/12/2024</td>
-                            <td>Mua hàng từ 500.000 VNĐ</td>
-                            <td>5</td>
+                        <!-- Use Thymeleaf to iterate over promotions -->
+                        <tr th:each="discount : ${discounts}">
+                            <td th:text="${discount.discountID}"></td>
+                            <td th:text="${discount.discount} + '%'"></td>
+                            <td th:text="${#dates.format(discount.startTime, 'dd/MM/yyyy')} + ' - ' + ${#dates.format(discount.endTime, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${discount.minimum}"></td>
+                            <td th:text="${discount.quantity}"></td>
                             <td>
-                                <button class="btn btn-warning btn-sm" onclick="openEditDialog('PROMO01', '10%', '31/12/2024', 'Mua hàng từ 500.000 VNĐ', 5)">Sửa</button>
-                                <button class="btn btn-danger btn-sm" onclick="deletePromotion('PROMO01')">Xóa</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>PROMO02</td>
-                            <td>20%</td>
-                            <td>30/11/2024</td>
-                            <td>Giảm giá cho khách hàng mới</td>
-                            <td>10</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick="openEditDialog('PROMO02', '20%', '30/11/2024', 'Giảm giá cho khách hàng mới', 10)">Sửa</button>
-                                <button class="btn btn-danger btn-sm" onclick="deletePromotion('PROMO02')">Xóa</button>
+                                <button class="btn btn-warning btn-sm"
+                                        data-start-date="${#dates.format(discount.startTime, 'yyyy-MM-dd')}"
+                                        data-end-date="${#dates.format(discount.endTime, 'yyyy-MM-dd')}"
+                                        data-discount-id="${discount.discountID}"
+                                        data-discount-value="${discount.discount}"
+                                        data-minimum="${discount.minimum}"
+                                        data-quantity="${discount.quantity}"
+                                        onclick="openEditDialog(this)">Sửa</button>
+                                <button class="btn btn-danger btn-sm"
+                                        onclick="deleteDiscount('${discount.discountID}')">Xóa</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <!-- Modal để thêm mã giảm giá mới -->
+                <!-- Modal to Add New Promotion -->
                 <div class="modal fade" id="addDialog" tabindex="-1" aria-labelledby="addDialogLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addDialogLabel">Thêm mới mã giảm giá</h5>
+                                <h5 class="modal-title" id="addDialogLabel">Thêm mới khuyến mãi</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form id="addPromotionForm">
                                     <div class="mb-3">
-                                        <label for="newPromoCode" class="form-label">Mã giảm giá</label>
+                                        <label for="newPromoCode" class="form-label">Mã khuyến mãi</label>
                                         <input type="text" class="form-control" id="newPromoCode" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="newDiscountValue" class="form-label">Giá trị giảm giá</label>
+                                        <label for="newDiscountValue" class="form-label">Giá trị khuyến mãi</label>
                                         <input type="number" class="form-control" id="newDiscountValue" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="newExpiryDate" class="form-label">Thời hạn sử dụng</label>
-                                        <input type="date" class="form-control" id="newExpiryDate" required>
+                                        <label for="newStartTime" class="form-label">Thời gian bắt đầu</label>
+                                        <input type="date" class="form-control" id="newStartTime" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="newEndTime" class="form-label">Thời gian kết thúc</label>
+                                        <input type="date" class="form-control" id="newEndTime" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="newConditions" class="form-label">Điều kiện áp dụng</label>
@@ -96,27 +97,31 @@
                     </div>
                 </div>
 
-                <!-- Modal để chỉnh sửa mã giảm giá -->
+                <!-- Modal to Edit Promotion -->
                 <div class="modal fade" id="editDialog" tabindex="-1" aria-labelledby="editDialogLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editDialogLabel">Chỉnh sửa mã giảm giá</h5>
+                                <h5 class="modal-title" id="editDialogLabel">Chỉnh sửa khuyến mãi</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form id="editPromotionForm">
                                     <div class="mb-3">
-                                        <label for="editPromoCode" class="form-label">Mã giảm giá</label>
+                                        <label for="editPromoCode" class="form-label">Mã khuyến mãi</label>
                                         <input type="text" class="form-control" id="editPromoCode" readonly>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="editDiscountValue" class="form-label">Giá trị giảm giá</label>
+                                        <label for="editDiscountValue" class="form-label">Giá trị khuyến mãi</label>
                                         <input type="number" class="form-control" id="editDiscountValue" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="editExpiryDate" class="form-label">Thời hạn sử dụng</label>
-                                        <input type="date" class="form-control" id="editExpiryDate" required>
+                                        <label for="editStartTime" class="form-label">Thời gian bắt đầu</label>
+                                        <input type="date" class="form-control" id="editStartTime" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editEndTime" class="form-label">Thời gian kết thúc</label>
+                                        <input type="date" class="form-control" id="editEndTime" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="editConditions" class="form-label">Điều kiện áp dụng</label>
@@ -140,53 +145,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function openAddDialog() {
-            document.getElementById('newPromoCode').value = '';
-            document.getElementById('newDiscountValue').value = '';
-            document.getElementById('newExpiryDate').value = '';
-            document.getElementById('newConditions').value = '';
-            document.getElementById('newUsageLimit').value = '';
-            const addDialog = new bootstrap.Modal(document.getElementById('addDialog'));
-            addDialog.show();
-        }
-
-        function openEditDialog(promoCode, discountValue, expiryDate, conditions, usageCount) {
-            document.getElementById('editPromoCode').value = promoCode;
-            document.getElementById('editDiscountValue').value = discountValue;
-            document.getElementById('editExpiryDate').value = expiryDate;
-            document.getElementById('editConditions').value = conditions;
-            document.getElementById('editUsageLimit').value = usageCount;
-            const editDialog = new bootstrap.Modal(document.getElementById('editDialog'));
-            editDialog.show();
-        }
-
-        function addNewPromotion() {
-            const newPromoCode = document.getElementById('newPromoCode').value;
-            const newDiscountValue = document.getElementById('newDiscountValue').value;
-            const newExpiryDate = document.getElementById('newExpiryDate').value;
-            const newConditions = document.getElementById('newConditions').value;
-            const newUsageLimit = document.getElementById('newUsageLimit').value;
-
-            // Gửi yêu cầu thêm khuyến mãi đến server
-            console.log('Thêm mã giảm giá mới:', { newPromoCode, newDiscountValue, newExpiryDate, newConditions, newUsageLimit });
-        }
-
-        function editPromotion() {
-            const promoCode = document.getElementById('editPromoCode').value;
-            const discountValue = document.getElementById('editDiscountValue').value;
-            const expiryDate = document.getElementById('editExpiryDate').value;
-            const conditions = document.getElementById('editConditions').value;
-            const usageLimit = document.getElementById('editUsageLimit').value;
-
-            // Gửi yêu cầu chỉnh sửa khuyến mãi đến server
-            console.log('Chỉnh sửa mã giảm giá:', { promoCode, discountValue, expiryDate, conditions, usageLimit });
-        }
-
-        function deletePromotion(promoCode) {
-            // Xác nhận xóa và gửi yêu cầu đến server
-            console.log('Xóa mã giảm giá:', promoCode);
-        }
-    </script>
+    <script src="/js/promotions.js"></script>
 </body>
 </html>
