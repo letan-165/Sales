@@ -51,12 +51,6 @@ public class UserController {
         userService.save(user);
         return "redirect:/user/list";
     }
-    @PostMapping ("/edit/{id}")
-    public String editUser(@PathVariable String id, Model model) {
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
-        return "users";
-    }
     
     @PostMapping ("/delete/{id}")
     public String deleteUser(@PathVariable  String id) {

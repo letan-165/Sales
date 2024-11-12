@@ -2,6 +2,7 @@ package com.example.sales_management.Models;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,13 +35,14 @@ public class Product {
     String type;
     String description;
 
-    @OneToMany(mappedBy = "products")
+    @OneToMany(mappedBy = "products", cascade = CascadeType.PERSIST, orphanRemoval = false)
     List<OrderProduct> orderProducts;
 
-    @OneToMany(mappedBy = "products")
+    @OneToMany(mappedBy = "products", cascade = CascadeType.PERSIST, orphanRemoval = false)
     List<DiscountProduct> discountProducts;
 
-    @OneToMany(mappedBy = "products")
+    @OneToMany(mappedBy = "products", cascade = CascadeType.PERSIST, orphanRemoval = false)
     List<ImportProduct> importProducts;
+
     
 }

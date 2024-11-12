@@ -41,12 +41,6 @@ public class InvoiceController {
         invoiceService.saveOrUpdate(invoice);
         return "redirect:/invoice/list";
     }
-    @PostMapping ("/edit/{id}")
-    public String editInvoice(@PathVariable Long id, Model model) {
-        Invoice invoice = invoiceService.findById(id);
-        model.addAttribute("invoice", invoice);
-        return "invoices";
-    }
 
     // Tìm hóa đơn theo ID
     @PostMapping("delete/{id}")

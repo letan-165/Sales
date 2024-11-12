@@ -1,4 +1,5 @@
 package com.example.sales_management.Controllers;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,6 @@ import com.example.sales_management.Services.ProductService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
-
 
 @Controller
 @RequestMapping("/product")
@@ -34,17 +33,16 @@ public class ProductController {
         productService.save(product);
         return "redirect:/product/list";
     }
-    @PostMapping ("/edit/{id}")
-    public String ediProdust(@PathVariable Long id, Model model) {
-        Product product = productService.findById(id);
-        model.addAttribute("product", product);
-        return "products";
-    }
     
-    @PostMapping ("/delete/{id}")
-    public String deleteProdust(@PathVariable  Long id) {
-        productService.deleteById(id);
+    @PostMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        try {
+            productService.deleteById(id);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
         return "redirect:/product/list";
     }
+
     
 }

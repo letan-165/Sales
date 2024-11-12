@@ -5,6 +5,7 @@ function openDialog(
   price = null,
   priceImport = null,
   type = null,
+  status = null,
   description = null
 ) {
   const dialog = new bootstrap.Modal(document.getElementById("dialog"));
@@ -22,6 +23,7 @@ function openDialog(
     document.getElementById("price").value = "";
     document.getElementById("priceImport").value = "";
     document.getElementById("type").value = "";
+    document.getElementById("status").value = "";
     document.getElementById("description").value = "";
   } else if (action === "edit") {
     dialogLabel.textContent = "Sửa sản phẩm";
@@ -32,6 +34,7 @@ function openDialog(
     document.getElementById("price").value = price;
     document.getElementById("priceImport").value = priceImport;
     document.getElementById("type").value = type;
+    document.getElementById("status").value = status;
     document.getElementById("description").value = description;
   }
   dialog.show();

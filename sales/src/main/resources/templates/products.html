@@ -39,6 +39,7 @@
                 <th>Giá bán</th>
                 <th>Giá nhập</th>
                 <th>Loại</th>
+                <th>Tình trạng</th>
                 <th>Mô tả</th>
                 <th>Thao tác</th>
               </tr>
@@ -51,6 +52,7 @@
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.priceImport}"></td>
                 <td th:text="${product.type}"></td>
+                <td th:text="${product.status}"></td>
                 <td
                   th:text="${product.description}"
                   style="text-align: left !important"
@@ -59,7 +61,7 @@
                 <td>
                   <button
                     class="btn btn-warning btn-sm"
-                    th:attr="onclick='openDialog(&quot;edit&quot;, &quot;' + ${product.productID} + '&quot;, &quot;' + ${product.productName} + '&quot;, &quot;' + ${product.price} + '&quot;, &quot;' + ${product.priceImport} + '&quot;, &quot;' + ${product.type} + '&quot;, &quot;' + ${product.description} + '&quot;)'"
+                    th:attr="onclick='openDialog(&quot;edit&quot;, &quot;' + ${product.productID} + '&quot;, &quot;' + ${product.productName} + '&quot;, &quot;' + ${product.price} + '&quot;, &quot;' + ${product.priceImport} + '&quot;, &quot;' + ${product.type} + '&quot;, &quot;' + ${product.status} + '&quot;, &quot;' + ${product.description} + '&quot;)'"
                   >
                     Sửa
                   </button>
@@ -162,6 +164,21 @@
                           required
                         />
                       </div>
+                      <div class="mb-3">
+                        <label for="status" class="form-label"
+                          >Tình trạng</label
+                        >
+                        <select
+                          class="form-control"
+                          id="status"
+                          name="status"
+                          required
+                        >
+                          <option value="new">Mới</option>
+                          <option value="discontinued">Ngừng bán</option>
+                        </select>
+                      </div>
+
                       <div class="mb-3">
                         <label for="description" class="form-label"
                           >Mô tả</label
