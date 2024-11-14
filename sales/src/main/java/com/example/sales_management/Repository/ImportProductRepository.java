@@ -15,7 +15,7 @@ import com.example.sales_management.Models.ImportProductId;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface ImportProductRepository extends JpaRepository<ImportProduct, ImportProductId> {
+public interface ImportProductRepository extends JpaRepository<ImportProduct, Long> {
     List<ImportProduct> findByImports_ImportID(Long importID);
 
     @Modifying
