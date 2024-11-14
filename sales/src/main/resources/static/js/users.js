@@ -44,3 +44,20 @@ function openDialog(
 
   dialog.show();
 }
+function searchUsers() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const filterWords = input.split(" "); // Tách từ khóa thành mảng
+  const table = document.getElementById("userList");
+  const rows = table.getElementsByTagName("tr");
+
+  for (let i = 0; i < rows.length; i++) {
+      const rowText = rows[i].innerText.toLowerCase();
+      const match = filterWords.some(word => rowText.includes(word)); // Kiểm tra nếu bất kỳ từ nào có trong hàng
+
+      if (match || input === "") {
+          rows[i].style.display = ""; // Hiển thị hàng nếu khớp hoặc nếu ô tìm kiếm trống
+      } else {
+          rows[i].style.display = "none"; // Ẩn hàng nếu không khớp
+      }
+  }
+}
