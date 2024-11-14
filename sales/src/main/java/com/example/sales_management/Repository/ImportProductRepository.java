@@ -25,7 +25,7 @@ public interface ImportProductRepository extends JpaRepository<ImportProduct, Lo
     void deleteById(ImportProductId id);
 
         @Query("""
-        SELECT ip 
+        SELECT ip
         FROM ImportProduct ip
         JOIN ip.imports i
         WHERE i.time BETWEEN :startDate AND :endDate

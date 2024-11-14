@@ -44,3 +44,23 @@ function openDialog(
 
   dialog.show();
 }
+function searchUsers() {
+  // Lấy giá trị tìm kiếm từ ô input và chuyển thành mảng từ
+  const input = document.getElementById("searchInput").value.toLowerCase().split(" ");
+  
+  // Lấy tất cả các hàng trong bảng người dùng
+  const rows = document.querySelectorAll("#list tr");
+
+  // Duyệt qua từng hàng
+  rows.forEach((row) => {
+    // Lấy toàn bộ nội dung của hàng và chuyển thành chữ thường
+    const rowText = row.innerText.toLowerCase();
+
+    // Kiểm tra xem có từ nào trong chuỗi tìm kiếm xuất hiện trong hàng không
+    const isMatch = input.every((term) => rowText.includes(term));
+
+    // Nếu có từ khớp, hiển thị hàng; ngược lại, ẩn hàng
+    row.style.display = isMatch ? "" : "none";
+  });
+}
+

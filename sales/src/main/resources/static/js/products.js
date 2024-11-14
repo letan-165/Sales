@@ -1,3 +1,23 @@
+function searchProducts() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const filterWords = input.split(" "); // Tách các từ khóa
+  const table = document.getElementById("list");
+  const rows = table.getElementsByTagName("tr");
+
+  for (let i = 0; i < rows.length; i++) {
+      const rowText = rows[i].innerText.toLowerCase();
+      
+      // Kiểm tra nếu có ít nhất một từ trong filterWords khớp với nội dung của hàng
+      const match = filterWords.some(word => rowText.includes(word));
+
+      if (match || input === "") {
+          rows[i].style.display = ""; // Hiển thị hàng nếu khớp hoặc ô tìm kiếm trống
+      } else {
+          rows[i].style.display = "none"; // Ẩn hàng nếu không khớp
+      }
+  }
+}
+
 function openDialog(
   action,
   productID = null,

@@ -45,21 +45,19 @@ function openDialog(action, orderID = null, productName = null, orderTime = null
 
 // Tìm kiếm đơn hàng
 function searchOrders() {
-    const searchInput = document.getElementById("searchInput").value.toLowerCase();
-    const rows = document.querySelectorAll("#orderList tr");
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const filterWords = input.split(" "); // Tách từ khóa tìm kiếm thành mảng
+    const table = document.getElementById("orderList");
+    const rows = table.getElementsByTagName("tr");
 
-    rows.forEach(row => {
-        const cells = row.getElementsByTagName("td");
-        let isMatch = false;
+    for (let i = 0; i < rows.length; i++) {
+        const rowText = rows[i].innerText.toLowerCase();
+      const match = filterWords.every(word => rowText.includes(word)); // Kiểm tra nếu tất cả từ tìm kiếm có mặt trong văn bản hàng
 
-        for (let i = 0; i < cells.length; i++) {
-            const cellText = cells[i].innerText.toLowerCase();
-            if (cellText.includes(searchInput)) {
-                isMatch = true;
-                break;
-            }
+        if (match) {
+        rows[i].style.display = ""; // Hiển thị hàng nếu khớp
+        } else {
+        rows[i].style.display = "none"; // Ẩn hàng nếu không khớp
         }
-
-        row.style.display = isMatch ? "" : "none";
-    });
+    }
 }

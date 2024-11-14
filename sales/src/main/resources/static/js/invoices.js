@@ -59,3 +59,26 @@ showNotification("Hóa đơn đã được xóa thành công!");
 
 // Đóng dialog
 bootstrap.Modal.getInstance(document.getElementById("dialog")).hide();
+function searchInvoices() {
+  // Lấy giá trị nhập từ ô tìm kiếm
+  const input = document.getElementById("searchInput").value.toLowerCase();
+
+  // Lấy tất cả các hàng trong bảng
+  const rows = document.querySelectorAll("#list tr");
+
+  // Duyệt qua từng hàng
+  rows.forEach((row) => {
+    // Lấy toàn bộ nội dung của hàng và chuyển thành chữ thường để so sánh
+    const rowText = row.innerText.toLowerCase();
+
+    // Kiểm tra nếu nội dung của hàng chứa chuỗi tìm kiếm
+    if (rowText.includes(input)) {
+      // Nếu có chứa, hiện hàng này
+      row.style.display = "";
+    } else {
+      // Nếu không chứa, ẩn hàng này
+      row.style.display = "none";
+    }
+  });
+}
+
