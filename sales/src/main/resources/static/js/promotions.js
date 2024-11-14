@@ -58,23 +58,21 @@ function openDialog(
 
 // Tìm kiếm khuyến mãi
 function searchInvoices() {
-  const searchInput = document
-    .getElementById("searchInput")
-    .value.toLowerCase();
-  const rows = document.querySelectorAll("#promotionList tr");
+const searchInput = document.getElementById("searchInput").value.toLowerCase();
+const rows = document.querySelectorAll("#promotionList tr");
 
-  rows.forEach((row) => {
+rows.forEach(row => {
     const cells = row.getElementsByTagName("td");
     let isMatch = false;
 
     for (let i = 0; i < cells.length; i++) {
-      const cellText = cells[i].innerText.toLowerCase();
-      if (cellText.includes(searchInput)) {
+    const cellText = cells[i].innerText.toLowerCase();
+    if (cellText.includes(searchInput)) {
         isMatch = true;
         break;
-      }
+    }
     }
 
     row.style.display = isMatch ? "" : "none";
-  });
+});
 }
