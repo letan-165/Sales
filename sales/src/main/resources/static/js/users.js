@@ -45,19 +45,22 @@ function openDialog(
   dialog.show();
 }
 function searchUsers() {
-  const input = document.getElementById("searchInput").value.toLowerCase();
-  const filterWords = input.split(" "); // Tách từ khóa thành mảng
-  const table = document.getElementById("userList");
-  const rows = table.getElementsByTagName("tr");
+  // Lấy giá trị tìm kiếm từ ô input và chuyển thành mảng từ
+  const input = document.getElementById("searchInput").value.toLowerCase().split(" ");
+  
+  // Lấy tất cả các hàng trong bảng người dùng
+  const rows = document.querySelectorAll("#list tr");
 
-  for (let i = 0; i < rows.length; i++) {
-      const rowText = rows[i].innerText.toLowerCase();
-      const match = filterWords.some(word => rowText.includes(word)); // Kiểm tra nếu bất kỳ từ nào có trong hàng
+  // Duyệt qua từng hàng
+  rows.forEach((row) => {
+    // Lấy toàn bộ nội dung của hàng và chuyển thành chữ thường
+    const rowText = row.innerText.toLowerCase();
 
-      if (match || input === "") {
-          rows[i].style.display = ""; // Hiển thị hàng nếu khớp hoặc nếu ô tìm kiếm trống
-      } else {
-          rows[i].style.display = "none"; // Ẩn hàng nếu không khớp
-      }
-  }
+    // Kiểm tra xem có từ nào trong chuỗi tìm kiếm xuất hiện trong hàng không
+    const isMatch = input.every((term) => rowText.includes(term));
+
+    // Nếu có từ khớp, hiển thị hàng; ngược lại, ẩn hàng
+    row.style.display = isMatch ? "" : "none";
+  });
 }
+

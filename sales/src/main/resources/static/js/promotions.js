@@ -57,22 +57,25 @@ function openDialog(
 }
 
 // Tìm kiếm khuyến mãi
-function searchInvoices() {
-const searchInput = document.getElementById("searchInput").value.toLowerCase();
-const rows = document.querySelectorAll("#promotionList tr");
+function searchPromotions() {
+  // Lấy giá trị nhập từ ô tìm kiếm
+  const input = document.getElementById("searchInput").value.toLowerCase();
 
-rows.forEach(row => {
-    const cells = row.getElementsByTagName("td");
-    let isMatch = false;
+  // Lấy tất cả các hàng trong bảng
+  const rows = document.querySelectorAll("#list tr");
 
-    for (let i = 0; i < cells.length; i++) {
-    const cellText = cells[i].innerText.toLowerCase();
-    if (cellText.includes(searchInput)) {
-        isMatch = true;
-        break;
+  // Duyệt qua từng hàng
+  rows.forEach((row) => {
+    // Lấy toàn bộ nội dung của hàng và chuyển thành chữ thường để so sánh
+    const rowText = row.innerText.toLowerCase();
+
+    // Kiểm tra nếu nội dung của hàng chứa chuỗi tìm kiếm
+    if (rowText.includes(input)) {
+      // Nếu có chứa, hiện hàng này
+      row.style.display = "";
+    } else {
+      // Nếu không chứa, ẩn hàng này
+      row.style.display = "none";
     }
-    }
-
-    row.style.display = isMatch ? "" : "none";
-});
+  });
 }

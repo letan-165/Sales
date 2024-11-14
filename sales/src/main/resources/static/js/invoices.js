@@ -59,21 +59,26 @@ showNotification("Hóa đơn đã được xóa thành công!");
 
 // Đóng dialog
 bootstrap.Modal.getInstance(document.getElementById("dialog")).hide();
-// Tìm kiếm hóa đơn
 function searchInvoices() {
+  // Lấy giá trị nhập từ ô tìm kiếm
   const input = document.getElementById("searchInput").value.toLowerCase();
-  const filterWords = input.split(" "); // Tách các từ tìm kiếm
-  const table = document.getElementById("invoiceList");
-  const rows = table.getElementsByTagName("tr");
 
-  for (let i = 0; i < rows.length; i++) {
-    const rowText = rows[i].innerText.toLowerCase();
-    const match = filterWords.every(word => rowText.includes(word)); // Kiểm tra xem từng từ tìm kiếm có xuất hiện trong nội dung hàng không
+  // Lấy tất cả các hàng trong bảng
+  const rows = document.querySelectorAll("#list tr");
 
-    if (match) {
-      rows[i].style.display = ""; // Hiển thị hàng nếu phù hợp
+  // Duyệt qua từng hàng
+  rows.forEach((row) => {
+    // Lấy toàn bộ nội dung của hàng và chuyển thành chữ thường để so sánh
+    const rowText = row.innerText.toLowerCase();
+
+    // Kiểm tra nếu nội dung của hàng chứa chuỗi tìm kiếm
+    if (rowText.includes(input)) {
+      // Nếu có chứa, hiện hàng này
+      row.style.display = "";
     } else {
-      rows[i].style.display = "none"; // Ẩn hàng nếu không phù hợp
+      // Nếu không chứa, ẩn hàng này
+      row.style.display = "none";
     }
-  }
+  });
 }
+
