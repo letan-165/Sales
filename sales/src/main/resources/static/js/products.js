@@ -39,3 +39,23 @@ function openDialog(
   }
   dialog.show();
 }
+function searchProducts() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const rows = document.querySelectorAll("#productList tr");
+
+    rows.forEach((row) => {
+        const cells = row.getElementsByTagName("td");
+        let isMatch = false;
+
+        // Kiểm tra từng ô trong hàng
+        for (let cell of cells) {
+        if (cell.textContent.toLowerCase().includes(input)) {
+            isMatch = true;
+            break;
+        }
+        }
+
+        // Hiển thị hàng nếu khớp với từ khóa, ẩn nếu không khớp
+        row.style.display = isMatch ? "" : "none";
+    });
+}
