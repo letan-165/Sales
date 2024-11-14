@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sản phẩm trong đơn hàng</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/importProduct.css" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div th:replace="header.html"></div>
+      <div class="row">
+        <div
+          th:replace="sidebar.html"
+          class="col-md-2 d-none d-md-block bg-light sidebar"
+        ></div>
+        <main class="col-md-10 ms-auto px-md-4">
+          <h1>Quản lý siêu thị</h1>
+          <a th:href="@{/order/list}" class="nav-link">
+            <i class="fa-solid fa-warehouse"></i>
+            <span>Trở về</span>
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+          <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+          >
+            <h3>Sản phẩm trong đơn hàng</h3>
+            <form th:action="@{/order/pay}" method="post">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                th:if="${infoOrder.status != 'paid'}"
+                onclick="return confirm('Bạn có chắc chắn muốn thanh toán?');"
+              >
+                Thanh toán:
+                <span
+                  th:text="${#numbers.formatInteger(totalPrices, 0, 'COMMA')}+đ"
+                  style="font-weight: bold; color: #000"
+                ></span>
+              </button>
+            </form>
+          </div>
+
+          <div class="">
+            <div class="table-responsive" style="width: 68%">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Mã đơn</th>
+                    <th>Mã hàng</th>
+                    <th>Tên hàng</th>
+                    <th>Số lượng</th>
+                    <th>Giá gốc</th>
+                    <th>Tổng giá</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="list">
+                  <tr th:each="orderProduct : ${listOrderProduct}">
+                    <td th:text="${orderProduct.orders.orderID}"></td>
+                    <td th:text="${orderProduct.products.productID}"></td>
+                    <td th:text="${orderProduct.products.ProductName}"></td>
+                    <td th:text="${orderProduct.quantity}"></td>
+                    <td
+                      th:text="${#numbers.formatInteger(orderProduct.products.price, 0, 'COMMA')}+đ"
+                    ></td>
+                    <td
+                      th:text="${#numbers.formatInteger(orderProduct.products.price * orderProduct.quantity, 0, 'COMMA')}+đ"
+                    ></td>
+
+                    <td>
+                      <form
+                        th:action="@{/order/list/deleteOrderProduct/{orderID}-{productID}(orderID=${orderProduct.orders.orderID}, productID=${orderProduct.products.productID})}"
+                        method="post"
+                        style="display: inline"
+                      >
+                        <button type="submit" class="btn btn-danger btn-sm">
+                          Xóa
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              id="pagination"
+              class="d-flex justify-content-center mt-4"
+            ></div>
+            <!-- FORM -->
+
+            <div class="container mt-5" style="width: 25%">
+              <h2 class="text-center">Thêm sản phẩm</h2>
+              <form
+                th:action="@{/order/list/addOrderProduct}"
+                th:object="${infoProduct}"
+                method="post"
+              >
+                <div class="mb-3" id="idjs">
+                  <label for="productID" class="form-label">Mã sản phẩm</label>
+                  <select
+                    class="form-control"
+                    id="productID"
+                    th:field="*{productID}"
+                  >
+                    <option value="" disabled selected>Chọn sản phẩm</option>
+                    <option
+                      th:each="product : ${listProduct}"
+                      th:value="${product.productID}"
+                      th:text="${product.productName}"
+                    ></option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="quantity" class="form-label">Số lượng</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="quantity"
+                    placeholder="Nhập số lượng"
+                    th:field="*{quantity}"
+                    required
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script src="/js/pagination.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

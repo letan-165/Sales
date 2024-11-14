@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -41,8 +42,8 @@ public class ImportController {
     ZoneId zoneId = ZoneId.systemDefault();
     LocalDateTime localDateTime = LocalDateTime.now(zoneId).truncatedTo(ChronoUnit.MINUTES);
 
-    
-
+    //Quyền đọc
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'IMPORT_READ')")
     @RequestMapping(value = "/list/{importID}", method = { RequestMethod.GET, RequestMethod.POST })
     public String getImports(Model model, @PathVariable(required = false) Long importID, HttpSession session) {
         Import infoImport_ = importService.findById(importID);
@@ -62,8 +63,8 @@ public class ImportController {
         model.addAttribute("totalPrices", totalPrices);
         return "imports";
     }
-
-    
+    //Quyền thêm
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'IMPORT_CREATE','IMPORT_UPDATE')")
     @PostMapping("/add")
     public String addImport(@ModelAttribute Import import_, @RequestParam(required = false) Long importID) {    
         if (importID != null) {
@@ -78,7 +79,8 @@ public class ImportController {
         }
         return "redirect:/import/list/" + import_.getImportID();
     }
-
+    //Quyền xóa
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'IMPORT_DELETE')")
     @PostMapping("/delete/{importID}")
     public String deleteImport(@PathVariable(required = false) Long importID) {
         Import import_ = importService.findById(importID);
@@ -88,6 +90,8 @@ public class ImportController {
         }
         return "redirect:/import/list/" + importID;
     }
+    //Quyền thanh toán việc nhập hàng
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'MANAGER','ADMIN')") //lẽ ra không có ADMIN
     @PostMapping("/pay")
     public String payImport( HttpSession session) {
         Long importID = (Long) session.getAttribute("importID"); 
@@ -107,8 +111,8 @@ public class ImportController {
 
     //IMPORTPRODUCT
 
-
-
+    //Quyền xem sản phẩm trong importID 
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'IMPORT_READ')")
     @RequestMapping(value = "/list/listImportProduct/{importID}", method = { RequestMethod.GET, RequestMethod.POST })
     public String getImportProduct(Model model,@PathVariable Long importID, HttpSession session){           
         List<ImportProduct> listImportProduct = importService.findImportProductsByImportID(importID);
@@ -121,7 +125,8 @@ public class ImportController {
         model.addAttribute("listImportProduct", listImportProduct);
         return "importProduct";
     }
-
+    //Quyền thêm 1 sản phẩm vào importID
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'IMPORT_UPDATE,'IMPORT_CREATE')")
     @PostMapping("/list/addImportProduct")
     public String addImportProduct(
         @RequestParam Long productID,
@@ -142,13 +147,16 @@ public class ImportController {
 
             importService.saveImportProduct(importProduct);
         }
-        return "redirect:/import/list/listImportProduct/" + importID ;
+        import_=importService.getFirst();
+        return "redirect:/import/list/listImportProduct/" + import_.getImportID() ;
     }
-
+    //Quyền xóa sản phẩm trong importID
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'IMPORT_DELETE')")
     @PostMapping("/list/deleteImportProduct/{importID}-{productID}")
     public String deleteImportProduct(@PathVariable Long importID, @PathVariable Long productID,Model model) {
         importService.deleteImportProduct(importID, productID);
-        return "redirect:/import/list/listImportProduct/" + 1;
+        Import import_=importService.getFirst();
+        return "redirect:/import/list/listImportProduct/" + import_.getImportID();
     }
 
 

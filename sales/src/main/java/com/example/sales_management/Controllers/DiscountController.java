@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class DiscountController {
     private final DiscountService discountService;
 
+    //Quyền đọc 
+    @PreAuthorize("hasAnyRole('MANAGER', 'DISCOUNT_READ')")
     @GetMapping("/list")
     public String getDiscounts(Model model) {
         List<Discount> discounts = discountService.findAll();
@@ -39,20 +42,23 @@ public class DiscountController {
         model.addAttribute("totalQuantity", totalQuantity);
         return "discounts"; 
     }
-
+    //Quyền thêm
+    @PreAuthorize("hasAnyRole('MANAGER', 'DISCOUNT_CREATE', 'DISCOUNT_UPDATE')")
     @PostMapping("/add")
     public String addDiscount(@ModelAttribute Discount discount) {
         discountService.save(discount);
         return "redirect:/discount/list";
     }
-
+    //Quyền thêm
+    @PreAuthorize("hasAnyRole('MANAGER', 'DISCOUNT_CREATE', 'DISCOUNT_UPDATE')")
     @PostMapping("/edit/{id}")
     public String editDiscount(@PathVariable String id, Model model) {
         Discount discount = discountService.findById(id);
         model.addAttribute("promotion", discount);
         return "discounts"; 
     }
-
+    //Quyền xóa
+    @PreAuthorize("hasAnyRole('MANAGER', 'DISCOUNT_DELETE')")
     @PostMapping("/delete/{id}")
     public String deleteDiscount(@PathVariable String id) {
         Discount discount = discountService.findById(id);
@@ -63,9 +69,10 @@ public class DiscountController {
         discountService.deleteById(id);
         return "redirect:/discount/list";
     }
-
+    //Quyền xem các sản phẩm đã được áp dụng mã giảm
+    @PreAuthorize("hasAnyRole('MANAGER', 'PRODUCT_READ')")
     @RequestMapping(value = "/list/listDiscountProduct/{discountID}", method = { RequestMethod.GET, RequestMethod.POST })
-    public String getdiscountProduct(Model model,@PathVariable String discountID, HttpSession session){           
+    public String getDiscountProduct(Model model,@PathVariable String discountID, HttpSession session){           
         List<DiscountProduct> listDiscountProduct = discountService.findDiscountProductsByDiscountID(discountID);
         model.addAttribute("listDiscountProduct", listDiscountProduct);
         return "discountProduct";

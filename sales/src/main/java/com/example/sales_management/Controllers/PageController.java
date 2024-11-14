@@ -9,11 +9,7 @@ public class PageController {
     public String chuyentrangIndex() {
         return "index";
     }
-    
-    @GetMapping("/chuyentrangorder")
-    public String chuyentrangordermanager() {
-        return "orders";
-    }
+
     @GetMapping("/chuyentrangpromotion")
     public String chuyentrangpromotionmanager() {
         return "promotions";

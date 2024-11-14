@@ -42,6 +42,9 @@ public class UserPremissionDataConfig {
         "PRODUCT_CREATE", "PRODUCT_READ", "PRODUCT_UPDATE", "PRODUCT_DELETE",
         "REPORT_CREATE", "REPORT_READ", "REPORT_UPDATE", "REPORT_DELETE",
     };
+    String[] roles = {
+        "MANAGER","WAREHOUSE","ACCOUNTANT","SALES",
+    };
     String[] managerRoles = {
         "REPORT_CREATE", "REPORT_READ", "REPORT_UPDATE", "REPORT_DELETE",
         "DISCOUNT_CREATE", "DISCOUNT_READ","DISCOUNT_UPDATE","DISCOUNT_DELETE","IMPORT_READ","INVOICE_READ","PRODUCT_READ"
@@ -101,6 +104,7 @@ public class UserPremissionDataConfig {
     }
     @Transactional
     public void createRoles() {
+        addPermission("ADMIN", permissions);
         addPermission("MANAGER", managerRoles);
         addPermission("WAREHOUSE", warehouseRoles);
         addPermission("ACCOUNTANT", accountantRoles);

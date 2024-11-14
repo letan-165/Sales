@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const rowsPerPage = 13;
+  const rowsPerPage = 10;
   let currentPage = 1;
   const table = document.querySelector("#list");
   const paginationContainer = document.querySelector("#pagination");

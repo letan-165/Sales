@@ -44,7 +44,7 @@ public class PermissionController {
         model.addAttribute("userForm", userForm);
         return "permissions";
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public String addPermission(@ModelAttribute Permission permission, @RequestParam(required = false) List<String> listID) {
         permissionService.updatePermission(permission, listID);
