@@ -59,3 +59,21 @@ showNotification("Hóa đơn đã được xóa thành công!");
 
 // Đóng dialog
 bootstrap.Modal.getInstance(document.getElementById("dialog")).hide();
+// Tìm kiếm hóa đơn
+function searchInvoices() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const filterWords = input.split(" "); // Tách các từ tìm kiếm
+  const table = document.getElementById("invoiceList");
+  const rows = table.getElementsByTagName("tr");
+
+  for (let i = 0; i < rows.length; i++) {
+    const rowText = rows[i].innerText.toLowerCase();
+    const match = filterWords.every(word => rowText.includes(word)); // Kiểm tra xem từng từ tìm kiếm có xuất hiện trong nội dung hàng không
+
+    if (match) {
+      rows[i].style.display = ""; // Hiển thị hàng nếu phù hợp
+    } else {
+      rows[i].style.display = "none"; // Ẩn hàng nếu không phù hợp
+    }
+  }
+}
