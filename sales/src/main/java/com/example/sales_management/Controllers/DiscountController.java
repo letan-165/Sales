@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.sales_management.Models.Discount;
 import com.example.sales_management.Models.DiscountProduct;
-import com.example.sales_management.Models.Import;
-import com.example.sales_management.Models.ImportProduct;
-import com.example.sales_management.Models.Product;
 import com.example.sales_management.Services.DiscountService;
 
 import jakarta.servlet.http.HttpSession;
