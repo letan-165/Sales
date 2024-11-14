@@ -44,4 +44,8 @@ public class ProductService {
     public Product getFirst(List<ImportProduct> product) {
         return product.isEmpty() ? null : product.get(0).getProducts();
     }
+    public Product getFirst() {
+        List<Product> product = productRepository.findAll();
+        return product.isEmpty() ? null : product.get(0);
+    }
 }

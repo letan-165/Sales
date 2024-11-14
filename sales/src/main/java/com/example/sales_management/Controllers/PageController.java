@@ -5,10 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageController {
-    @GetMapping("/chuyentranginvoice")
-    public String chuyentranginvoicemanager() {
-        return "invoices";
+    @GetMapping("/index")
+    public String chuyentrangIndex() {
+        return "index";
     }
+    
     @GetMapping("/chuyentrangorder")
     public String chuyentrangordermanager() {
         return "orders";
@@ -26,12 +27,12 @@ public class PageController {
     public String chuyentrangproductimexmanager() {
         return "product-imexs";
     }
-    @GetMapping("/chuyentrangfinancial")
-    public String chuyentrangfinancialmanager() {
-        return "financials";
-    }
     @GetMapping("/chuyentranginstruct")
     public String chuyentranginstruct() {
         return "instruct";
+    }
+    @GetMapping("/chuyentrangnotification")
+    public String chuyentrangnotification() {
+        return "notification";
     }
 }

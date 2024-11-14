@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.sales_management.Models.Discount;
+import com.example.sales_management.Models.DiscountProduct;
+import com.example.sales_management.Models.ImportProduct;
+import com.example.sales_management.Repository.DiscountProductRepository;
 import com.example.sales_management.Repository.DiscountRepository;
 
 import lombok.AccessLevel;
@@ -16,6 +19,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DiscountService {
     DiscountRepository discountRepository;
+    DiscountProductRepository discountProductRepository;
     public List<Discount> findAll() {
         return discountRepository.findAll();
     }
@@ -27,5 +31,17 @@ public class DiscountService {
     }
     public void deleteById(String discountID) {
         discountRepository.deleteById(discountID);
+    }
+    public List<DiscountProduct> findDiscountProductsByDiscountID(String discountID) {
+        return discountProductRepository.findByDiscounts_DiscountID(discountID);
+    }
+    public void deleteDiscountProductsByDiscountID(String discountID) {
+        discountProductRepository.deleteByDiscountID(discountID);
+    }
+    public Long geQuantityDiscount(String discountID) {
+        List<DiscountProduct> discountProduct = findDiscountProductsByDiscountID(discountID);
+        return discountProduct.stream()
+                             .mapToLong(ip -> ip.getQuantity())
+                             .sum();
     }
 }

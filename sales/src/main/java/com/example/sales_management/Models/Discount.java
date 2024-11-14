@@ -28,7 +28,7 @@ import lombok.experimental.FieldDefaults;
 public class Discount {
     @Id
     String discountID;
-    Float discount;
+    Integer discount;
     Long quantity;
     LocalDateTime startTime;
     LocalDateTime endTime;

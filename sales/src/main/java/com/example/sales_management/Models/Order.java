@@ -33,7 +33,6 @@ public class Order {
 
     LocalDateTime orderTime;
     Long totalAmount;
-    String orderDetail;
 
     @OneToMany(mappedBy = "orders")
     List<OrderProduct> orderProducts;

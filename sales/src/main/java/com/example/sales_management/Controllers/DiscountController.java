@@ -1,6 +1,8 @@
 package com.example.sales_management.Controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,60 +11,66 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.sales_management.Models.Discount;
+import com.example.sales_management.Models.DiscountProduct;
+import com.example.sales_management.Models.Import;
+import com.example.sales_management.Models.ImportProduct;
+import com.example.sales_management.Models.Product;
 import com.example.sales_management.Services.DiscountService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/discounts")
+@RequestMapping("/discount")
 @RequiredArgsConstructor
 public class DiscountController {
     private final DiscountService discountService;
 
-    // Display all discounts
     @GetMapping("/list")
-    public String getAllDiscounts(Model model) {
+    public String getDiscounts(Model model) {
         List<Discount> discounts = discountService.findAll();
-        model.addAttribute("discounts", discounts);
-        return "discounts"; // The main view displaying discounts
+        
+        Map<String, Long> totalQuantity = new HashMap<>();
+        for (Discount discount : discounts) {
+            Long quantity = discountService.geQuantityDiscount(discount.getDiscountID());
+            totalQuantity.put(discount.getDiscountID(), quantity);
+        }
+        model.addAttribute("discounts", discountService.findAll());
+        model.addAttribute("totalQuantity", totalQuantity);
+        return "discounts"; 
     }
 
-    // Display a discount by ID
-    @GetMapping("/view/{id}")
-    public String getDiscountById(@PathVariable String id, Model model) {
-        Discount discount = discountService.findById(id);
-        model.addAttribute("discount", discount);
-        return "discountDetails"; // Single discount details view
-    }
-
-    // Show form to add a new discount
-    @GetMapping("/new")
-    public String showCreateForm(Model model) {
-        model.addAttribute("discount", new Discount());
-        return "discountForm"; // Form for creating a new discount
-    }
-
-    // Create or update a discount
-    @PostMapping("/save")
-    public String createOrUpdateDiscount(@ModelAttribute Discount discount) {
+    @PostMapping("/add")
+    public String addDiscount(@ModelAttribute Discount discount) {
         discountService.save(discount);
-        return "redirect:/discounts/list";
+        return "redirect:/discount/list";
     }
 
-    // Show edit form for an existing discount
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable String id, Model model) {
+    @PostMapping("/edit/{id}")
+    public String editDiscount(@PathVariable String id, Model model) {
         Discount discount = discountService.findById(id);
-        model.addAttribute("discount", discount);
-        return "discountForm"; // Reuse the form view for editing
+        model.addAttribute("promotion", discount);
+        return "discounts"; 
     }
 
-    // Delete a discount
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteDiscount(@PathVariable String id) {
+        Discount discount = discountService.findById(id);
+        if(discount!=null){
+            discountService.deleteDiscountProductsByDiscountID(id);
+            discountService.deleteById(id);
+        }
         discountService.deleteById(id);
-        return "redirect:/discounts/list";
+        return "redirect:/discount/list";
+    }
+
+    @RequestMapping(value = "/list/listDiscountProduct/{discountID}", method = { RequestMethod.GET, RequestMethod.POST })
+    public String getdiscountProduct(Model model,@PathVariable String discountID, HttpSession session){           
+        List<DiscountProduct> listDiscountProduct = discountService.findDiscountProductsByDiscountID(discountID);
+        model.addAttribute("listDiscountProduct", listDiscountProduct);
+        return "discountProduct";
     }
 }

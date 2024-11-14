@@ -1,0 +1,22 @@
+INSERT INTO `imports`(`importid`, `status`, `supplier`, `time`, `userid`) 
+VALUES
+('1', 'nopay', 'Supplier A', '2024-11-01 10:00:00', NULL),
+('2', 'nopay', 'Supplier B', '2024-11-02 11:30:00', NULL),
+('3', 'nopay', 'Supplier C', '2024-11-03 14:00:00', NULL),
+('4', 'nopay', 'Supplier D', '2024-11-04 09:15:00', NULL),
+('5', 'nopay', 'Supplier E', '2024-11-05 16:45:00', NULL),
+('6', 'nopay', 'Supplier A', '2024-11-06 08:20:00', NULL),
+('7', 'nopay', 'Supplier B', '2024-11-07 13:50:00', NULL),
+('8', 'nopay', 'Supplier C', '2024-11-08 10:30:00', NULL),
+('9', 'nopay', 'Supplier D', '2024-11-09 12:00:00', NULL),
+('10', 'nopay', 'Supplier E', '2024-11-10 15:10:00', NULL),
+('11', 'nopay', 'Supplier A', '2024-11-11 14:45:00', NULL),
+('12', 'nopay', 'Supplier B', '2024-11-12 10:20:00', NULL),
+('13', 'nopay', 'Supplier C', '2024-11-13 08:30:00', NULL),
+('14', 'nopay', 'Supplier D', '2024-11-14 13:10:00', NULL),
+('15', 'nopay', 'Supplier E', '2024-11-15 09:00:00', NULL),
+('16', 'nopay', 'Supplier A', '2024-11-16 15:30:00', NULL),
+('17', 'nopay', 'Supplier B', '2024-11-17 11:45:00', NULL),
+('18', 'nopay', 'Supplier C', '2024-11-18 16:20:00', NULL),
+('19', 'nopay', 'Supplier D', '2024-11-19 14:00:00', NULL),
+('20', 'nopay', 'Supplier E', '2024-11-20 10:15:00', NULL)

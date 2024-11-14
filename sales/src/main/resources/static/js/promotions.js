@@ -1,123 +1,80 @@
-function openAddDialog() {
-    // Reset các trường trong dialog thêm mới
-    document.getElementById('newPromoCode').value = '';
-    document.getElementById('newDiscountValue').value = '';
-    document.getElementById('newStartTime').value = '';
-    document.getElementById('newEndTime').value = '';
-    document.getElementById('newConditions').value = '';
-    document.getElementById('newUsageLimit').value = '';
-    
-    const addDialog = new bootstrap.Modal(document.getElementById('addDialog'));
-    addDialog.show();
+// Hiển thị thông báo
+function showNotification(message, isError = false) {
+  const notification = document.getElementById("notification");
+  notification.innerHTML = `<div class="alert ${
+    isError ? "alert-danger" : "alert-success"
+  }">${message}</div>`;
+  setTimeout(() => (notification.innerHTML = ""), 3000);
 }
 
-function openEditDialog(button) {
-    // Lấy dữ liệu từ nút đã nhấn
-    const discountID = button.getAttribute('data-discount-id');
-    const discountValue = button.getAttribute('data-discount-value');
-    const startTime = button.getAttribute('data-start-date');
-    const endTime = button.getAttribute('data-end-date');
-    const minimum = button.getAttribute('data-minimum');
-    const usageLimit = button.getAttribute('data-quantity');
+// Mở dialog (Thêm/Sửa)
+function openDialog(
+  action,
+  discountID = null,
+  discount = null,
+  startTime = null,
+  endTime = null,
+  minimum = null,
+  quantity = null
+) {
+  const dialog = new bootstrap.Modal(document.getElementById("dialog"));
+  const dialogLabel = document.getElementById("dialogLabel");
+  const confirmButton = document.getElementById("confirmButton");
 
-    // Đặt giá trị vào các trường trong dialog chỉnh sửa
-    document.getElementById('editPromoCode').value = discountID;
-    document.getElementById('editDiscountValue').value = discountValue;
-    document.getElementById('editStartTime').value = startTime;
-    document.getElementById('editEndTime').value = endTime;
-    document.getElementById('editConditions').value = minimum;
-    document.getElementById('editUsageLimit').value = usageLimit;
+  if (action === "add") {
+    dialogLabel.textContent = "Thêm mới khuyến mãi";
+    confirmButton.textContent = "Thêm";
+    document.getElementById("addEditContent").style.display = "block";
+    document.getElementById("deleteContent").style.display = "none";
 
-    const editDialog = new bootstrap.Modal(document.getElementById('editDialog'));
-    editDialog.show();
+    // Reset các trường nhập liệu
+    document.getElementById("discountID").value = "";
+    document.getElementById("discount").value = "";
+    document.getElementById("startTime").value = "";
+    document.getElementById("endTime").value = "";
+    document.getElementById("minimum").value = "";
+    document.getElementById("quantity").value = "";
+  } else if (action === "edit") {
+    dialogLabel.textContent = "Sửa khuyến mãi";
+    confirmButton.textContent = "Lưu";
+    document.getElementById("addEditContent").style.display = "block";
+    document.getElementById("deleteContent").style.display = "none";
+
+    document.getElementById("discountID").value = discountID;
+    document.getElementById("discount").value = discount;
+    document.getElementById("startTime").value = startTime;
+    document.getElementById("endTime").value = endTime;
+    document.getElementById("minimum").value = minimum;
+    document.getElementById("quantity").value = quantity;
+  } else if (action === "delete") {
+    dialogLabel.textContent = "Xóa khuyến mãi";
+    confirmButton.textContent = "Xóa";
+    document.getElementById("addEditContent").style.display = "none";
+    document.getElementById("deleteContent").style.display = "block";
+  }
+
+  dialog.show();
 }
 
-function addNewPromotion() {
-    // Collect form data
-    const newPromoCode = document.getElementById('newPromoCode').value;
-    const newDiscountValue = document.getElementById('newDiscountValue').value;
-    const newStartTime = document.getElementById('newStartTime').value;
-    const newEndTime = document.getElementById('newEndTime').value;
-    const newConditions = document.getElementById('newConditions').value;
-    const newUsageLimit = document.getElementById('newUsageLimit').value;
+// Tìm kiếm khuyến mãi
+function searchInvoices() {
+  const searchInput = document
+    .getElementById("searchInput")
+    .value.toLowerCase();
+  const rows = document.querySelectorAll("#promotionList tr");
 
-    // Send the data to the backend using Fetch API (or AJAX)
-    fetch('/api/discounts', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            discountID: newPromoCode,
-            discount: newDiscountValue,
-            startTime: newStartTime,
-            endTime: newEndTime,
-            minimum: newConditions,
-            quantity: newUsageLimit
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert('Thêm mới thành công!');
-        location.reload(); // Reload the page to update the table
-    })
-    .catch(error => {
-        alert('Có lỗi xảy ra khi thêm mã giảm giá');
-        console.error('Error:', error);
-    });
-}
+  rows.forEach((row) => {
+    const cells = row.getElementsByTagName("td");
+    let isMatch = false;
 
-function editPromotion() {
-    // Collect form data
-    const editPromoCode = document.getElementById('editPromoCode').value;
-    const editDiscountValue = document.getElementById('editDiscountValue').value;
-    const editStartTime = document.getElementById('editStartTime').value;
-    const editEndTime = document.getElementById('editEndTime').value;
-    const editConditions = document.getElementById('editConditions').value;
-    const editUsageLimit = document.getElementById('editUsageLimit').value;
-
-    // Send the updated data to the backend using Fetch API (or AJAX)
-    fetch(`/api/discounts/${editPromoCode}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            discount: editDiscountValue,
-            startTime: editStartTime,
-            endTime: editEndTime,
-            minimum: editConditions,
-            quantity: editUsageLimit
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert('Chỉnh sửa thành công!');
-        location.reload(); // Reload the page to update the table
-    })
-    .catch(error => {
-        alert('Có lỗi xảy ra khi chỉnh sửa mã giảm giá');
-        console.error('Error:', error);
-    });
-}
-
-function deleteDiscount(discountID) {
-    // Ask for confirmation before deleting
-    if (confirm('Bạn có chắc chắn muốn xóa mã giảm giá này?')) {
-        fetch(`/api/discounts/${discountID}`, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('Xóa thành công!');
-                location.reload(); // Reload the page to update the table
-            } else {
-                alert('Có lỗi xảy ra khi xóa mã giảm giá');
-            }
-        })
-        .catch(error => {
-            alert('Có lỗi xảy ra khi xóa mã giảm giá');
-            console.error('Error:', error);
-        });
+    for (let i = 0; i < cells.length; i++) {
+      const cellText = cells[i].innerText.toLowerCase();
+      if (cellText.includes(searchInput)) {
+        isMatch = true;
+        break;
+      }
     }
+
+    row.style.display = isMatch ? "" : "none";
+  });
 }

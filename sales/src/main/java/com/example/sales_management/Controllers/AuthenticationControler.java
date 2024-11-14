@@ -28,7 +28,7 @@ public class AuthenticationControler {
         return "login";
     }
 
-    @PostMapping("/index")
+    @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password,HttpServletResponse response,HttpSession session) {        
         String token = authenticationService.authenticate(username, password);
         session.setAttribute("username", username);

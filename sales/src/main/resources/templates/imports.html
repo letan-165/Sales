@@ -32,6 +32,11 @@
               Thêm mới
             </button>
           </div>
+          <a th:href="@{/product/productQuantity/0}" class="nav-link">
+            <i class="fa-solid fa-warehouse"></i>
+            <span>Kiểm tra sản phẩm hiện có</span>
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
           <div class="d-flex">
             <div class="table-responsive" style="width: 68%">
               <table class="table table-hover">
@@ -42,6 +47,7 @@
                     <th>Nguồn cung</th>
                     <th>Trạng thái</th>
                     <th>Tổng giá tiền</th>
+                    <th>Danh sách</th>
                     <th>Thao tác</th>
                   </tr>
                 </thead>
@@ -51,7 +57,17 @@
                     <td th:text="${import.time}"></td>
                     <td th:text="${import.supplier}"></td>
                     <td th:text="${import.status}"></td>
-                    <td th:text="${import.status}"></td>
+
+                    <td
+                      th:text="${#numbers.formatInteger(totalPrices[import.importID], 0, 'COMMA')}+đ"
+                    ></td>
+                    <td>
+                      <a
+                        th:href="@{/import/list/listImportProduct/{importID}(importID=${import.importID})}"
+                      >
+                        List
+                      </a>
+                    </td>
                     <td style="display: flex; justify-content: center">
                       <form
                         th:action="@{/import/list/{importID}(importID=${import.importID})}"
@@ -68,14 +84,6 @@
                       >
                         <button type="submit" class="btn btn-danger btn-sm">
                           Xóa
-                        </button>
-                      </form>
-                      <form
-                        th:action="@{/import/list/listImportProduct/{importID}(importID=${import.importID})}"
-                        method="post"
-                      >
-                        <button type="submit" class="btn btn-danger btn-sm">
-                          List
                         </button>
                       </form>
                     </td>
@@ -118,7 +126,7 @@
                 <div class="mb-3" id="timejs">
                   <label for="time" class="form-label">Thời gian nhập</label>
                   <input
-                    type="datetime-local"
+                    type="datetime"
                     class="form-control"
                     id="time"
                     th:field="*{time}"
@@ -131,7 +139,7 @@
                     type="text"
                     class="form-control"
                     id="supplier"
-                    placeholder="Nhập mã"
+                    placeholder="Nhập nguồn cung"
                     th:field="*{supplier}"
                     required
                   />

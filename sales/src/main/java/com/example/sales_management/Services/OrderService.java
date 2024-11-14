@@ -32,11 +32,4 @@ public class OrderService {
     public void deleteById(Long orderID) {
         orderRepository.deleteById(orderID);
     }
-    public Order update(Long id, Order order) {
-        Order existingOrder = findById(id);
-        existingOrder.setOrderTime(order.getOrderTime());
-        existingOrder.setTotalAmount(order.getTotalAmount());
-        existingOrder.setOrderDetail(order.getOrderDetail());
-        return orderRepository.save(existingOrder);
-    }
 }

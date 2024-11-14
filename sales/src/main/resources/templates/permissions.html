@@ -47,14 +47,12 @@
                     </td>
                     <td th:text="${permission.description}"></td>
                     <td>
-                      <form
-                        th:action="@{/permission/list/{permissionID}(permissionID=${permission.permissionID})}"
-                        method="post"
+                      <a
+                        th:href="@{/permission/list/{permissionID}(permissionID=${permission.permissionID})}"
+                        class="btn btn-warning btn-sm"
                       >
-                        <button type="submit" class="btn btn-warning btn-sm">
-                          Chọn
-                        </button>
-                      </form>
+                        Chọn
+                      </a>
                     </td>
                   </tr>
                 </tbody>

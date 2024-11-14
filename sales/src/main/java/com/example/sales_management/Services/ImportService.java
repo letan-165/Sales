@@ -40,9 +40,14 @@ public class ImportService {
         List<Import> import_ = importRepository.findAll();
         return import_.isEmpty() ? null : import_.get(0);
     }
-
     public List<ImportProduct> findImportProductsByImportID(Long importID) {
         return importProductRepository.findByImports_ImportID(importID);
+    }
+    public Long getPriceImport(Long importID) {
+        List<ImportProduct> importProducts = findImportProductsByImportID(importID);
+        return importProducts.stream()
+                             .mapToLong(ip -> ip.getProducts().getPriceImport() * ip.getQuantity())
+                             .sum();
     }
     public void saveImportProduct(ImportProduct importProduct) {
         importProductRepository.save(importProduct);

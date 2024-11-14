@@ -43,7 +43,9 @@
               <tr th:each="invoice :${list}">
                 <td th:text="${invoice.invoiceID}"></td>
                 <td th:text="${invoice.invoiceTime}"></td>
-                <td th:text="${invoice.totalAmount}"></td>
+                <td
+                  th:text="${#numbers.formatInteger(invoice.totalAmount, 0, 'COMMA')}+đ"
+                ></td>
                 <td th:text="${invoice.status}"></td>
                 <td th:text="${invoice.description}"></td>
                 <td>

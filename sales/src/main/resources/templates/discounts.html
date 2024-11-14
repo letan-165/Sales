@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quản lý người dùng</title>
+    <title>Quản lý khuyến mãi</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/users.css" />
+    <link rel="stylesheet" href="/css/promotions.css" />
   </head>
   <body>
     <div class="container-fluid">
@@ -19,52 +19,75 @@
           class="col-md-2 d-none d-md-block bg-light sidebar"
         ></div>
         <main class="col-md-10 ms-auto px-md-4">
-          <h1>Quản lý siêu thị</h1>
-
+          <h1>Quản lý khuyến mãi</h1>
           <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
           >
-            <h3>Quản lý người dùng</h3>
+            <h3>Danh sách khuyến mãi</h3>
             <button class="btn btn-primary" onclick="openDialog('add')">
               Thêm mới
             </button>
           </div>
+
+          <!-- Tìm kiếm -->
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="searchInput"
+              placeholder="Tìm kiếm hóa đơn..."
+              oninput="searchInvoices()"
+            />
+          </div>
+
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Mã người dùng</th>
-                <th>Email</th>
-                <th>Mật khẩu</th>
-                <th>Số điện thoại</th>
-                <th>Tên</th>
-                <th>Vai trò</th>
+                <th>Mã khuyến mãi</th>
+                <th>Giá trị khuyến mãi</th>
+                <th>Thời hạn</th>
+                <th>Tối thiểu</th>
+                <th>Đã dùng</th>
+                <th>Số lượng</th>
+                <th>Danh sách</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
-            <tbody id="userList">
-              <tr th:each="user : ${list}">
-                <td th:text="${user.userID}"></td>
-                <td th:text="${user.email}"></td>
-                <td>******</td>
-                <td th:text="${user.phone}"></td>
-                <td th:text="${user.userName}"></td>
-                <td th:text="${user.role}"></td>
+            <tbody id="promotionList">
+              <tr th:each="discount : ${discounts}">
+                <td th:text="${discount.discountID}"></td>
+                <td th:text="${discount.discount} + '%'"></td>
+                <td
+                  th:text="${discount.startTime} + ' - ' + ${discount.endTime}"
+                ></td>
+                <td
+                  th:text="${#numbers.formatInteger(discount.minimum, 0, 'COMMA')}+đ"
+                ></td>
+                <td th:text="${totalQuantity[discount.discountID]}"></td>
+                <td th:text="${discount.quantity}"></td>
                 <td>
                   <a
+                    th:href="@{/discount/list/listDiscountProduct/{discountID}(discountID=${discount.discountID})}"
+                  >
+                    List
+                  </a>
+                </td>
+                <td>
+                  <button
                     class="btn btn-warning btn-sm"
-                    th:attr="onclick='openDialog(&quot;edit&quot;, &quot;' + ${user.userID} + '&quot;, &quot;' + ${user.email} + '&quot;, &quot;' + ${user.passWord} + '&quot;, &quot;' + ${user.phone} + '&quot;, &quot;' + ${user.userName} + '&quot;, &quot;' + ${user.role} + '&quot;)'"
+                    th:attr="onclick='openDialog(&quot;edit&quot;, &quot;' + ${discount.discountID} + '&quot;, &quot;' + ${discount.discount} + '&quot;, &quot;' + ${discount.startTime} + '&quot;, &quot;' + ${discount.endTime} + '&quot;, &quot;' + ${discount.minimum} + '&quot;, &quot;' + ${discount.quantity} + '&quot;)'"
                   >
                     Sửa
-                  </a>
+                  </button>
                   <form
-                    th:action="@{delete/{id}(id=${user.userID})}"
+                    th:action="@{delete/{id}(id=${discount.discountID})}"
                     method="post"
                     style="display: inline"
                   >
                     <button
                       type="submit"
                       class="btn btn-danger btn-sm"
-                      onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này?');"
+                      onclick="return confirm('Bạn có chắc chắn muốn xóa khuyến mãi này không?');"
                     >
                       Xóa
                     </button>
@@ -74,7 +97,8 @@
             </tbody>
           </table>
 
-          <form th:action="@{add}" th:object="${user}" method="post">
+          <!-- FORM -->
+          <form th:action="@{add}" th:object="${discount}" method="post">
             <div
               class="modal fade"
               id="dialog"
@@ -85,7 +109,9 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="dialogLabel">Thêm mới</h5>
+                    <h5 class="modal-title" id="dialogLabel">
+                      Thêm mới khuyến mãi
+                    </h5>
                     <button
                       type="button"
                       class="btn-close"
@@ -94,84 +120,80 @@
                     ></button>
                   </div>
                   <div class="modal-body">
-                    <div id="addEditContent" style="display: none">
-                      <div class="mb-3">
-                        <label for="userID" class="form-label"
-                          >Mã người dùng</label
+                    <div id="addEditContent" style="display: block">
+                      <div class="mb-3" id="stylePromoCode">
+                        <label for="discountID" class="form-label"
+                          >Mã khuyến mãi</label
                         >
                         <input
                           type="text"
                           class="form-control"
-                          id="userID"
-                          name="userID"
+                          id="discountID"
+                          name="discountID"
                           required
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="discount" class="form-label"
+                          >Giá trị khuyến mãi</label
+                        >
                         <input
-                          type="email"
+                          type="number"
                           class="form-control"
-                          id="email"
-                          name="email"
+                          id="discount"
+                          name="discount"
                           required
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="passWord" class="form-label"
-                          >Mật khẩu</label
+                        <label for="startTime" class="form-label"
+                          >Thời gian bắt đầu</label
+                        >
+                        <input
+                          type="datetime-local"
+                          class="form-control"
+                          id="startTime"
+                          name="startTime"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="endTime" class="form-label"
+                          >Thời gian kết thúc</label
+                        >
+                        <input
+                          type="datetime-local"
+                          class="form-control"
+                          id="endTime"
+                          name="endTime"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="minimum" class="form-label"
+                          >Tối thiểu</label
                         >
                         <input
                           type="text"
                           class="form-control"
-                          id="passWord"
-                          name="passWord"
+                          id="minimum"
+                          name="minimum"
                           required
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="phone" class="form-label"
-                          >Số điện thoại</label
-                        >
+                        <label for="quantity" class="form-label">Còn lại</label>
                         <input
-                          type="text"
+                          type="number"
                           class="form-control"
-                          id="phone"
-                          name="phone"
+                          id="quantity"
+                          name="quantity"
                           required
                         />
-                      </div>
-                      <div class="mb-3">
-                        <label for="userName" class="form-label">Tên</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="userName"
-                          name="userName"
-                          required
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label for="role" class="form-label">Vai trò</label>
-                        <select
-                          class="form-select"
-                          id="role"
-                          name="role"
-                          required
-                        >
-                          <option value="" disabled selected>
-                            Chọn vai trò
-                          </option>
-                          <option value="ACCOUNTANT">ACCOUNTANT</option>
-                          <option value="ADMIN">ADMIN</option>
-                          <option value="MANAGER">MANAGER</option>
-                          <option value="SALES">SALES</option>
-                          <option value="WAREHOUSE">WAREHOUSE</option>
-                        </select>
                       </div>
                     </div>
                     <div id="deleteContent" style="display: none">
-                      <p>Bạn có chắc chắn muốn xóa người dùng này không?</p>
+                      <p>Bạn có chắc chắn muốn xóa khuyến mãi này không?</p>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -194,12 +216,12 @@
               </div>
             </div>
           </form>
+          <div id="notification" class="mt-3"></div>
         </main>
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/promotions.js"></script>
   </body>
-
-  <script src="/js/users.js"></script>
 </html>
