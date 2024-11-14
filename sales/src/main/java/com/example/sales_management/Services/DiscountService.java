@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.sales_management.Models.Discount;
 import com.example.sales_management.Models.DiscountProduct;
-import com.example.sales_management.Models.ImportProduct;
 import com.example.sales_management.Repository.DiscountProductRepository;
 import com.example.sales_management.Repository.DiscountRepository;
 

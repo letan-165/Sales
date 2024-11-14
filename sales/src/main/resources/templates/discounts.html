@@ -53,7 +53,7 @@
                 <th>Thao tác</th>
               </tr>
             </thead>
-            <tbody id="promotionList">
+            <tbody id="list">
               <tr th:each="discount : ${discounts}">
                 <td th:text="${discount.discountID}"></td>
                 <td th:text="${discount.discount} + '%'"></td>
@@ -77,7 +77,7 @@
                     class="btn btn-warning btn-sm"
                     th:attr="onclick='openDialog(&quot;edit&quot;, &quot;' + ${discount.discountID} + '&quot;, &quot;' + ${discount.discount} + '&quot;, &quot;' + ${discount.startTime} + '&quot;, &quot;' + ${discount.endTime} + '&quot;, &quot;' + ${discount.minimum} + '&quot;, &quot;' + ${discount.quantity} + '&quot;)'"
                   >
-                    Sửa
+                    <i class="fas fa-edit"></i>
                   </button>
                   <form
                     th:action="@{delete/{id}(id=${discount.discountID})}"
@@ -89,7 +89,7 @@
                       class="btn btn-danger btn-sm"
                       onclick="return confirm('Bạn có chắc chắn muốn xóa khuyến mãi này không?');"
                     >
-                      Xóa
+                      <i class="fa-solid fa-trash"></i>
                     </button>
                   </form>
                 </td>
@@ -97,6 +97,7 @@
             </tbody>
           </table>
 
+          <div id="pagination" class="d-flex justify-content-center mt-4"></div>
           <!-- FORM -->
           <form th:action="@{add}" th:object="${discount}" method="post">
             <div
@@ -223,5 +224,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/promotions.js"></script>
+    <script src="/js/pagination.js"></script>
   </body>
 </html>

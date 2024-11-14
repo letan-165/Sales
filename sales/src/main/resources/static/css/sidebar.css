@@ -43,13 +43,13 @@
   align-items: center;
 }
 
-/* .sidebar .nav-link i {
+.sidebar .nav-link i {
   margin-right: 10px;
 }
 
 .sidebar .nav-link span {
   flex-grow: 1;
-} */
+}
 
 .sidebar .nav-link:hover {
   color: #fff !important;

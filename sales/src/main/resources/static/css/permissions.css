@@ -125,3 +125,34 @@ td {
     margin-top: 20px;
   }
 }
+
+#pagination button {
+  min-width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  border-radius: 10px;
+  background-color: #000;
+  color: white;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
+}
+
+#pagination button:hover {
+  opacity: 0.8;
+  transform: scale(1.1); 
+}
+
+#pagination button.active {
+  background-color: #c82333; 
+  color: black;
+  font-weight: bold;
+}
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}

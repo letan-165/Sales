@@ -1,5 +1,6 @@
 package com.example.sales_management.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;

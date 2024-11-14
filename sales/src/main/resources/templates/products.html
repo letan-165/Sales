@@ -44,7 +44,7 @@
                 <th>Thao tác</th>
               </tr>
             </thead>
-            <tbody id="productList">
+            <tbody id="list">
               <!-- Dữ liệu mẫu -->
               <tr th:each="product : ${list}">
                 <td th:text="${product.productID}"></td>
@@ -67,7 +67,7 @@
                     class="btn btn-warning btn-sm"
                     th:attr="onclick='openDialog(&quot;edit&quot;, &quot;' + ${product.productID} + '&quot;, &quot;' + ${product.productName} + '&quot;, &quot;' + ${product.price} + '&quot;, &quot;' + ${product.priceImport} + '&quot;, &quot;' + ${product.type} + '&quot;, &quot;' + ${product.status} + '&quot;, &quot;' + ${product.description} + '&quot;)'"
                   >
-                    Sửa
+                  <i class="fas fa-edit"></i>
                   </button>
                   <!-- <form
                     th:action="@{delete/{id}(id=${product.productID})}"
@@ -86,6 +86,8 @@
               </tr>
             </tbody>
           </table>
+
+          <div id="pagination" class="d-flex justify-content-center mt-4"></div>
 
           <!-- Dialog Thêm/Sửa/Xóa -->
           <form th:action="@{add}" th:object="${product}" method="post">
@@ -230,4 +232,5 @@
   </body>
 
   <script src="/js/products.js"></script>
+  <script src="/js/pagination.js"></script>
 </html>

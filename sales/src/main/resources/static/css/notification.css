@@ -1,64 +1,88 @@
 body {
-    background-color: #fff;
-    margin: 0;
-    padding: 0;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
 }
 
 .container-fluid {
-    padding: 0;
+  padding: 0;
 }
 
 .row {
-    margin: 0;
-    display: flex;
+  margin: 0;
+  display: flex;
 }
 
 .sidebar {
-    width: 100%;
+  width: 100%;
 }
 
 main {
-    margin-top: 60px !important;
-    padding: 20px;
-    background-color: #ffffff;
-    overflow-y: auto;
+  margin-top: 60px !important;
+  padding: 20px;
+  background-color: #ffffff;
+  overflow-y: auto;
 }
 
 h1 {
-    text-align: center;
-    font-weight: 600;
-    margin-bottom: 30px !important;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 30px !important;
+}
+
+h3 {
+  font-size: 1.8em;
+  font-weight: bold;
+  border-left: 5px solid #0056b3;
+  padding-left: 10px;
+  margin-top: 30px;
 }
 
 table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse !important;
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse !important;
 }
 
 th, td {
-    text-align: center !important;
-    vertical-align: middle;
-    padding: 10px;
-    border: 1px solid #ccc !important;
+  text-align: center !important;
+  vertical-align: middle;
+  padding: 10px;
+  border: 1px solid #ccc !important;
 }
 
-.btn {
-    margin: 0 5px;
+.modal-header {
+  background-color: #f44336;
+  color: white;
 }
 
-.btn-info {
-    background-color: #17a2b8;
-    border-color: #17a2b8;
+#pagination button {
+  min-width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  border-radius: 10px;
+  background-color: #000;
+  color: white;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
 }
 
-.btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
+#pagination button:hover {
+  opacity: 0.8;
+  transform: scale(1.1); 
 }
 
-.logo-bottom {
-    width: 26px;
-    height: 26px;
-    margin-right: 10px;
+#pagination button.active {
+  background-color: #c82333; 
+  color: black;
+  font-weight: bold;
+}
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
 }
