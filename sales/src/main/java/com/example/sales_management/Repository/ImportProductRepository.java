@@ -15,7 +15,7 @@ import com.example.sales_management.Models.ImportProductId;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface ImportProductRepository extends JpaRepository<ImportProduct, Long> {
+public interface ImportProductRepository extends JpaRepository<ImportProduct, ImportProductId> {
     List<ImportProduct> findByImports_ImportID(Long importID);
 
     @Modifying
@@ -25,7 +25,7 @@ public interface ImportProductRepository extends JpaRepository<ImportProduct, Lo
     void deleteById(ImportProductId id);
 
         @Query("""
-        SELECT ip 
+        SELECT ip
         FROM ImportProduct ip
         JOIN ip.imports i
         WHERE i.time BETWEEN :startDate AND :endDate
