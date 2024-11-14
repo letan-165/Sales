@@ -1,3 +1,19 @@
+function filterProducts() {
+const searchValue = document.getElementById('searchInput').value.toLowerCase();
+const tableRows = document.getElementById('roleList').getElementsByTagName('tr');
+
+for (let i = 0; i < tableRows.length; i++) {
+    const productName = tableRows[i].getElementsByTagName('td')[2];
+    if (productName) {
+        const txtValue = productName.textContent || productName.innerText;
+        if (txtValue.toLowerCase().indexOf(searchValue) > -1) {
+            tableRows[i].style.display = '';
+        } else {
+            tableRows[i].style.display = 'none';
+        }
+    }
+}
+}
 function searchProducts() {
     const input = document.getElementById("searchInput").value.toLowerCase();
     const rows = document.querySelectorAll("#productList tr");
