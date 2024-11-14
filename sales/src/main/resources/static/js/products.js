@@ -1,38 +1,21 @@
-function filterProducts() {
-const searchValue = document.getElementById('searchInput').value.toLowerCase();
-const tableRows = document.getElementById('roleList').getElementsByTagName('tr');
-
-for (let i = 0; i < tableRows.length; i++) {
-    const productName = tableRows[i].getElementsByTagName('td')[2];
-    if (productName) {
-        const txtValue = productName.textContent || productName.innerText;
-        if (txtValue.toLowerCase().indexOf(searchValue) > -1) {
-            tableRows[i].style.display = '';
-        } else {
-            tableRows[i].style.display = 'none';
-        }
-    }
-}
-}
 function searchProducts() {
-    const input = document.getElementById("searchInput").value.toLowerCase();
-    const rows = document.querySelectorAll("#productList tr");
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const filterWords = input.split(" "); // Tách các từ khóa
+  const table = document.getElementById("list");
+  const rows = table.getElementsByTagName("tr");
 
-    rows.forEach((row) => {
-        const cells = row.getElementsByTagName("td");
-        let isMatch = false;
+  for (let i = 0; i < rows.length; i++) {
+      const rowText = rows[i].innerText.toLowerCase();
+      
+      // Kiểm tra nếu có ít nhất một từ trong filterWords khớp với nội dung của hàng
+      const match = filterWords.some(word => rowText.includes(word));
 
-        // Kiểm tra từng ô trong hàng
-        for (let cell of cells) {
-        if (cell.textContent.toLowerCase().includes(input)) {
-            isMatch = true;
-            break;
-        }
-        }
-
-        // Hiển thị hàng nếu khớp với từ khóa, ẩn nếu không khớp
-        row.style.display = isMatch ? "" : "none";
-    });
+      if (match || input === "") {
+          rows[i].style.display = ""; // Hiển thị hàng nếu khớp hoặc ô tìm kiếm trống
+      } else {
+          rows[i].style.display = "none"; // Ẩn hàng nếu không khớp
+      }
+  }
 }
 function openDialog(
   action,
