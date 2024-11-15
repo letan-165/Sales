@@ -31,15 +31,15 @@ public class DataConfig {
             userPremissionDataConfig.createUsers();
             userPremissionDataConfig.createPermissions();
             userPremissionDataConfig.createRoles();
-            executeSqlFromFile("sql/discount.sql");
-            executeSqlFromFile("sql/imports.sql");
-            executeSqlFromFile("sql/invoice.sql");
-            executeSqlFromFile("sql/orders.sql");
-            executeSqlFromFile("sql/products.sql");
-            executeSqlFromFile("sql/reports.sql");
-            executeSqlFromFile("sql/manytomany/discount_products.sql");
-            executeSqlFromFile("sql/manytomany/imports_products.sql");
-            executeSqlFromFile("sql/manytomany/orders_products.sql");
+            // executeSqlFromFile("sql/discount.sql");
+            // executeSqlFromFile("sql/imports.sql");
+            // executeSqlFromFile("sql/invoice.sql");
+            // executeSqlFromFile("sql/orders.sql");
+            // executeSqlFromFile("sql/products.sql");
+            // executeSqlFromFile("sql/reports.sql");
+            // executeSqlFromFile("sql/manytomany/discount_products.sql");
+            // executeSqlFromFile("sql/manytomany/imports_products.sql");
+            // executeSqlFromFile("sql/manytomany/orders_products.sql");
         };
     }
     private void executeSqlFromFile(String filePath) {

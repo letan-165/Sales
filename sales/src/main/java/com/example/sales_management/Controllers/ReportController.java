@@ -22,16 +22,15 @@ public class ReportController {
 
     @GetMapping
     public String showReportPage() {
-        return "report"; 
+        return "reports"; 
     }
 
     @GetMapping("/generate")
     public String generateReport(
             @RequestParam String reportType,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM") String startDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM") String endDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") String startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") String endDate,
             Model model) {
-    
         try {
             List<ImportProduct> reportData = importService.findImportProductsByTimeRange(reportType, startDate, endDate);
     
@@ -41,11 +40,11 @@ public class ReportController {
                 model.addAttribute("reportData", reportData);
             }
             
-            return "report";
+            return "reports";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMessage", "Lỗi khi tạo báo cáo: " + e.getMessage());
-            return "report";
+            return "reports";
         }
     }
     

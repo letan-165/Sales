@@ -1,9 +1,9 @@
 package com.example.sales_management.Services;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -65,28 +65,28 @@ public class ImportService {
             LocalDateTime endDateTime = parseEndDate(endDate);
             return importProductRepository.findByImportTimeBetween(startDateTime, endDateTime);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Định dạng yyyy-MM.", e);
+            throw new IllegalArgumentException("Định dạng yyyy-MM-dd.", e);
         }
     }
     
 
     private LocalDateTime parseStartDate(String startDate) {
-        DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            YearMonth startYearMonth = YearMonth.parse(startDate, yearMonthFormatter);
-            return startYearMonth.atDay(1).atStartOfDay();
+            LocalDate startLocalDate = LocalDate.parse(startDate, yearMonthFormatter);
+            return startLocalDate.atStartOfDay();
         } catch (Exception e) {
-            throw new IllegalArgumentException("Định dạng yyyy-MM.");
+            throw new IllegalArgumentException("Định dạng yyyy-MM-dd.");
         }
     }
 
     private LocalDateTime parseEndDate(String endDate) {
-        DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        DateTimeFormatter yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            YearMonth endYearMonth = YearMonth.parse(endDate, yearMonthFormatter);
-            return endYearMonth.atEndOfMonth().atTime(23, 59, 59);
+            LocalDate endLocalDate = LocalDate.parse(endDate, yearMonthFormatter);
+            return endLocalDate.atTime(23, 59, 59);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Định dạng yyyy-MM.");
+            throw new IllegalArgumentException("Định dạng yyyy-MM-dd.");
         }
     }
 
