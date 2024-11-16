@@ -10,4 +10,5 @@ import com.example.sales_management.Models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
     List<User> findByRole(String role);
+    List<User> findByEmail(String email);
 }
