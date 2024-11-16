@@ -1,7 +1,6 @@
 package com.example.sales_management.Services;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -9,7 +8,6 @@ import com.example.sales_management.Models.Discount;
 import com.example.sales_management.Models.Order;
 import com.example.sales_management.Models.OrderProduct;
 import com.example.sales_management.Models.OrderProductId;
-import com.example.sales_management.Models.Product;
 import com.example.sales_management.Repository.OrderProductRepository;
 import com.example.sales_management.Repository.OrderRepository;
 
@@ -51,7 +49,12 @@ public class OrderService {
     public Long getPriceOrder(Long orderID) {
         List<OrderProduct> orderProducts = findOrderProductsByOrderID(orderID);
         return orderProducts.stream()
-                             .mapToLong(ip -> ip.getProducts().getPrice() * ip.getQuantity())
+                             .mapToLong(ip -> {
+                                Discount discount = ip.getDiscount();
+                                return discount != null 
+                                       ? (ip.getProducts().getPrice() - (ip.getProducts().getPrice() * discount.getDiscount() / 100)) * ip.getQuantity() 
+                                       : ip.getProducts().getPrice() * ip.getQuantity();
+                                })
                              .sum();
     }
     public void saveOrderProduct(OrderProduct orderProduct) {

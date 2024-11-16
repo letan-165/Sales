@@ -23,7 +23,6 @@ import com.example.sales_management.Models.Order;
 import com.example.sales_management.Models.OrderProduct;
 import com.example.sales_management.Models.OrderProductId;
 import com.example.sales_management.Models.Product;
-import com.example.sales_management.Services.DiscountService;
 import com.example.sales_management.Services.InvoiceService;
 import com.example.sales_management.Services.OrderService;
 import com.example.sales_management.Services.ProductService;
@@ -138,16 +137,14 @@ public class OrderController {
                     .build();
             orderService.saveOrderProduct(orderProduct);
         }
-        order = orderService.getFirst();
-        return "redirect:/order/list/listOrderProduct/" + order.getOrderID() ;
+        return "redirect:/order/list/listOrderProduct/" + orderID ;
     }
     //Quyền xóa danh sách sản phẩm có trong đơn hàng
     @PreAuthorize("hasAnyRole('SALES', 'ORDER_DELETE')")
     @PostMapping("/list/deleteOrderProduct/{orderID}-{productID}")
     public String deleteOrderProduct(@PathVariable Long orderID, @PathVariable Long productID,Model model) {
         orderService.deleteOrderProduct(orderID, productID);
-        Order order = orderService.getFirst();
-        return "redirect:/order/list/listOrderProduct/" + order.getOrderID();
+        return "redirect:/order/list/listOrderProduct/" + orderID;
     }
 
 }

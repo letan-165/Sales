@@ -30,7 +30,13 @@
           </div>
 
           <!-- Tìm kiếm -->
-          <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm sản phẩm......" onkeyup="searchPromotions()">
+          <input
+            type="text"
+            id="searchInput"
+            class="form-control"
+            placeholder="Tìm kiếm sản phẩm......"
+            onkeyup="searchPromotions()"
+          />
 
           <table class="table table-hover">
             <thead>
@@ -55,8 +61,7 @@
                 <td
                   th:text="${#numbers.formatInteger(discount.minimum, 0, 'COMMA')}+đ"
                 ></td>
-                <!-- <td th:text="${totalQuantity[discount.discountID]}"></td> -->
-                <td th:text="${discount.quantity}"></td>
+                <td th:text="${totalQuantitys[discount.discountID]}"></td>
                 <td th:text="${discount.quantity}"></td>
                 <td>
                   <a

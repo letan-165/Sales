@@ -79,7 +79,7 @@
 
                     <td th:text="${orderProduct.quantity}"></td>
                     <td
-                      th:text="${#numbers.formatInteger(orderProduct.products.price * orderProduct.quantity, 0, 'COMMA')}+đ"
+                      th:text="${orderProduct.discount != null ? #numbers.formatInteger((orderProduct.products.price - (orderProduct.products.price * orderProduct.discount.discount / 100)) * orderProduct.quantity, 0, 'COMMA') + 'đ' : #numbers.formatInteger( orderProduct.products.price* orderProduct.quantity, 0, 'COMMA') + 'đ'}"
                     ></td>
 
                     <td>

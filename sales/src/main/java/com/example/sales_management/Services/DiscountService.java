@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.sales_management.Models.Discount;
+import com.example.sales_management.Models.OrderProduct;
 import com.example.sales_management.Repository.DiscountRepository;
+import com.example.sales_management.Repository.OrderProductRepository;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DiscountService {
     DiscountRepository discountRepository;
+    OrderProductRepository orderProductRepository;
 
     public List<Discount> findAll() {
         return discountRepository.findAll();
@@ -29,8 +32,10 @@ public class DiscountService {
     public void deleteById(String discountID) {
         discountRepository.deleteById(discountID);
     }
-    public List<Discount> findDiscountByProductID(Long productID){
-        return findDiscountByProductID(productID);
+    public Long getTotalQuantity(String discountID) {
+        List<OrderProduct> orderProducts = orderProductRepository.findByDiscount_DiscountID(discountID);
+        return orderProducts.stream()
+                            .mapToLong(OrderProduct::getQuantity)
+                            .sum();
     }
-    
 }

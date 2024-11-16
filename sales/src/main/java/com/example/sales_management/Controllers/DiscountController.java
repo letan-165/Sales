@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.sales_management.Models.Discount;
+import com.example.sales_management.Models.Order;
 import com.example.sales_management.Models.OrderProduct;
-import com.example.sales_management.Models.Product;
 import com.example.sales_management.Services.DiscountService;
 import com.example.sales_management.Services.OrderService;
-import com.example.sales_management.Services.ProductService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.AccessLevel;
@@ -38,7 +37,14 @@ public class DiscountController {
     @PreAuthorize("hasAnyRole('MANAGER', 'DISCOUNT_READ')")
     @GetMapping("/list")
     public String getDiscounts(Model model) {
-        model.addAttribute("discounts", discountService.findAll());
+        List<Discount> discounts = discountService.findAll();
+        Map<String, Long> totalQuantitys = new HashMap<>();
+        for (Discount discount : discounts) {
+            Long totalQuantity = discountService.getTotalQuantity(discount.getDiscountID());
+            totalQuantitys.put(discount.getDiscountID(), totalQuantity);
+        }
+        model.addAttribute("discounts", discounts);
+        model.addAttribute("totalQuantitys", totalQuantitys);
         return "discounts"; 
     }
     //Quyền thêm

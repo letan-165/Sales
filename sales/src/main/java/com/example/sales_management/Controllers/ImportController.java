@@ -147,16 +147,14 @@ public class ImportController {
 
             importService.saveImportProduct(importProduct);
         }
-        import_=importService.getFirst();
-        return "redirect:/import/list/listImportProduct/" + import_.getImportID() ;
+        return "redirect:/import/list/listImportProduct/" + importID ;
     }
     //Quyền xóa sản phẩm trong importID
     @PreAuthorize("hasAnyRole('WAREHOUSE', 'IMPORT_DELETE')")
     @PostMapping("/list/deleteImportProduct/{importID}-{productID}")
     public String deleteImportProduct(@PathVariable Long importID, @PathVariable Long productID,Model model) {
         importService.deleteImportProduct(importID, productID);
-        Import import_=importService.getFirst();
-        return "redirect:/import/list/listImportProduct/" + import_.getImportID();
+        return "redirect:/import/list/listImportProduct/" + importID;
     }
 
 
