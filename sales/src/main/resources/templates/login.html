@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Đăng Nhập</title>
     <link rel="stylesheet" href="css/login_style.css" />
     <script
       src="https://kit.fontawesome.com/dfe1904133.js"
@@ -12,10 +12,9 @@
   </head>
   <body>
     <main>
-      <!-- Login Form -->
       <div class="login-form">
         <img src="img/logo.png" alt="Logo" class="logo" />
-        <form th:action="@{login}" method="post">
+        <form action="/index" method="post">
           <div class="input-box">
             <i class="icon">
               <img src="img/person.png" alt="icon-person" class="icon-img" />
@@ -48,9 +47,7 @@
           </div>
 
           <div class="remember-forgot">
-            <a href="#" class="r-f_text" id="forgotPasswordLink"
-              >Quên mật khẩu?</a
-            >
+            <a th:href="@{/password-reset}" class="r-f_text">Quên mật khẩu?</a>
           </div>
 
           <div class="login">
@@ -58,54 +55,13 @@
               Đăng nhập
             </button>
           </div>
+          <div th:if="${error}" class="error-message">
+            <p th:text="${error}"></p>
+          </div>
         </form>
       </div>
-
-      <div id="forgotPasswordModal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2>Quên Mật Khẩu</h2>
-            <span class="close" id="closeModal">&times;</span>
-          </div>
-          <div class="modal-body">
-            <div class="input-box">
-              <label for="email">Nhập email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                placeholder="Email của bạn"
-              />
-            </div>
-            <div class="input-box">
-              <label for="verificationCode">Mã xác thực:</label>
-              <input
-                type="text"
-                id="verificationCode"
-                name="verificationCode"
-                required
-                placeholder="Nhập mã xác thực"
-              />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="sendVerificationCode">Gửi mã</button>
-            <button type="button" id="submitForgotPassword">Xác nhận</button>
-          </div>
-        </div>
-      </div>
     </main>
-
     <footer></footer>
     <script src="/js/login.js"></script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
   </body>
 </html>
