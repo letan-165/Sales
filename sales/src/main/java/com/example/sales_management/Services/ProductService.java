@@ -48,4 +48,5 @@ public class ProductService {
         List<Product> product = productRepository.findAll();
         return product.isEmpty() ? null : product.get(0);
     }
+    
 }

@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.sales_management.Models.Discount;
 import com.example.sales_management.Models.Invoice;
 import com.example.sales_management.Models.Order;
 import com.example.sales_management.Models.OrderProduct;
 import com.example.sales_management.Models.OrderProductId;
 import com.example.sales_management.Models.Product;
+import com.example.sales_management.Services.DiscountService;
 import com.example.sales_management.Services.InvoiceService;
 import com.example.sales_management.Services.OrderService;
 import com.example.sales_management.Services.ProductService;
@@ -100,7 +102,7 @@ public class OrderController {
     //Quyền đọc danh sách sản phẩm có trong đơn hàng
     @PreAuthorize("hasAnyRole('SALES', 'ORDER_READ')")
     @RequestMapping(value = "/list/listOrderProduct/{orderID}", method = { RequestMethod.GET, RequestMethod.POST })
-    public String getorderProduct(Model model,@PathVariable Long orderID, HttpSession session){           
+    public String getOrderProduct(Model model,@PathVariable Long orderID, HttpSession session){           
         List<OrderProduct> listOrderProduct = orderService.findOrderProductsByOrderID(orderID);
         List<Product> listProduct = productService.findAll();
         session.setAttribute("orderID", orderID);
@@ -123,11 +125,15 @@ public class OrderController {
         Long orderID = (Long) session.getAttribute("orderID"); 
         Order order = orderService.findById(orderID);
         Product product = productService.findById(productID);
+        List<Discount> listDiscount= orderService.findDiscountsByProductID(product.getPrice());
+        Discount discount = (listDiscount.isEmpty()) ? null : listDiscount.get(0);
+
         if (order != null && product != null) {
             OrderProduct orderProduct = OrderProduct.builder()
                     .id(new OrderProductId(orderID, productID))
                     .orders(order)
                     .products(product)
+                    .discount(discount)
                     .quantity(quantity)
                     .build();
             orderService.saveOrderProduct(orderProduct);

@@ -55,7 +55,8 @@
                 <td
                   th:text="${#numbers.formatInteger(discount.minimum, 0, 'COMMA')}+đ"
                 ></td>
-                <td th:text="${totalQuantity[discount.discountID]}"></td>
+                <!-- <td th:text="${totalQuantity[discount.discountID]}"></td> -->
+                <td th:text="${discount.quantity}"></td>
                 <td th:text="${discount.quantity}"></td>
                 <td>
                   <a

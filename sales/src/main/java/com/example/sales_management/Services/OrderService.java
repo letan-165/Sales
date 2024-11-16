@@ -1,12 +1,15 @@
 package com.example.sales_management.Services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.sales_management.Models.Discount;
 import com.example.sales_management.Models.Order;
 import com.example.sales_management.Models.OrderProduct;
 import com.example.sales_management.Models.OrderProductId;
+import com.example.sales_management.Models.Product;
 import com.example.sales_management.Repository.OrderProductRepository;
 import com.example.sales_management.Repository.OrderRepository;
 
@@ -61,5 +64,11 @@ public class OrderService {
     public void deleteOrderProduct(Long orderID, Long productID) {
         OrderProductId orderProductId = new OrderProductId(orderID, productID);
         orderProductRepository.deleteById(orderProductId);
+    }
+    public List<OrderProduct> getProductsByDiscount(String discountID) {
+        return orderProductRepository.findByDiscount_DiscountID(discountID);
+    }
+    public List<Discount> findDiscountsByProductID(Long price){
+        return orderProductRepository.findDiscountsByProductID(price);
     }
 }

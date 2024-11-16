@@ -34,8 +34,8 @@ public class Discount {
     LocalDateTime endTime;
     Long minimum;
 
-    @OneToMany(mappedBy = "discounts")
-    List<DiscountProduct> discountProducts;
+    @OneToMany(mappedBy = "discount")
+    List<OrderProduct> orderProduct;
 
     @ManyToOne
     @JoinColumn(name = "userID")

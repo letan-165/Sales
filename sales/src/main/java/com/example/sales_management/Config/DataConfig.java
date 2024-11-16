@@ -37,7 +37,6 @@ public class DataConfig {
             // executeSqlFromFile("sql/orders.sql");
             // executeSqlFromFile("sql/products.sql");
             // executeSqlFromFile("sql/reports.sql");
-            // executeSqlFromFile("sql/manytomany/discount_products.sql");
             // executeSqlFromFile("sql/manytomany/imports_products.sql");
             // executeSqlFromFile("sql/manytomany/orders_products.sql");
         };

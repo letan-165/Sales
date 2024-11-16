@@ -35,5 +35,9 @@ public class OrderProduct {
     @JoinColumn(name = "productID")
     Product products;
 
+    @ManyToOne
+    @JoinColumn(name = "discountID")
+    Discount discount;
+
     Long quantity;
 }

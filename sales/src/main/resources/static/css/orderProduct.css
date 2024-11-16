@@ -1,0 +1,158 @@
+body {
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.row {
+  margin: 0;
+  display: flex;
+}
+
+.sidebar {
+  width: 100%;
+}
+
+main {
+  margin-top: 60px !important;
+  padding: 20px;
+  background-color: #ffffff;
+  overflow-y: auto;
+  max-width: 80%; 
+  margin-left: 120px;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 30px !important;
+}
+
+h3 {
+  font-size: 1.8em;
+  font-weight: bold;
+  border-left: 5px solid #0056b3;
+  padding-left: 10px;
+  margin-top: 30px; 
+}
+
+.table-responsive {
+  width: 75% !important; 
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse !important;
+}
+
+th,
+td {
+  text-align: center !important;
+  vertical-align: middle;
+  padding: 10px;
+  border: 1px solid #ccc !important;
+}
+
+.btn {
+  margin: 0 5px;
+}
+
+.btn-warning {
+  color: #fff;
+  background-color: #ffc107;
+  border: none;
+}
+
+.logo-bottom {
+  width: 26px;
+  height: 26px;
+  margin-right: 10px;
+}
+
+.container.mt-5 {
+  width: 20% !important;
+  position: fixed; 
+  top: 212px;
+  right: 20px; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  z-index: 10; 
+}
+
+.container.mt-5 h2 {
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.form-control {
+  margin-top: 5px;
+}
+
+.form-check {
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  font-weight: bold;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    width: 100%;
+  }
+
+  .container.mt-5 {
+    position: static; 
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+#pagination button {
+  min-width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  border-radius: 10px;
+  background-color: #000;
+  color: white;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
+}
+
+#pagination button:hover {
+  opacity: 0.8;
+  transform: scale(1.1); 
+}
+
+#pagination button.active {
+  background-color: #c82333; 
+  color: black;
+  font-weight: bold;
+}
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}

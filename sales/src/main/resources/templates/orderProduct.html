@@ -8,7 +8,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/importProduct.css" />
+    <link rel="stylesheet" href="/css/orderProduct.css" />
   </head>
   <body>
     <div class="container-fluid">
@@ -46,15 +46,17 @@
           </div>
 
           <div class="">
-            <div class="table-responsive" style="width: 68%">
+            <div class="table-responsive">
               <table class="table table-hover">
                 <thead>
                   <tr>
                     <th>Mã đơn</th>
                     <th>Mã hàng</th>
                     <th>Tên hàng</th>
-                    <th>Số lượng</th>
                     <th>Giá gốc</th>
+                    <th>Mã giảm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
                     <th>Tổng giá</th>
                     <th>Thao tác</th>
                   </tr>
@@ -64,10 +66,18 @@
                     <td th:text="${orderProduct.orders.orderID}"></td>
                     <td th:text="${orderProduct.products.productID}"></td>
                     <td th:text="${orderProduct.products.ProductName}"></td>
-                    <td th:text="${orderProduct.quantity}"></td>
                     <td
                       th:text="${#numbers.formatInteger(orderProduct.products.price, 0, 'COMMA')}+đ"
                     ></td>
+                    <td
+                      th:text="${orderProduct.discount != null ? orderProduct.discount.discountID + ' - ' + orderProduct.discount.discount + '%' : 'No discount'}"
+                    ></td>
+
+                    <td
+                      th:text="${orderProduct.discount != null ? #numbers.formatInteger(orderProduct.products.price - (orderProduct.products.price * orderProduct.discount.discount / 100), 0, 'COMMA') + 'đ' : #numbers.formatInteger(orderProduct.products.price, 0, 'COMMA') + 'đ'}"
+                    ></td>
+
+                    <td th:text="${orderProduct.quantity}"></td>
                     <td
                       th:text="${#numbers.formatInteger(orderProduct.products.price * orderProduct.quantity, 0, 'COMMA')}+đ"
                     ></td>
@@ -94,7 +104,7 @@
             ></div>
             <!-- FORM -->
 
-            <div class="container mt-5" style="width: 25%">
+            <div class="container mt-5">
               <h2 class="text-center">Thêm sản phẩm</h2>
               <form
                 th:action="@{/order/list/addOrderProduct}"

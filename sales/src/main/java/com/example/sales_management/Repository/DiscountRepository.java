@@ -7,4 +7,6 @@ import com.example.sales_management.Models.Discount;
 
 @Repository
 public interface DiscountRepository extends JpaRepository<Discount, String> {
+    
+
 }

@@ -126,7 +126,7 @@ public class ImportController {
         return "importProduct";
     }
     //Quyền thêm 1 sản phẩm vào importID
-    @PreAuthorize("hasAnyRole('WAREHOUSE', 'IMPORT_UPDATE,'IMPORT_CREATE')")
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'IMPORT_UPDATE','IMPORT_CREATE')")
     @PostMapping("/list/addImportProduct")
     public String addImportProduct(
         @RequestParam Long productID,

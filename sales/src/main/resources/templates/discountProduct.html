@@ -35,18 +35,20 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>Mã giảm giá</th>
+                  <th>Mã đơn</th>
                   <th>Mã hàng</th>
+                  <th>Mã giảm giá</th>
                   <th>Tên hàng</th>
                   <th>Số lượng</th>
                 </tr>
               </thead>
               <tbody id="list">
-                <tr th:each="discountProduct : ${listDiscountProduct}">
-                  <td th:text="${discountProduct.discounts.discountID}"></td>
-                  <td th:text="${discountProduct.products.productID}"></td>
-                  <td th:text="${discountProduct.products.ProductName}"></td>
-                  <td th:text="${discountProduct.quantity}"></td>
+                <tr th:each="orderProduct : ${listDiscountProduct}">
+                  <td th:text="${orderProduct.orders.orderID}"></td>
+                  <td th:text="${orderProduct.products.productID}"></td>
+                  <td th:text="${orderProduct.discount.discountID}"></td>
+                  <td th:text="${orderProduct.products.ProductName}"></td>
+                  <td th:text="${orderProduct.quantity}"></td>
                 </tr>
               </tbody>
             </table>
