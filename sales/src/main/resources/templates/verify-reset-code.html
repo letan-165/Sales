@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác minh mã xác thực</title>
+    <link rel="stylesheet" href="/css/pass.css">
+
+</head>
+<body>
+    <form action="/password-reset/verify-code" method="POST">
+        <h1>Xác minh mã xác thực</h1>
+        
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" th:value="${email}" readonly>
+        
+        <label for="resetCode">Mã xác thực:</label>
+        <input type="text" id="resetCode" name="resetCode" placeholder="Nhập mã xác thực đã gửi đến email" required>
+        
+        <button type="submit">Xác nhận mã</button>
+    </form>
+</body>
+</html>
