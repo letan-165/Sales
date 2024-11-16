@@ -27,6 +27,7 @@ public class User {
     String email;
     String phone;
     String role;
+    String resetCode;
 
     @OneToMany(mappedBy = "user") 
     @Builder.Default
