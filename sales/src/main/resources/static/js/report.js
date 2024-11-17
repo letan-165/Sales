@@ -48,4 +48,44 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       
   });
+const table = document.getElementById('reportTable');
+const rowsPerPage = 10; 
+const rows = table.querySelectorAll('tbody tr');
+const pagination = document.querySelector('.pagination');
+let currentPage = 1;
+
+function showPage(page) {
+  currentPage = page;
+
+  rows.forEach((row, index) => {
+    row.style.display =
+      index >= (page - 1) * rowsPerPage && index < page * rowsPerPage
+        ? ''
+        : 'none';
+  });
+
+  updatePagination();
+}
+
+function updatePagination() {
+  const totalPages = Math.ceil(rows.length / rowsPerPage);
+  pagination.innerHTML = ''; 
+
+  for (let i = 1; i <= totalPages; i++) {
+    const pageItem = document.createElement('li');
+    pageItem.className = 'page-item' + (i === currentPage ? ' active' : '');
+    const pageLink = document.createElement('a');
+    pageLink.className = 'page-link';
+    pageLink.textContent = i;
+    pageLink.href = '#';
+    pageLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage(i);
+    });
+    pageItem.appendChild(pageLink);
+    pagination.appendChild(pageItem);
+  }
+}
+
+showPage(1);
   
