@@ -83,9 +83,29 @@ th, td {
     color: black;
 }
 
-#pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
+.pagination .page-link {
+    color: white; 
+    background-color: black; 
+    border: 1px solid #dee2e6; 
+    transition: all 0.3s ease; 
+    }
+  
+.pagination .page-link:hover {
+    background-color: palevioletred;
+    color: black; 
+    border-color: palevioletred; 
+}
+
+.pagination .page-item.active .page-link {
+    background-color: palevioletred; 
+    color: black; 
+    border-color: palevioletred; 
+}
+
+.pagination {
+    margin-top: 1rem;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
 }
