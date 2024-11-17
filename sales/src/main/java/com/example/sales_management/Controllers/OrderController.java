@@ -23,6 +23,7 @@ import com.example.sales_management.Models.Order;
 import com.example.sales_management.Models.OrderProduct;
 import com.example.sales_management.Models.OrderProductId;
 import com.example.sales_management.Models.Product;
+import com.example.sales_management.Services.DiscountService;
 import com.example.sales_management.Services.InvoiceService;
 import com.example.sales_management.Services.OrderService;
 import com.example.sales_management.Services.ProductService;
@@ -41,6 +42,7 @@ public class OrderController {
     OrderService orderService;
     ProductService productService;
     InvoiceService invoiceService;
+    DiscountService discountService;
 
     ZoneId zoneId = ZoneId.systemDefault();
     LocalDateTime localDateTime = LocalDateTime.now(zoneId).truncatedTo(ChronoUnit.MINUTES);
@@ -87,6 +89,14 @@ public class OrderController {
         Long orderID = (Long) session.getAttribute("orderID"); 
         Order order = orderService.findById(orderID);
         if (order != null &&   !"paid".equals(order.getStatus())) {
+            for (OrderProduct orderProduct:order.getOrderProducts()){
+                Product product = orderProduct.getProducts();
+                product.setQuantity(product.getQuantity() - orderProduct.getQuantity());
+                productService.save(product);
+                Discount discount = orderProduct.getDiscount();
+                discount.setQuantity(discount.getQuantity()-orderProduct.getQuantity());
+                discountService.save(discount);
+            }
             order.setStatus("paid");
             orderService.save(order);
             Invoice invoice = Invoice.builder()

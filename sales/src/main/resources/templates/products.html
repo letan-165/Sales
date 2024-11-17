@@ -29,9 +29,15 @@
               Thêm mới
             </button>
           </div>
-           <div>
-            <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm sản phẩm......" onkeyup="searchProducts()">
-        </div>
+          <div>
+            <input
+              type="text"
+              id="searchInput"
+              class="form-control"
+              placeholder="Tìm kiếm sản phẩm......"
+              onkeyup="searchProducts()"
+            />
+          </div>
 
           <!-- Bảng danh sách sản phẩm -->
           <table class="table table-hover">
@@ -39,6 +45,7 @@
               <tr>
                 <th>Mã</th>
                 <th>Tên</th>
+                <th>Còn lại</th>
                 <th>Giá bán</th>
                 <th>Giá nhập</th>
                 <th>Loại</th>
@@ -52,6 +59,7 @@
               <tr th:each="product : ${list}">
                 <td th:text="${product.productID}"></td>
                 <td th:text="${product.productName}"></td>
+                <td th:text="${product.quantity}"></td>
                 <td
                   th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')}+đ"
                 ></td>
@@ -70,7 +78,7 @@
                     class="btn btn-warning btn-sm"
                     th:attr="onclick='openDialog(&quot;edit&quot;, &quot;' + ${product.productID} + '&quot;, &quot;' + ${product.productName} + '&quot;, &quot;' + ${product.price} + '&quot;, &quot;' + ${product.priceImport} + '&quot;, &quot;' + ${product.type} + '&quot;, &quot;' + ${product.status} + '&quot;, &quot;' + ${product.description} + '&quot;)'"
                   >
-                  <i class="fas fa-edit"></i>
+                    <i class="fas fa-edit"></i>
                   </button>
                   <!-- <form
                     th:action="@{delete/{id}(id=${product.productID})}"

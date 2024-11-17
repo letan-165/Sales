@@ -49,7 +49,7 @@ public class ProductController {
     }
     
     //Quyền chỉ xem danh sách về số lượng
-    @PreAuthorize("hasAnyRole('WAREHOUSE', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'MANAGER','ADMIN')") //LẼ ra chỗ này không có admin
     @RequestMapping(value ="/productQuantity/{productID}", method = { RequestMethod.GET, RequestMethod.POST })
     public String productQuantity(Model model,@PathVariable(required = false) Long productID) {
         Product product = productService.findById(productID);

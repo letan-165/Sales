@@ -97,11 +97,18 @@ public class ImportController {
         Long importID = (Long) session.getAttribute("importID"); 
         Import import_ = importService.findById(importID);
         if (import_ != null &&   !"paid".equals(import_.getStatus())) {
+            //cập nhật số lượng
+            for (ImportProduct importProduct : import_.getImportProducts()) {
+                Product product = importProduct.getProducts();
+                product.setQuantity(importProduct.getQuantity()+product.getQuantity());
+                productService.save(product);
+            }
+            //Lưu nhập hàng
             import_.setStatus("paid");
             importService.save(import_);
             Invoice invoice = Invoice.builder()
                                     .invoiceTime(localDateTime)
-                                    .totalAmount(importService.getPriceImport(import_.getImportID()))
+                                    .totalAmount(0-importService.getPriceImport(import_.getImportID()))
                                     .status("paid").description("Nhập hàng có mã nhập: {"+import_.getImportID()+"}")
                                     .build();
             invoiceService.saveOrUpdate(invoice);

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.sales_management.Models.Discount;
-import com.example.sales_management.Models.Order;
 import com.example.sales_management.Models.OrderProduct;
 import com.example.sales_management.Services.DiscountService;
 import com.example.sales_management.Services.OrderService;
