@@ -10,6 +10,9 @@
 <body>
     <form action="/password-reset/verify-code" method="POST">
         <h1>Xác minh mã xác thực</h1>
+        <div class="error">
+            <p th:text="${error}" style="color: red;"></p>
+        </div>
         
         <label for="email">Email:</label>
         <input type="text" id="email" name="email" th:value="${email}" readonly>
