@@ -61,7 +61,7 @@ public class ProductController {
         return "productQuantity";
     }
     //Quyền chỉ thay đồi về số lượng
-    @PreAuthorize("hasAnyRole('WAREHOUSE', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'MANAGER','ADMIN')")//LẼ ra chỗ này không có admin
     @PostMapping ("/updateQuantity")
     public String updateQuantity(@ModelAttribute Product product) {
         Product productUpdate = productService.findById(product.getProductID());

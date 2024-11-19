@@ -29,8 +29,12 @@ public class ProductService {
         if(product.getStatus()==null){
             product.setStatus("new");
         }
-        if(product.getQuantity()==null){
-            product.setQuantity(1l);
+        if(product.getQuantity()==null || product.getQuantity()==0){
+            product.setQuantity(0l);  
+            product.setStatus("outstock");
+        }
+        if(product.getStatus()!="new" || product.getQuantity()!=0){
+            product.setStatus("instock");
         }
         return productRepository.save(product);
     }

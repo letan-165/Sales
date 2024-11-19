@@ -1,12 +1,12 @@
 INSERT INTO `invoices`(`invoiceid`, `description`, `invoice_time`, `status`, `total_amount`) 
 VALUES
-('1', 'Invoice for food purchase', '2024-11-13 10:00', 'paid', '50000'),
-('2', 'Invoice for electronics purchase', '2024-11-13 11:30', 'unpaid', '150000'),
-('3', 'Invoice for clothing purchase', '2024-11-13 12:00', 'paid', '70000'),
-('4', 'Invoice for furniture purchase', '2024-11-13 13:30', 'unpaid', '120000'),
-('5', 'Invoice for groceries purchase', '2024-11-13 14:00', 'paid', '45000'),
-('6', 'Invoice for office supplies', '2024-11-13 14:30', 'unpaid', '25000'),
-('7', 'Invoice for book purchase', '2024-11-13 15:00', 'paid', '35000'),
-('8', 'Invoice for toy purchase', '2024-11-13 15:30', 'unpaid', '15000'),
-('9', 'Invoice for sports equipment', '2024-11-13 16:00', 'paid', '90000'),
-('10', 'Invoice for beauty products', '2024-11-13 16:30', 'unpaid', '55000')
+('1', 'Hóa đơn tiền điện', '2024-11-01 10:00', 'paid', '120000'),
+('2', 'Hóa đơn tiền nước', '2024-11-02 11:30', 'paid', '80000'),
+('3', 'Tiền sửa chữa hệ thống điện', '2024-11-03 12:00', 'paid', '150000'),
+('4', 'Hóa đơn tiền thuê mặt bằng', '2024-11-04 13:30', 'paid', '500000'),
+('5', 'Tiền bảo trì máy móc', '2024-11-05 14:00', 'paid', '200000'),
+('6', 'Hóa đơn tiền vệ sinh văn phòng', '2024-11-06 14:30', 'paid', '60000'),
+('7', 'Tiền lắp đặt mạng internet', '2024-11-07 15:00', 'paid', '100000'),
+('8', 'Hóa đơn tiền thu gom rác', '2024-11-08 15:30', 'paid', '40000'),
+('9', 'Tiền bảo dưỡng điều hòa', '2024-11-09 16:00', 'paid', '75000'),
+('10', 'Hóa đơn tiền an ninh bảo vệ', '2024-11-10 16:30', 'paid', '120000');
