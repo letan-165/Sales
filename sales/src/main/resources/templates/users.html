@@ -29,16 +29,7 @@
               <!-- <i class="fa-solid fa-plus"> </i> -->Thêm
             </button>
           </div>
-          <div>
-            <input
-                type="text"
-                class="form-control"
-                id="searchInput"
-                placeholder="Tìm kiếm người dùng..."
-                oninput="searchUsers()"
-            />
-        </div>
-          <table class="table table-hover">
+          <table class="table table-hover" id="list">
             <thead>
               <tr>
                 <th>Mã người dùng</th>
@@ -50,7 +41,7 @@
                 <th>Thao tác</th>
               </tr>
             </thead>
-            <tbody id="list">
+            <tbody>
               <tr th:each="user : ${list}">
                 <td th:text="${user.userID}"></td>
                 <td th:text="${user.email}"></td>
@@ -82,9 +73,6 @@
               </tr>
             </tbody>
           </table>
-
-          <!-- Vùng phân trang -->
-          <div id="pagination" class="d-flex justify-content-center mt-4"></div>
 
           <!-- Dialog Thêm/Sửa người dùng -->
           <form th:action="@{add}" th:object="${user}" method="post">
@@ -213,6 +201,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/users.js"></script>
-    <script src="/js/pagination.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="/js/jquery.js"></script>
   </body>
 </html>

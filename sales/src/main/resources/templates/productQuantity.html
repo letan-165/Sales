@@ -28,7 +28,7 @@
 
           <div class="">
             <div class="table-responsive" style="width: 68%">
-              <table class="table table-hover">
+              <table class="table table-hover" id="list">
                 <thead>
                   <tr>
                     <th>Mã</th>
@@ -39,7 +39,7 @@
                     <th>Tình trạng</th>
                   </tr>
                 </thead>
-                <tbody id="list">
+                <tbody>
                   <tr
                     th:each="product : ${list}"
                     th:attr="onclick='populateForm(&quot;' + ${product.productID} + '&quot;, &quot;' + ${product.quantity} + '&quot;)'"
@@ -56,10 +56,6 @@
                 </tbody>
               </table>
             </div>
-            <div
-              id="pagination"
-              class="d-flex justify-content-center mt-4"
-            ></div>
 
             <!-- FORM -->
             <div class="container mt-5" style="width: 25%">
@@ -98,7 +94,13 @@
         </main>
       </div>
     </div>
-    <script src="/js/pagination.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="/js/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
