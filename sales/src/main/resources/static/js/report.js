@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const reportTable = document.getElementById('reportTable');
   const orderReportTable = document.getElementById('orderReportTable');
+  const invoiceReportTable = document.getElementById('invoiceReportTable');
+
   
   exportExcelBtn?.addEventListener('click', () => exportToExcel(reportTable, orderReportTable,invoiceReportTable));
   exportPdfBtn?.addEventListener('click', () => exportToPdf(reportTable, orderReportTable, invoiceReportTable));
