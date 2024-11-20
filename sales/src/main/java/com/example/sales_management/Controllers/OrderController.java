@@ -94,8 +94,10 @@ public class OrderController {
                 product.setQuantity(product.getQuantity() - orderProduct.getQuantity());
                 productService.save(product);
                 Discount discount = orderProduct.getDiscount();
-                discount.setQuantity(discount.getQuantity()-orderProduct.getQuantity());
-                discountService.save(discount);
+                if(discount!=null){
+                    discount.setQuantity(discount.getQuantity()-orderProduct.getQuantity());
+                    discountService.save(discount);
+                }
             }
             order.setStatus("paid");
             orderService.save(order);

@@ -59,7 +59,7 @@ public class ImportService {
         importProductRepository.deleteByImportID(importID);
     }
 
-    public List<ImportProduct> findImportProductsByTimeRange(String reportType, String startDate, String endDate) {
+    public List<ImportProduct> findImportProductsByTimeRange(String startDate, String endDate) {
         try {
             LocalDateTime startDateTime = parseStartDate(startDate);
             LocalDateTime endDateTime = parseEndDate(endDate);
