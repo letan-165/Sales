@@ -27,6 +27,8 @@
             <label for="reportType" class="form-label">Chọn loại báo cáo:</label>
             <select id="reportType" name="reportType" class="form-select mb-3">
               <option value="import">Báo cáo sản phẩm nhập hàng</option>
+              <option value="order">Báo cáo đơn hàng</option>
+              <option value="invoice">Báo cáo tài chính</option>
             </select>
 
             <label for="startDate" class="form-label">Chọn khoảng thời gian:</label>
@@ -56,28 +58,78 @@
             <p th:text="${errorMessage}"></p>
           </div>
 
-          <div th:if="${reportData}" class="mt-4">
-            <table id="reportTable" class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Mã nhập</th>
-                  <th>Mã hàng</th>
-                  <th>Tên sản phẩm</th>
-                  <th>Số lượng</th>
-                  <th>Thời gian nhập</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="importProduct : ${reportData}">
-                  <td th:text="${importProduct.imports.importID}"></td>
-                  <td th:text="${importProduct.products.productID}"></td>
-                  <td th:text="${importProduct.products.productName}"></td>
-                  <td th:text="${importProduct.quantity}"></td>
-                  <td th:text="${importProduct.imports.time}"></td>
-                </tr>
-              </tbody>
-            </table>
+          <div th:if="${reportData != null}">
+            <div th:if="${reportType == 'import'}">
+                <table id="reportTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã nhập</th>
+                            <th>Mã hàng</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Thời gian nhập</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="importProduct : ${reportData}">
+                            <td th:text="${importProduct.imports.importID}"></td>
+                            <td th:text="${importProduct.products.productID}"></td>
+                            <td th:text="${importProduct.products.productName}"></td>
+                            <td th:text="${importProduct.quantity}"></td>
+                            <td th:text="${importProduct.imports.time}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div th:if="${reportType == 'order'}">
+                <table id="orderReportTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Thời gian đặt hàng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="orderProduct : ${reportData}">
+                            <td th:text="${orderProduct.orders.orderID}"></td>
+                            <td th:text="${orderProduct.products.productID}"></td>
+                            <td th:text="${orderProduct.products.productName}"></td>
+                            <td th:text="${orderProduct.quantity}"></td>
+                            <td th:text="${orderProduct.orders.orderTime}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
+            <div th:if="${reportType == 'invoice'}">
+              <table id="invoiceReportTable" class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th>Mã hóa đơn</th>
+                          <th>Mô tả</th>
+                          <th>Tổng tiền</th>
+                          <th>Trạng thái</th>
+                          <th>Thời gian lập hóa đơn</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr th:each="invoice : ${reportData}">
+                          <td th:text="${invoice.invoiceID}"></td>
+                          <td th:text="${invoice.description}"></td>
+                          <td th:text="${invoice.totalAmount}"></td>
+                          <td th:text="${invoice.status}"></td>
+                          <td th:text="${invoice.invoiceTime}"></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          
+        </div>
+        
             <nav aria-label="Page navigation" class="mt-3">
               <ul class="pagination justify-content-center">
                 <li class="page-item">

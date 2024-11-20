@@ -1,10 +1,12 @@
 package com.example.sales_management.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.example.sales_management.Models.Discount;
 import com.example.sales_management.Models.OrderProduct;
@@ -31,5 +33,18 @@ public interface  OrderProductRepository extends JpaRepository<OrderProduct, Lon
         ORDER BY d.discount DESC
     """)
     List<Discount> findDiscountsByProductID(Long price);
+ 
+
+    @Query("""
+        SELECT op
+        FROM OrderProduct op
+        JOIN op.orders o
+        WHERE o.orderTime BETWEEN :startDate AND :endDate
+        """)
+    List<OrderProduct> findOrderProductsByTimeRange(
+            @Param("startDate") LocalDateTime startDate, 
+            @Param("endDate") LocalDateTime endDate
+    );
+
 
 }
