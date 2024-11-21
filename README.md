@@ -1,5 +1,5 @@
 # Giới thiệu
-## Doc
+## Docs
 
 https://docs.google.com/document/d/1lnmg809hiST5SosFKJJPO1nb97bk91es/edit?usp=drive_link&ouid=102660984477238485431&rtpof=true&sd=true
 
