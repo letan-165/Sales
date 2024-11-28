@@ -1,6 +1,6 @@
 # Giới thiệu
 
-#Chạy chương trình với teminal "mvn spring-boot:run" and trình duyệt "http://localhost:8080/"
+#Chạy chương trình với teminal "mvn spring-boot:run" và trình duyệt "http://localhost:8080/"
 
 #Gửi gmail khi quên mật khẩu truy cập file application.properties thay đổi:
 
