@@ -1,6 +1,7 @@
 # Giới thiệu
 
 #Chạy chương trình với teminal "mvn spring-boot:run" and trình duyệt "http://localhost:8080/"
+
 #Gửi gmail khi quên mật khẩu truy cập file application.properties thay đổi:
 spring.mail.username=tài khoản gmail
 spring.mail.password=mật khẩu ứng dụng của google (2FA)  
