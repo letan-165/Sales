@@ -1,4 +1,7 @@
 # Giới thiệu
+
+#Run app with "mvn spring-boot:run" and "http://localhost:8080/"
+
 ## Docs
 
 [https://docs.google.com/document/d/1lnmg809hiST5SosFKJJPO1nb97bk91es/edit?usp=drive_link&ouid=102660984477238485431&rtpof=true&sd=true](https://docs.google.com/document/d/18SRGU1-GaO_Bq3pV_A5bsyXHeQCOABVZ/edit?rtpof=true&tab=t.0)
