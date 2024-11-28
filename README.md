@@ -14,3 +14,7 @@ https://docs.google.com/spreadsheets/d/1nUlQ8eUXUlSOrlatC1DBjsQKVlTFjBxuduOjSGoV
 ## Diagram
 
 https://drive.google.com/file/d/1Cz0jSlnIrzElaMWK2lIHoXz1704LSUi5/view?usp=drive_link
+
+## Hướng dẫn sử dụng
+
+https://docs.google.com/document/d/19wK0bZr4Btq4fhGQc7bWnLCi11ILv6FE/edit?usp=sharing&ouid=102660984477238485431&rtpof=true&sd=true
