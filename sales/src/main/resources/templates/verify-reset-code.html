@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xác minh mã xác thực</title>
     <link rel="stylesheet" href="/css/pass.css">
-
 </head>
 <body>
-    <form action="/password-reset/verify-code" method="POST">
+    <form action="/password-reset/handle-verify-code" method="POST">
         <h1>Xác minh mã xác thực</h1>
+        
         <div class="error">
             <p th:text="${error}" style="color: red;"></p>
         </div>
@@ -18,9 +18,12 @@
         <input type="text" id="email" name="email" th:value="${email}" readonly>
         
         <label for="resetCode">Mã xác thực:</label>
-        <input type="text" id="resetCode" name="resetCode" placeholder="Nhập mã xác thực đã gửi đến email" required>
+        <input type="text" id="resetCode" name="resetCode" placeholder="Nhập mã xác thực đã gửi đến email">
         
-        <button type="submit">Xác nhận mã</button>
+        <div style="margin-top: 10px; display: flex; gap: 10px;">
+            <button type="submit" name="action" value="verify">Xác nhận mã</button>
+            <button type="submit" name="action" value="resend">Gửi lại mã</button>
+        </div>
     </form>
 </body>
 </html>

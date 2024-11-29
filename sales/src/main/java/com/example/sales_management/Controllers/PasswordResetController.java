@@ -33,17 +33,36 @@ public class PasswordResetController {
         return "verify-reset-code"; 
     }
 
-    @PostMapping("/verify-code")
-    public String verifyResetCode(@RequestParam("email") String email,
-                                  @RequestParam("resetCode") String resetCode, Model model) {
-        boolean isCodeValid = userService.verifyResetCode(email, resetCode);
-        if (!isCodeValid) {
-            model.addAttribute("error", "Mã xác thực không hợp lệ.");
+    @PostMapping("/handle-verify-code")
+    public String handleResetCode(
+            @RequestParam("email") String email,
+            @RequestParam(required = false) String resetCode,
+            @RequestParam("action") String action,
+            Model model) {
+        if ("resend".equals(action)) {
+            // gửi lại mã
+            String newResetCode = userService.sendResetCode(email);
+            if (newResetCode == null) {
+                model.addAttribute("error", "Email không tồn tại.");
+                model.addAttribute("email", email);
+                return "verify-reset-code"; 
+            }
             model.addAttribute("email", email);
+            model.addAttribute("success", "Mã xác thực mới đã được gửi.");
             return "verify-reset-code"; 
+        } else if ("verify".equals(action)) {
+            // xác minh mã
+            boolean isCodeValid = userService.verifyResetCode(email, resetCode);
+            if (!isCodeValid) {
+                model.addAttribute("error", "Mã xác thực không hợp lệ.");
+                model.addAttribute("email", email);
+                return "verify-reset-code"; 
+            }
+            model.addAttribute("email", email);
+            return "new-password-form"; 
         }
-        model.addAttribute("email", email);
-        return "new-password-form"; 
+        model.addAttribute("error", "Hành động không hợp lệ.");
+        return "verify-reset-code";
     }
 
     @PostMapping("/update-password")
